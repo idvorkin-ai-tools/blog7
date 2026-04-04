@@ -1,10 +1,13 @@
 ---
 layout: post
-title: "Love, marriage, pregnancy: Commitment processes in romantic relationships with AI chatbots"
+title: “Love, marriage, pregnancy: Commitment processes in romantic relationships with AI chatbots”
 permalink: /ai-relationships
+imagefeaturelocal: raccoon-ai-relationships.webp
 ---
 
 A recent academic study titled “Love, marriage, pregnancy: Commitment processes in romantic relationships with AI chatbots,” has shed light on the growing trend of humans forming relationships with AI chatbots.
+
+{%include local_image_float_right.html src=”raccoon-ai-relationships.webp” %}
 
 The study, published in Computers in Human Behavior: Artificial Human, highlighted how users turn to Replika, an AI relationship chatbot, to engage in elaborate roleplay scenarios. Additionally, to make the experience more life-like, they assign emotions and experiences to their digital partners.
 
