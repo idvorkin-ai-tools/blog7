@@ -12,6 +12,12 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-04-12](#week-of-2026-04-12)
+  - [The AI Operator: Learning to Drive the Machine (new post!)](#the-ai-operator-learning-to-drive-the-machine-new-post)
+  - [ACT Made Simple: Acceptance and Commitment Therapy (new post!)](#act-made-simple-acceptance-and-commitment-therapy-new-post)
+  - [How Igor CHOPs: Flow Survives + CPU Watchdog](#how-igor-chops-flow-survives--cpu-watchdog)
+  - [Automated Weekly Changelog via GitHub Actions](#automated-weekly-changelog-via-github-actions)
+  - [Other Projects (April)](#other-projects-april-1)
 - [Week of 2026-03-30](#week-of-2026-03-30)
   - [AI Relationships: When the Chatbot Is Better at Caring (new post!)](#ai-relationships-when-the-chatbot-is-better-at-caring-new-post)
   - [Keyboards: From Wrist Pain to Split Keyboards (new post!)](#keyboards-from-wrist-pain-to-split-keyboards-new-post)
@@ -51,6 +57,65 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
   - [Other Projects](#other-projects)
     <!-- vim-markdown-toc-end -->
     <!-- prettier-ignore-end -->
+
+## Week of 2026-04-12
+
+_62 commits this week (blog) + cross-repo activity_
+
+### The AI Operator: Learning to Drive the Machine (new post!)
+
+New post on the meta-skill of operating AI well — written across 20+ commits, polished through two rounds of AI note merges and an editor pass ([blog](/ai-operator)):
+
+- **Finite Thinking Tokens** — Your brain has a context window. Simon Willison ran four agents in parallel and was "wiped out by 11 AM." AI multiplies throughput, but if you spend your thinking tokens _supervising_ instead of _directing_, you've traded one exhaustion for another. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5fdbb6a2a)
+- **On the Loop vs In the Loop** — Working with any agent is `try → check → fix → try`. When you're _in_ the loop, you do the checking. When you're _on_ the loop, the AI does. The military has real doctrine for this: [DoD Directive 3000.09](https://en.wikipedia.org/wiki/Human-in-the-loop) on autonomous weapons draws exactly this line. "The goal is to get on the loop." In-the-loop is a zillion times slower, and it burns thinking tokens on process instead of output. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/8e043d2ab)
+- **Use Voice** — When you talk, you ramble, you backfill, you mention the constraint you "obviously" don't need to mention — and half the time that's the one that mattered. "When you type, the AI is solving the problem you wrote down. When you talk, the AI is solving the problem you actually have." Three rules: use voice, share intent, share success criteria. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/622d008fd)
+- **Throw It Away** — When the AI drives off course, delete the output and re-prompt. In the old world, code was precious (you wrote every line). In AI land, the code is cheap; the thinking is expensive. "Rescuing a bad generation pulls you line-by-line back into the loop, burning thinking tokens you can't afford on code the AI could regenerate for free." Watch for the sunk cost reflex. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6272c2ee4)
+- **You're a Compound Engineer** — Operators who get better capture learnings, run retros, update CLAUDE.md, and upgrade skills. Two examples from the blog's own tooling: `show-your-work` (started as "screenshot the changed pages") and `walk-the-store` (started as "visual walkthrough to catch regressions") — both are now one-word skills. "The second time you do something manually, you're leaving compound interest on the table." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1b5cf8295)
+
+### ACT Made Simple: Acceptance and Commitment Therapy (new post!)
+
+Book notes on Russ Harris's _ACT Made Simple_ — the practitioner primer for Acceptance and Commitment Therapy — expanded from draft to deep reference ([blog](/act)):
+
+- **Psychological Flexibility** — ACT's single north star. Harris's triflex: Be Present, Open Up, Do What Matters. Vitality is not feeling good — it's "a sense of being fully alive and embracing the here and now, regardless of how we may be feeling." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3dfde5e25)
+- **The Choice Point** — Harris's core diagnostic: at the bottom, difficult situations/thoughts/feelings; two arrows diverge into _away moves_ (hooked) and _towards moves_ (unhooked). "Almost every psychological problem reduces to the same loop: hooked by difficult thoughts and feelings, then away moves." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3dfde5e25)
+- **Workability** — The replacement for "is this thought true?" Instead: "If I let this thought guide my behavior, will that help me create a richer, fuller, more meaningful life?" Harris reformulates Shakespeare: "Thinking does not make anything good or bad, but _fusion with your thinking_ creates problems." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3dfde5e25)
+- **DOTS** — Creative Hopelessness intervention: inventory every strategy used to make unwanted feelings go away — **D**istraction, **O**pting out, **T**hinking strategies, **S**ubstances. Harris's five questions surface the long-term costs. "Most of these strategies _do_ work in the short term. The problem is none work long-term and the costs compound." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/dd5c4abb7)
+- **Mindfulness in ACT is not meditation** — Harris strips the baggage: mindfulness is four skills (defusion, acceptance, flexible attention, self-as-context). "ACT does not require formal practice." His core instruction: _notice X_. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3dfde5e25)
+
+### How Igor CHOPs: Flow Survives + CPU Watchdog
+
+Two additions to the running [How Igor CHOPs](/how-igor-chops) reference:
+
+- **The Flow Question** — Someone asked: "Can you still get flow when you're CHOPing? You're not even writing the code." Answer: yes, constantly. "It comes from orchestrating — juggling two or three agents at different points in their loops, nudging one, reviewing another, letting the third cook. That rhythm is its own zone." Flow lives in challenge-meeting-skill, not in typing. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/07a70ed21)
+- **CPU Safety Net** — Added to the multi-agent Docker setup: OrbStack VM core cap + a [small userspace watchdog](https://github.com/idvorkin/Settings/blob/main/shared/cpu-watchdog.sh) that attaches `cpulimit` to any runaway process. "One feral agent can't starve the other five when half a dozen are running in parallel." Full `/cpu-guards` reference doc added (later collapsed to a bullet). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0a105f381) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/63fc22051)
+
+### Automated Weekly Changelog via GitHub Actions
+
+The changelog you're reading now generates itself. New `.github/workflows/changelog.yml` was built and hardened across a dozen commits this week:
+
+- **Core workflow** — Runs weekly (Sunday UTC) and on manual trigger. Invokes `/changelog` skill via Claude Code CLI, then uses `peter-evans/create-pull-request` to open a PR with the result. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3476c6010)
+- **Scan both orgs** — Queries `idvorkin` and `idvorkin-ai-tools` orgs (public repos only) for cross-repo activity. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f11609e04)
+- **Architect-review hardening** — The workflow spec was put through the new `architect-review` skill (see chop-conventions below). Two sequential Opus passes narrowed the design; resulted in permission fixes (`id-token: write`), cleaner prompt handoff, and explicit GitHub Actions exit instructions so the runner doesn't hang. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/c2bfc0153) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/da7ff3447)
+
+### Other Projects (April)
+
+**[Settings](https://github.com/idvorkin/Settings)** (dotfiles & tools)
+
+- **`rbv` — beads viewer launcher** — New `py/rbv.py` walks up to find `.beads/`, exports a fresh JSONL from Dolt via `bd`, and launches `bv` in tree mode. Works from any subdirectory of a beads-enabled repo. Added install hint when `bv` is missing. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/23f61fc30) [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/42248d537)
+- **`just setup` + post-merge hook** — New `just setup` target and a post-merge git hook that auto-rebuilds when dependencies change. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/7a8b1602a)
+- **PEP 723 shebangs** — Canonical `#!/usr/bin/env -S uv run --script` shebangs standardized across all `py/` scripts. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/4a474c55e)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** (CHOP workflow docs)
+
+- **`architect-review` skill** — New skill that runs sequential Opus passes on a design spec, tracking convergence in a changelog. Each pass is a background agent that reads the spec as modified by the previous pass. Converges when a pass makes 0–2 substantive changes (typically 3–4 passes). Tested on a Telegram two-process architecture spec: 4 passes, 21 → 13 → 9 → 0 changes. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/d8577a3bf)
+- **`docs` skill** — Wraps the ctx7 library/docs lookup for fetching fresh library documentation. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/e268319ff)
+- **Claude Code status line script** — Standalone script for the Claude Code status line, surfaced in dev-setup docs. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/fd5085877)
+- **`up-to-date` improvement** — Replaced shell-based diagnosis with a parallel Python helper. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/81d9aa517)
+
+**[activation-energy-game](https://github.com/idvorkin-ai-tools/activation-energy-game)** (ACT-based browser games)
+
+- **Drop the Rope** — New wordless 5-round defusion lesson. Players literally drop the rope in a tug-of-war with a difficult thought — teaching cognitive defusion without a single word of instruction. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/activation-energy-game/commit/5f3126de1)
+- **Raccoon gets mismatched Crocs** — Left shoe blue, right shoe yellow — small detail, very raccoon. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/activation-energy-game/commit/c36819404)
 
 ## Week of 2026-03-30
 
