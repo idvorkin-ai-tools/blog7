@@ -13,7 +13,6 @@ A journal of random life observations. Keeping track of them so I don't forget w
 - [Upcoming](#upcoming)
 - [Diary](#diary)
   - [2026-04-17](#2026-04-17)
-    - [Eight Sleep Thinks My Cat Is Me](#eight-sleep-thinks-my-cat-is-me)
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
