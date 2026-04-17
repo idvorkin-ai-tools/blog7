@@ -2,6 +2,7 @@
 layout: post
 title: "Igor's Life Journal"
 permalink: /life-journal
+imagefeature: /images/pod-detective.webp
 ---
 
 A journal of random life observations. Keeping track of them so I don't forget what the world did today.
@@ -27,7 +28,7 @@ When adding a new entry:
 2. **Entry Title**: Each individual vignette gets an `#### Entry Title` heading
 3. **Length**: 2-4 short paragraphs per entry. If it wants to be longer, it probably wants to be its own post.
 4. **Voice**: Plain and direct. Self-aware is fine; preachy isn't. Specific details over abstraction.
-5. **Update TOC**: Regenerate the TOC with `:Mtoc update` (Igor will handle this if you skip it).
+5. **Update TOC**: Regenerate via `.claude/skills/toc/toc.py regenerate _d/life-journal.md` before committing. Do not skip.
 
 ## Upcoming
 
