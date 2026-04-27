@@ -12,6 +12,11 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-04-27](#week-of-2026-04-27)
+  - [AI Native Manager: AI Pilled + Hiring Field Note](#ai-native-manager-ai-pilled--hiring-field-note)
+  - [Life Journal: Zach the Pizza Engineer](#life-journal-zach-the-pizza-engineer)
+  - [Infrastructure & CI (2026-04-27)](#infrastructure--ci-2026-04-27)
+  - [Other Projects (2026-04-27)](#other-projects-2026-04-27)
 - [Week of 2026-04-13](#week-of-2026-04-13)
   - [Life Journal: First Entries (new post!)](#life-journal-first-entries-new-post)
   - [AI Operator: Seven New Sections](#ai-operator-seven-new-sections)
@@ -68,6 +73,44 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-04-27
+
+_4 blog commits + cross-repo activity_
+
+### AI Native Manager: AI Pilled + Hiring Field Note
+
+Two additions to [AI Native Manager](/ai-native-manager) this week — both centered on what signals matter in hiring for the AI era:
+
+- **AI Pilled** — New vocabulary entry in "New Words for a New World." Shivani Poddar (ex-Google / Deepmind / Meta, now Founder Stealth) lists it as one of three things she looks for in a founding team: "you know how to exponentiate yourself, your stack, your product and people around you with AI." Igor's take: AI-pilled is the habit form of what [Agency](/agency) is dispositionally — the default tool reach is AI. Someone with both shows up five moves in; someone with one without the other shows up late or stuck. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9ad6c575b)
+- **Hiring field note (Shivani Poddar)** — Added to [How Should Hiring Change?](/ai-native-manager#how-should-hiring-change). Poddar's 3-point framework: (1) excellence in _something_ ("shows me you have it in you to be the bestest and greatest"), (2) founder energy ("fire in the belly"), (3) AI-pilled ("exponentiate yourself, your stack, your product and people"). Her observation: former Google/Meta/Deepmind colleagues resonate with these as much as new grads do. AI didn't raise the bar — it dropped the noise floor. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/dc7fc65e2)
+
+### Life Journal: Zach the Pizza Engineer
+
+New entry in [Life Journal](/life-journal#2026-04-22) — Zach spots "30 inches" on a pizza menu and immediately applies π r², gets ~2,827 sq in, divides for four people, and suspects something is off. Texts ChatGPT to check per-person norms. Then finds the bug: **pizzas are quoted in diameter, not radius**. Re-runs with r=15, gets ~707 sq in, ~175 per person, two slices each. Math plausible, pizza reasonable. Bug fixed. Pride earned. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9d55340db)
+
+Also added a raccoon-pizza-engineer illustration (chroma-keyed transparent), floated right in the entry. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/c758f3dfe)
+
+### Infrastructure & CI (2026-04-27)
+
+- **Deleted 7 GPT-generated acronym-book drafts** — ~81 KB / ~2000 lines of early-GPT capability demos (NURTURE, RAPPORT, LEADER, CLASS, DAD, GOOD, SHINE) with no substantive human edits. Also resolved a permalink collision between `gpt-gotman.md` and `nurture.md` (both claimed `/nurture`). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3cffb1557)
+- **Algolia: exclude family journal** — Excluded `_ig66/*` (89 files, ~6500 lines) from the search index; ~1500–2000 records freed, restoring plan headroom after quota-exceeded blocks. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/720fe7594)
+
+### Other Projects (2026-04-27)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS health/fitness app) — busiest week of the year, 28 commits:
+
+- **Counter feature** — Phase 1: dashboard tally card + SQLite persistence + widget bridge. Phase 2: iOS 17 in-widget +1 button (App Intent) + tally row in widget. Fix: reconcile widget +1s with SQLite on foreground to prevent desync. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/c6fc6094a) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/24d611bdb)
+- **Today home-screen widget** — Phase 1: deep link routing (`grabber://timer`, preset, autostart). Phase 2: Today widget with App Group bridge so live steps/sleep/exercise show without app launch. iOS 17 `containerBackground` API compliance. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/b789147ea) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/dd1a89979)
+- **Sleep view improvements** — Main-session detection (ignores naps), split gap into "onset" (deliberate awake) vs truly-untracked "gap", source-aware daily average, warning icon rendering fix. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/4c4ae84c9) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/2897738aa)
+- **Gym timer** — 2 MIN preset + deep-link fix, Dynamic Island shows phase name then round count, Live Activity keepalive v2 + `compactLeading` fallback, backgrounded sync. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/2ef4a1702)
+- **Location & dashboard cleanup** — Copy Coordinates button, Copy Daily Summary, renamed to "Location Details". Dashboard: dropped Resting HR card (folded into Heart Rate sheet), folded About into Settings, removed summary banner and subtitle. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/863631b35) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/a8eaa1b41)
+
+**[Settings](https://github.com/idvorkin/Settings)** (dotfiles & tools)
+
+- **rbv** — Switched from `bv` (Go binary) to `bvr` (Rust port): default tree view, filter to open issues only. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/8fdf4eaa5) [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/caa1d7c65)
+- **tmux** — Enable mouse mode. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/68613ccea)
+- **npm audit fix** — lodash, picomatch, cross-spawn, micromatch security patches. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/b61e9ab4a)
 
 ## Week of 2026-04-13
 
