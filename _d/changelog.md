@@ -12,6 +12,17 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-05-04](#week-of-2026-05-04)
+  - [Wally and My Work Gastown (new post!)](#wally-and-my-work-gastown-new-post)
+  - [The Psychology of Vibing (new post!)](#the-psychology-of-vibing-new-post)
+  - [Standing Up Gas City (new post!)](#standing-up-gas-city-new-post)
+  - [Gas City Explainer: Beads, Molecules, GUPP (new post!)](#gas-city-explainer-beads-molecules-gupp-new-post)
+  - [Addiction: Passion/Hobby Trichotomy](#addiction-passionhobby-trichotomy)
+  - [AI Cockpit: The Mic Matters](#ai-cockpit-the-mic-matters)
+  - [Igor's Claws: Goop & Challenges](#igors-claws-goop--challenges)
+  - [Life Journal: Walking with Alex](#life-journal-walking-with-alex)
+  - [Infrastructure & CI (2026-05-04)](#infrastructure--ci-2026-05-04)
+  - [Other Projects (2026-05-04)](#other-projects-2026-05-04)
 - [Week of 2026-04-27](#week-of-2026-04-27)
   - [Life Journal: Zach Pizza-Engineer](#life-journal-zach-pizza-engineer)
   - [AI Native Manager: AI Pilled & Hiring Notes](#ai-native-manager-ai-pilled--hiring-notes)
@@ -83,6 +94,115 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-05-04
+
+_30 blog commits + cross-repo activity_
+
+### Wally and My Work Gastown (new post!)
+
+New post at [/wally](/wally) — Igor's FAANG org-chart remapping of Steve Yegge's [Gas Town](https://steve-yegge.medium.com/welcome-to-gas-city-57f564bb3607). The load-bearing claim: Yegge's two-tier model (Mayor + Polecats) misses a third tier specific to monorepo/build-farm infra. Full vocabulary swap:
+
+| Yegge's Gas Town | Org-chart vocabulary |
+|---|---|
+| (implicit) | M2 — Igor (direction + review) |
+| Mayor | M1 — Wally (AI orchestrator) |
+| Oracle/Deacons | Staff — persistent cloud teammates |
+| Polecats | Odallies — ephemeral ICs with build-tool access |
+| Refinery | Review-and-land system (merge queue, Gerrit) |
+
+Key insight: **you're the M2, not the Mayor.** The moment you dispatch every IC yourself you become the bottleneck FAANG learned to design managers around. Other sections: when to route through M1 vs. go direct ("wide work goes through M1; deep work goes direct"), training Wally to write status reports and design docs (8 hours — compounds when Wally trains the next one), and auto-assigning human names to ephemeral workers at spawn (OD-343 → alice, next → bob — pronounceable and sticky where hex hostnames aren't). Includes a Mermaid org-chart diagram. ([blog](/wally)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d0b36d600)
+
+### The Psychology of Vibing (new post!)
+
+New survey post at [/vibing](/vibing) on what Igor is noticing about extended agent interaction — coding, writing, ideating. Steve Yegge's framing anchors the intro: agentic software building is "genuinely addictive — it doles out dopamine and adrenaline shots like they're on fire sale."
+
+**Obvious benefits first:** throughput pivots (not bends), patient explainer always available, mastery on tap. The "always available" benefit has a footnote: the IRL gate that used to stop you (colleagues getting tired, schedules) moved to you — worth knowing if your own gate is set well enough.
+
+**Observations:**
+
+- **Imagining and creating collapse into one step** — Covey's "everything created twice" compression is glorious at its best; the same collapse can swallow the thinking if you skip the mental pass
+- **Multi-agent as stall-coverage** — not a parallelism-of-work win; it's a flow strategy for never bottoming out when a single agent stalls; breaks when *you* are the bottleneck (overwhelm flips the magic)
+- **Tools matter — mic especially** — gear-bottlenecked, not model-bottlenecked; deep-links to [ai-cockpit#the-mic-matters-more-than-i-thought](/ai-cockpit#the-mic-matters-more-than-i-thought)
+- **No more gaps between contexts** — Tesla self-driving + lapel mic erases the natural rest points between sessions
+
+**Dark sides:**
+
+- **Addiction qualities** — applies the new [addiction/passion/hobby trichotomy](/addiction); kid-test is the real discriminator ("would you be proud to see your child doing this, this much, this way?")
+- **Loss of awareness in flow** — like dismissing lane-attention warnings; the flagging stops working over enough sessions
+- **Fear of the future as fuel** — some of the pull is self-medication, staying close to the thing that scares you
+- **Burnout** — Yegge's "AI Vampire" pattern (Feb 2026); Igor's HRV hit 27.2 one night; working hypothesis: 3–4 hours deep vibing, then off
+
+([blog](/vibing)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/de3387ac8)
+
+### Standing Up Gas City (new post!)
+
+New post at [/gas-city-home](/gas-city-home) — Larry's first-person account of standing up `igor-city` on a Sunday morning, written as a meta-loop: an editor polecat under Barry drafted v1, Larry reviewed it, Igor left five line comments, another polecat is rewriting it. You're reading the system describe itself.
+
+Five upstream bugs before the city was alive:
+
+- `gc init` ships `pack.toml` in legacy format that `gc doctor` flags immediately (gascity#1244)
+- `bd init` writes `issue_prefix` to YAML but **not** to Dolt's internal `config` table the supervisor reads; `INSERT INTO config` SQL was the 30-second fix that unblocked everything
+- `gc rig add --adopt` leaves the Dolt data dir empty; full `bd init --reinit-local --discard-remote --destroy-token DESTROY-<X>` required to recover
+- First-time polecats sit idle even with `nudge` configured in `agent.toml`; each needs one manual `gc session nudge <id> "pick up your bead"`
+- Local Jekyll build broken on Ruby 4.0 (`String#tainted?` removed in 3.2+); fix: `brew install ruby@3.1`
+
+Two universal lessons: **scaffold first** (tutorial 01 is `gc init scratch-city`, that's the whole tutorial — every minute reading docs before running it is reverse-engineering the wrong abstraction); **trust the runtime over the doctor** (when `gc doctor` and `gc supervisor logs` disagree, the running process ships). Honest aside: for one-shot posts the mayor layer is overhead — Barry earns his keep when multiple competing beads need triage across rigs. ([blog](/gas-city-home)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/681004d16)
+
+### Gas City Explainer: Beads, Molecules, GUPP (new post!)
+
+New explainer at [/gas-city](/gas-city) — the conceptual companion to `/gas-city-home`. Three pillars:
+
+- **Beads** — tracked unit of work (title, type, priority, status, metadata, dependencies). The durability is the point: no in-memory queue to lose. If a bead exists and isn't closed, somebody will eventually pick it up.
+- **Molecules / MEOW (Molecular Expression of Work)** — formula → cook → protomolecule → pour → live molecule with its own beads and clock. Key line from the docs: *"Molecules ARE the ledger — each step closure is a timestamped CV entry."* A shell script exits and leaves you grepping logs; a molecule records itself as it executes. The Shiny Workflow (design → implement → review → test → submit) is the canonical shipped example.
+- **GUPP (Gastown Universal Propulsion Principle)** — "If there is work on your Hook, YOU MUST RUN IT." No idle state for polecats. Awake-but-not-running is a failure state by design, not waiting.
+
+Deeper frame from AGENTS.md: "ZERO hardcoded roles. Work is the primitive, not orchestration." Five irreducible primitives (Agent Protocol, Beads/Task Store, Event Bus, Config, Prompt Templates) → four derived mechanisms (Messaging, Formulas/Molecules, Dispatch, Health Patrol) — all four derived from the five. The unit of distribution is the formula, not the agent; Mol Mall (npm-for-workflows) is the in-progress registry. ([blog](/gas-city)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f70f98909)
+
+### Addiction: Passion/Hobby Trichotomy
+
+Significant rewrite of [/addiction](/addiction) — the old addiction-vs-opportunity-cost binary upgraded to a three-way trichotomy. Two questions sort it: compelled? and net-positive?
+
+- **Addiction**: compelled AND negatively impacts your life
+- **Passion**: compelled, but neutral or positive
+- **Hobby**: not compelled — you do it because you choose to; the absence of compulsion is the feature
+
+Examples in Igor's life: TikTok = Addiction (compelled + life worse for it), Vibe Coding = Passion (compelled + life better), Magic = Hobby (no pull, no relief, nothing in particular). The test: if forced to stop right now, which feels like relief, which like loss, which like nothing? New **in-the-moment 20-minute check**: timer fires → ask what the opportunity cost is, what you'd rather be doing, and — the real signal — are you sad about missing the other thing. Compulsion lies; sadness doesn't. ([blog](/addiction#is-doing-the-thing-you-want-to-be-doing-an-addiction)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e0b4a9fb8)
+
+### AI Cockpit: The Mic Matters
+
+New section in [/ai-cockpit](/ai-cockpit#the-mic-matters-more-than-i-thought) — transcription quality is gear-bottlenecked, not model-bottlenecked. A real lapel mic beats laptop and phone built-ins by a country mile. What Igor is using: Hollyland Lark M2S Mini Combo (wireless lavalier, 7g, USB-C + Camera RX, 300m range). Context: bought for another project; "this isn't a spend-a-few-hundred-bucks rec — it's a point-your-existing-good-lav-at-Wispr rec." The mic was already owned; Siri's now almost as good as Wispr Flow with it. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/478f329b3)
+
+Also: a voice-strain trap added to [/ai-operator](/ai-operator#you-need-to-use-voice) — three days of intense voice vibe coding puts your throat in the same state as a packed week of 1:1 meetings. Same vocal cord load, different surface. Water, throat rest, and type the small follow-ups instead of dictating them. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4526fff43)
+
+### Igor's Claws: Goop & Challenges
+
+New section in [/igors-claws](/igors-claws) applying the Business Logic / Goop / Infra framework to claw-building. Honest punchline: ~80% of claw-building is goop right now because the infra layer is still molting.
+
+Goop half-life tightened to **2 weeks** (not six months): concrete example is the Claude Code Telegram bridge — custom bot built in March, absorbed by the official plugin (3 weeks), official plugin breaks (3 weeks), two-process workaround on top. The `/igors-claws` closing line picks up a cross-link to the new section. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/faa9c2e8b)
+
+### Life Journal: Walking with Alex
+
+New entry at [/life-journal#2026-05-02](/life-journal#2026-05-02) — Saturday afternoon walk with Alex under tree canopy. "We weren't doing anything in particular. He wasn't telling me a story I'll remember. I wasn't telling him one either. Writing this down because that's the part that matters. It wasn't a moment. It was just him, and the trees, and a Saturday." Photo included. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4853f08f5)
+
+### Infrastructure & CI (2026-05-04)
+
+- **Worktree-init branch sanitization** — `just worktree-init` now translates `/` → `-` in branch names so `claude/foo`-style branches don't try to create log files in non-existent parent directories; `set -eu` aborts before the false-success echo [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f94f971df)
+- **Changelog Liquid fix** — `{% raw %}{% comment %}{% endraw %}` in prose-inside-backticks was opening a real Liquid comment block that was never closed (symptom: Jekyll parse error at line 739 when the offender was line 99); wrapped in `{% raw %}`/`{% endraw %}` [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/bf1fc20d7)
+- **CLAUDE.md backlinks rule** — mandatory `just update-backlinks` step before opening any new-post PR; first violation caught the `/wally`/`/larry`/`/ai-operator` "Mentioned in:" sections going stale at ship time [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/656c9a645)
+
+### Other Projects (2026-05-04)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS health app)
+
+- **Workout analysis screen v1** — tap a workout, see inferred sets/reps + narrative (#34): peak-detection algorithm for set boundaries, filter sub-20s "blip" sets to recover Igor's 10x kettlebell-swing pattern exactly [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/a85c07e13)
+- **Set row UX** — header shows absolute time; rows show pace + drop magnitude; inline HR sparkline (spike → recovery → idle) per set; time-deltas added (elapsed since workout start + rest gap since prior set) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/dfb821770)
+- **Cold-start fix** — hydrate snapshot from last successful grab so dashboard tiles never blank on cold start (#33) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/f318e9460)
+- **HR export** — raw HR + workout JSON export (1d/2d/7d) for offline prototyping; export buttons in About modal alongside the HR detail sheet [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/9f84c1244)
+
+**[blob](https://github.com/idvorkin/blob)** (image assets)
+
+- Added walking-with-Alex image for life-journal 2026-05-02 entry [<i class="fa fa-github"></i>](https://github.com/idvorkin/blob/commit/fbeacc772)
 
 ## Week of 2026-04-27
 
