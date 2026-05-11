@@ -439,22 +439,14 @@
             "doc_size": 18000,
             "file_path": "_site/7-habits.html",
             "incoming_links": [
-                "/7h-concepts",
                 "/balance",
-                "/be-proactive",
                 "/books-that-defined-me",
                 "/depression",
-                "/end-in-mind",
                 "/eulogy",
-                "/first-things-first",
-                "/first-understand",
                 "/four-healths",
                 "/gap-year-igor",
                 "/psychic-weight",
-                "/sharpen-the-saw",
-                "/synergize",
-                "/timeoff-2020-12",
-                "/win-win"
+                "/timeoff-2020-12"
             ],
             "last_modified": "2025-07-20T19:26:41-07:00",
             "markdown_path": "_posts/2018-01-04-7-habits.md",
@@ -484,10 +476,10 @@
                 "/greek-orthodox",
                 "/writing"
             ],
-            "last_modified": "2026-05-10T16:23:33.726253+00:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/7h-c0.md",
             "outgoing_links": [
-                "/7-habits",
+                "/7h",
                 "/balance",
                 "/curious",
                 "/eulogy",
@@ -676,16 +668,16 @@
                 "/vibing",
                 "/walking-with-god"
             ],
-            "last_modified": "2026-05-02T16:01:21.155890+00:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/addiction.md",
             "outgoing_links": [
                 "/activation",
                 "/covid",
-                "/elder",
-                "/happy",
                 "/hobby",
                 "/mental-pain",
-                "/mind-at-work"
+                "/midlife",
+                "/mind-at-work",
+                "/satisfaction"
             ],
             "redirect_url": "",
             "title": "Escape Artists: The True Face of Addiction",
@@ -1034,18 +1026,18 @@
                 "/walking-with-god",
                 "/y25"
             ],
-            "last_modified": "2026-05-10T16:03:09.583167+00:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/ai-journal.md",
             "outgoing_links": [
                 "/ai-art",
                 "/ai-journal",
                 "/ai-security",
+                "/ai-talk",
                 "/chop",
                 "/chow",
                 "/claw",
                 "/end-in-mind",
                 "/eulogy",
-                "/genai-talk",
                 "/gpt",
                 "/hill-climbing",
                 "/how-igor-chops",
@@ -1106,7 +1098,7 @@
                 "/how-igor-chops",
                 "/life-journal"
             ],
-            "last_modified": "2026-05-03T12:09:37-07:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/ai-operator.md",
             "outgoing_links": [
                 "/ai-cockpit",
@@ -1537,10 +1529,10 @@
                 "/siy",
                 "/words-we-dont-have"
             ],
-            "last_modified": "2026-05-10T10:36:46-07:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/7h-c1.md",
             "outgoing_links": [
-                "/7-habits",
+                "/7h",
                 "/affirmations",
                 "/anxiety",
                 "/breath",
@@ -1851,7 +1843,7 @@
             "doc_size": 142000,
             "file_path": "_site/changelog.html",
             "incoming_links": [],
-            "last_modified": "2026-05-05T08:16:23-07:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/changelog.md",
             "outgoing_links": [
                 "/act",
@@ -1889,7 +1881,8 @@
                 "/taxes",
                 "/vibing",
                 "/wally",
-                "/y26"
+                "/work-gastown",
+                "/y2026"
             ],
             "redirect_url": "",
             "title": "Changelog",
@@ -2041,7 +2034,7 @@
                 "/igors-claws",
                 "/larry"
             ],
-            "last_modified": "2026-05-03T17:20:34+00:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/claw.md",
             "outgoing_links": [
                 "/ai-journal",
@@ -2401,7 +2394,6 @@
                 "/physical-health",
                 "/productive",
                 "/psychic-weight",
-                "/sharpen-the-saw",
                 "/slow",
                 "/switch",
                 "/walking-with-god"
@@ -2702,7 +2694,6 @@
             "file_path": "_site/elder.html",
             "incoming_links": [
                 "/40yo",
-                "/addiction",
                 "/spiritual-health"
             ],
             "last_modified": "2026-01-25T16:42:46-08:00",
@@ -2819,10 +2810,10 @@
                 "/siy",
                 "/walking-with-god"
             ],
-            "last_modified": "2026-05-10T10:36:10-07:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/7h-c2.md",
             "outgoing_links": [
-                "/7-habits",
+                "/7h",
                 "/balance",
                 "/be-proactive",
                 "/chapters",
@@ -2922,7 +2913,6 @@
                 "/books-that-defined-me",
                 "/elder",
                 "/end-in-mind",
-                "/first-things-first",
                 "/frog",
                 "/gtd",
                 "/overload",
@@ -3066,7 +3056,7 @@
         },
         "/first-things-first": {
             "description": "The key to effective management, is allocating energy through the lens of importance rather than urgency. E.g, ask yourself what one thing could you do that if you did on a regular basis, would make a tremendous positive difference in your life? Lemme guess, it’s important, but not urgent so you’re not doing it. These are my insights based on the 7 habits Chapter 3.\n\n",
-            "doc_size": 41000,
+            "doc_size": 40000,
             "file_path": "_site/first-things-first.html",
             "incoming_links": [
                 "/4dx",
@@ -3076,14 +3066,14 @@
                 "/delegate",
                 "/frog"
             ],
-            "last_modified": "2026-05-10T10:23:57-07:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/7h-c3.md",
             "outgoing_links": [
                 "/4dx",
-                "/7-habits",
+                "/7h",
                 "/balance",
                 "/delegate",
-                "/essentialism",
+                "/essential",
                 "/eulogy",
                 "/four-healths",
                 "/frog",
@@ -3113,10 +3103,10 @@
                 "/win-win",
                 "/work-satisfaction"
             ],
-            "last_modified": "2026-05-10T10:35:50-07:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/7h-c5.md",
             "outgoing_links": [
-                "/7-habits",
+                "/7h",
                 "/anger",
                 "/coaching",
                 "/curious",
@@ -3308,7 +3298,7 @@
             "doc_size": 25000,
             "file_path": "_site/gas-city.html",
             "incoming_links": [],
-            "last_modified": "2026-05-04T12:23:28.406847+00:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/gas-city.md",
             "outgoing_links": [
                 "/gas-city-home",
@@ -3327,7 +3317,7 @@
                 "/gas-city",
                 "/igors-claws"
             ],
-            "last_modified": "2026-05-05T07:03:22-07:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/gas-city-home.md",
             "outgoing_links": [
                 "/wally"
@@ -3538,7 +3528,6 @@
             "doc_size": 32000,
             "file_path": "_site/happy.html",
             "incoming_links": [
-                "/addiction",
                 "/awareness",
                 "/chasing-daylight",
                 "/emotions",
@@ -3766,7 +3755,7 @@
                 "/vibing",
                 "/wally"
             ],
-            "last_modified": "2026-05-03T13:16:40-07:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/igors-claws.md",
             "outgoing_links": [
                 "/ai-cockpit",
@@ -4669,7 +4658,6 @@
                 "/happy",
                 "/productive",
                 "/sell",
-                "/synergize",
                 "/win-win",
                 "/work-satisfaction"
             ],
@@ -5593,12 +5581,12 @@
                 "/emotional-health",
                 "/physical-health"
             ],
-            "last_modified": "2026-05-10T10:35:27-07:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/7h-c7.md",
             "outgoing_links": [
-                "/7-habits",
+                "/7h",
+                "/atomic-habits",
                 "/balance",
-                "/d/habits",
                 "/diet",
                 "/emotional-health",
                 "/eulogy",
@@ -6049,13 +6037,13 @@
             "incoming_links": [
                 "/7-habits"
             ],
-            "last_modified": "2026-05-10T10:34:18-07:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/7h-c6.md",
             "outgoing_links": [
-                "/7-habits",
+                "/7h",
                 "/coaching",
                 "/first-understand",
-                "/negotiate",
+                "/gty",
                 "/win-win"
             ],
             "redirect_url": "",
@@ -7247,10 +7235,10 @@
                 "/voices",
                 "/work-satisfaction"
             ],
-            "last_modified": "2026-05-10T17:17:11.903504+00:00",
+            "last_modified": "2026-05-11T14:09:18.951195+00:00",
             "markdown_path": "_d/7h-c4.md",
             "outgoing_links": [
-                "/7-habits",
+                "/7h",
                 "/coaching",
                 "/curious",
                 "/enable",
