@@ -12,6 +12,14 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-05-11](#week-of-2026-05-11)
+  - [7 Habits: Complete Content Augmentation](#7-habits-complete-content-augmentation)
+  - [AI Journal: Wrong Jungle, Token Wars, Raccoon Marathon](#ai-journal-wrong-jungle-token-wars-raccoon-marathon)
+  - [New Pages: Amelia Framework & Image Selector](#new-pages-amelia-framework--image-selector)
+  - [Addiction: Raccoon Cover Image](#addiction-raccoon-cover-image)
+  - [Infrastructure & CI (2026-05-11)](#infrastructure--ci-2026-05-11)
+  - [chop-conventions (2026-05-11)](#chop-conventions-2026-05-11)
+  - [Other Projects (2026-05-11)](#other-projects-2026-05-11)
 - [Week of 2026-05-04](#week-of-2026-05-04)
   - [The Psychology of Vibing (new post!)](#the-psychology-of-vibing-new-post)
   - [Gas City Cluster: Wally, Standing Up, and the Explainer (new posts!)](#gas-city-cluster-wally-standing-up-and-the-explainer-new-posts)
@@ -21,7 +29,7 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
   - [Other Projects (2026-05-04)](#other-projects-2026-05-04)
 - [Week of 2026-04-27](#week-of-2026-04-27)
   - [Wally and My Work Gastown (new post!)](#wally-and-my-work-gastown-new-post)
-  - [The Psychology of Vibing (new post!)](#the-psychology-of-vibing-new-post)
+  - [The Psychology of Vibing (new post!)](#the-psychology-of-vibing-new-post-1)
   - [Addiction: Trichotomy Upgrade](#addiction-trichotomy-upgrade)
   - [AI Cockpit: The Mic Matters](#ai-cockpit-the-mic-matters)
   - [Infrastructure & CI (2026-04-27)](#infrastructure--ci-2026-04-27)
@@ -92,6 +100,71 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-05-11
+
+_31 blog commits + 33 cross-repo commits_
+
+### 7 Habits: Complete Content Augmentation
+
+All eight 7 Habits chapters were deeply augmented with prose rewritten in Igor's voice from the Covey ebook, plus a full suite of raccoon illustrations for every habit:
+
+- **[Core Concepts](/7h-core-concepts)** — new sections: Borrowed Strength (borrowed position/authority builds weakness in all three parties); P/PC Balance with the goose/egg examples (sleep vs one more hour, hard conversation vs just doing it, feature vs test suite); Character vs Personality Ethic (Ben Franklin vs the post-WWI personality-ethic era); Lighthouse parable (principles are objective — the battleship changes course); feedback loop upward spiral. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/62430e8c3)
+- **[Be Proactive](/be-proactive)** — full prose build-out: the self-awareness gap (observer can't be the observed), weather vane vs. carrying your own weather, the emotional bubble, the four endowments table (self-awareness / imagination / conscience / independent will), Viktor Frankl on freedom inside Auschwitz, reactive-vs-proactive language table ("I have to" → "I choose"), initiative gap ("5000-percent gap"). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3fb17ede6)
+- **[Begin with the End in Mind](/end-in-mind)** — first vs second creation; Leadership vs Management / wrong jungle (crew hacks with machetes, managers sharpen them, leader climbs the tree and yells "wrong jungle"); by design or by default; false centers; principle center; eulogy writing. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/27f18d3be)
+- **[First Things First](/first-things-first)** — four generations of time management; Habit 3 in context (leadership asks which jungle, management asks which machete cut); lack of discipline = lack of purpose; Quadrant II; stewardship vs gofer delegation. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9f72b217d)
+- **[Win/Win](/win-win)** — six paradigm table (Win/Lose, Lose/Win, Lose/Lose, Win, Win/Win, Win/Win or No Deal); Emotional Bank Account (empathic listening, little things, commitments, expectations, integrity, apology); P problems as PC opportunities; abundance mentality. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/58698d41d)
+- **[Seek First to Understand](/first-understand)** — character as the base under technique; diagnose before you prescribe (eye-doctor parable); empathic listening vs autobiographical listening; four normal autobiographical responses (evaluate, probe, advise, interpret). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ab58f8cf3)
+- **[Synergize](/synergize)** — rewritten from scratch in Igor voice: 1+1=3 conditions (real differences, enough trust, intent to find a third way); Third Alternative (not my way, not your way — a better way neither of us could reach alone); Win/Win vs Third Alternative distinction table; rough recipe for the synergy conversation. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/03c9db1db)
+- **[Sharpen the Saw](/sharpen-the-saw)** — four dimensions of renewal table (Physical → Habit 1, Identity/Spiritual → Habit 2, Mental → Habit 3, Emotional → Habits 4–6); each dimension with diet/sleep/exercise sub-sections; scripting others; upward spiral. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/10d33258b)
+
+Raccoon illustrations for all seven chapters generated and wired: [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/53122ee52) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/914c6d4c3)
+
+### AI Journal: Wrong Jungle, Token Wars, Raccoon Marathon
+
+Three new entries ([blog](/ai-journal)):
+
+- **Free Doesn't Save You from the Wrong Problem** — hill-climbing a local chroma-key pipeline (17,385 → 269 residual-magenta eval, 65× improvement, clever `flood4 → tight-fuzz 3%` two-stage winner) and it was still the wrong mountain. Output fell apart against any non-white background. Switched to Recraft's `remove_background` at ~$0.01/image and the problem dissolved. The lesson is Covey's first-creation / second-creation frame from [Begin with the End in Mind](/end-in-mind): when second creation is nearly free, the friction that forced you back to first creation disappears. "I was sharpening the machete — more attempts, tighter eval, prettier algorithm — and never climbed the tree. Great execution, no strategy. A manager move, not a leader move." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/953df7afb)
+- **Dylan Patel on the Supply and Demand of AI Tokens** — Patel's thesis: frontier model is the only model that matters, demand is structurally uncapped, bottleneck has moved from "can the AI do it" to whether you can get the tokens. SemiAnalysis Claude Code spend: tens of thousands last year → **$5M last week → $7M annualized**, vs $25M salary line (>25% of payroll). Anthropic ARR: $9B → $35–40B, adding ~$10B/month. "Cloud code psychosis": an ex-Intel engineer replaced a full chip reverse-engineering team; a solo ex-bank economist built a deflation model + 2,000-task BLS eval benchmark that would have taken 200 economists a year. Key move: get the enterprise pay-per-token contract (not the consumer subscription), then point tokens at the highest-leverage problem. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f06516079)
+- **AI Helps Me Think by Showing Me Options** — when work involves a judgment call you'll live with, AI should widen the option space, not narrow it. Generated 35 raccoon variations (7 habits × 5 each), built a click-to-pick HTML sheet with localStorage, picked winners in ~15 minutes. Pattern generalizes to code abstractions, copy, naming, design — anything where "best" is taste, not truth. Cheap model for wide pass, human picks, expensive model for winners. Live demo: [/image-selector](/image-selector). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/422a97de9)
+
+Raccoon illustration for "wrong jungle" entry: [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0e3503ba7)
+
+### New Pages: Amelia Framework & Image Selector
+
+- **[/amelia](/amelia)** — interactive standalone page mapping Igor's four affirmations (Do It Anyway / Essentialist / Class Act / Calm Like Water) onto fathering Amelia. Four-pillar overview cards, weekly presence audit (6 toggle questions), 20 concrete moves filterable by affirmation, click-to-reroll random move card, eulogy-framed closing ("dad was a safe place"). Uses `layout: empty` (no standard blog chrome). Cross-linked from the [eulogy](/eulogy#father-to-amelia) "Father to Amelia" section. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/92fada642)
+- **[/image-selector](/image-selector)** — click-to-pick tool for AI image batches, pre-loaded with 35 Seven Habits raccoons (7 habits × 5 variations, base64-inlined WebP, ~1.9 MB, no external deps). localStorage persists picks, JSON copy button at bottom. Reusable pattern published as a [public gist](https://gist.github.com/idvorkin-ai-tools/309aea3cd0d2e43e783f2c061e920755) (CC0). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/b34f65961)
+
+### Addiction: Raccoon Cover Image
+
+Added a raccoon cover imagefeature to [/addiction](/addiction) — a single-panel raccoon contrasting addiction (hunched, drained) vs passion (engaged, energized), now serving as the page's social-card image. The diptych illustration moved inline to the addiction-vs-passion section. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/24362a8af)
+
+### Infrastructure & CI (2026-05-11)
+
+- **Backlinks: /changelog exclusion on delta path** — `LinkBuilder.update` (full-build path) already filtered `changelog.html` from `EXCLUDED_BACKLINK_SOURCES`, but `rebuild_incoming_links` (the delta path used by the pre-commit hook) operated on URLs with no matching exclusion, polluting ~30 unrelated pages' backlinks on every changelog edit. Fixed by mirroring the exclusion on both paths. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/81ffe5f5b)
+- **Backlinks: dedupe exclusion + fix JSON encoding** — addressed review feedback: merged parallel exclusion sets into the existing `EXCLUDED_BACKLINK_SOURCES` constant; fixed JSON encoding for non-ASCII characters. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/212f04769)
+
+### chop-conventions (2026-05-11)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** — image generation tooling
+
+- **Recraft background remover** — added `remove_background_recraft` as opt-in on the magenta path in `generate.py`, then rewrote the bash bg-remover as a Typer + WebP-aware Python script (`recraft_bg_remove.py`). The new tool handles alpha channels, preserves WebP format, and costs ~$0.01/image. Context: prompted by the ["wrong jungle" journal entry](#ai-journal-wrong-jungle-token-wars-raccoon-marathon) — the chroma-key hill-climb was the wrong mountain. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/508ee894a) [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/7befb9f1d)
+
+### Other Projects (2026-05-11)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS Expo app — 21 commits)
+
+Major feature push: CloudKit sync landed across five phases, plus Reflect zone UI, workout analysis, and voice recording:
+
+- **CloudKit sync P0–P3** — added `expo-cloudkit`, entitlements, and a Ping screen (P0); journal data model + SQLite + bidirectional sync + JSON export (P1); Reflect zone, voice cards, Journal screen (P2–P3). [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/3193ef6bb) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/b328209b3) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/6e5de74fd)
+- **Reflect zone** — moved to top of dashboard; `.systemLarge` widget size with Reflect-hero layout; strip with tally + 3 deep-link shortcuts. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/32545b319)
+- **Voice recording** — added `expo-audio`, `prepareToRecordAsync`, CopyableError convention; journal playback with always-real audio source and reset session before play. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/1c819cb98)
+- **Workout analysis** — inline HR sparkline per set (spike → recovery → idle); time-deltas per set row (since start + rest gap); two-pass detection (strict + loose) for missed sets in long gaps; set row redesign (absolute time header, pace, drop magnitude). [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/dfb821770)
+
+**[beads](https://github.com/idvorkin-ai-tools/beads)** (issue tracker — 2 commits)
+
+- Fix list deduplication when issues have multiple `blocks` dependencies (GH#3567). [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/beads/commit/7e3c7fbbe)
+- Replace deprecated `--force` flag with `--reinit-local` in init error messages. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/beads/commit/4a25937df)
 
 ## Week of 2026-05-04
 
