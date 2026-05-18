@@ -12,6 +12,13 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-05-11](#week-of-2026-05-11)
+  - [7 Habits Deep Dive: All Eight Posts Augmented](#7-habits-deep-dive-all-eight-posts-augmented)
+  - [AI Journal: Tokens, Wrong Jungles, and Raccoons](#ai-journal-tokens-wrong-jungles-and-raccoons)
+  - [Igor's Podcast: Launch!](#igors-podcast-launch)
+  - [Infrastructure & CI (2026-05-11)](#infrastructure--ci-2026-05-11)
+  - [chop-conventions (2026-05-11)](#chop-conventions-2026-05-11)
+  - [Other Projects (2026-05-11)](#other-projects-2026-05-11)
 - [Week of 2026-05-04](#week-of-2026-05-04)
   - [The Psychology of Vibing (new post!)](#the-psychology-of-vibing-new-post)
   - [Gas City Cluster: Wally, Standing Up, and the Explainer (new posts!)](#gas-city-cluster-wally-standing-up-and-the-explainer-new-posts)
@@ -92,6 +99,65 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-05-11
+
+_~64 commits this week across all repos_
+
+### 7 Habits Deep Dive: All Eight Posts Augmented
+
+All eight posts in the 7 Habits cluster got a major augment from the Covey ebook, rewritten in Igor's first-person voice. Previously the TOC sections existed but were empty — now they have prose.
+
+- **[7 Habits Core Concepts](/7h-concepts)** — Character vs. Personality Ethics (150 years of "become trustworthy" vs. post-WWI "learn the scripts"); paradigms as the invisible lens (the young-woman/old-woman classroom demo); **borrowed strength builds weakness** — when character maturity isn't up to the moment, we reach for position, credentials, past achievements, and it hollows out every relationship it touches. The lighthouse parable: "I'm a battleship. Change course 20 degrees." "I'm a lighthouse." They changed course. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/62430e8c3) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5425ebd6d)
+- **[Be Proactive](/be-proactive)** — Have's vs. Be's ("if I only had X, I'd do Y" → flip the frame). The 30-day test: expand your Circle of Influence without waiting for permission. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3fb17ede6)
+- **[Begin with the End in Mind](/end-in-mind)** — The two-creations principle; **Leadership vs. Management**: producers hack machetes, managers sharpen them, the _leader_ climbs the tallest tree and yells "Wrong jungle!" False Centers (security drawn from spouse/money/church/status), and the Principle Center that doesn't move when the battleship does. Eulogy writing as backward-planning for a life. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/27f18d3be)
+- **[First Things First](/first-things-first)** — Four generations of time management; Gofer vs. Stewardship delegation (gofer = "do this and report back"; stewardship = hand over the result and the trust). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9f72b217d)
+- **[Win/Win or No Deal](/win-win)** — The "no deal" option as the freedom move: when you can't find a genuine win for both sides, agree to disagree rather than compromise to lose-lose. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/58698d41d)
+- **[Seek First to Understand](/first-understand)** — "Diagnose before you prescribe" — the optometrist who hands you his glasses because they work for him. Character as the real foundation; four-level empathic listening stages (mimic → rephrase → reflect feeling → full empathy). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ab58f8cf3)
+- **[Synergize](/synergize)** — Rewritten in first-person from managing engineers and Sunday planning. The Third Alternative (not my way, not yours — a way neither of us saw). Force Field Analysis for understanding resistance. Negative synergy: when 1+1 < 1, and why it's the default in most organizations. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/03c9db1db)
+- **[Sharpen the Saw](/sharpen-the-saw)** — Four dimensions of renewal: Physical (diet, sleep, exercise), Emotional, Mental, Identity. The upward spiral — each renewal cycle builds capacity for the next. Bonus section: "Sometimes you need to stop sharpening the saw, and start cutting the shit." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/10d33258b)
+
+### AI Journal: Tokens, Wrong Jungles, and Raccoons
+
+Two new entries cross-linked into a single argument — who has tokens wins, but only if they're pointing at the right problem:
+
+- **[Dylan Patel on the Supply and Demand of AI Tokens](/ai-journal#2026-05-09)** — Patel (SemiAnalysis) on Invest Like the Best ep. 468. Token demand is unbounded 6-18 months; only the frontier model has uncapped willingness-to-pay; DRAM capacity grows 20-30%/yr against 5-10× demand growth. SemiAnalysis own AI spend: tens of thousands → **$7M annualized** in 12 months. Anthropic ARR: $9B → $35-45B at 72%+ margins. Builder implication: stop assuming tokens get cheaper, get the enterprise pay-per-token contract, and point tokens at the highest-leverage problem — not the most-fun one. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f065160790)
+- **[Free Doesn't Save You from the Wrong Problem](/ai-journal#2026-05-10)** — The chroma-key hill-climbing saga: 6 attempts, 65× eval improvement (17,385 → 269 residual-magenta score), a clever `flood4 → tight-fuzz 3%` two-stage winner. Still the wrong mountain — output fell apart on any non-white background. Switched to Recraft (~$0.01/image). The inversion of Patel's frame: _free tokens at the wrong problem are still wasted_. And the Covey callback: "I was sharpening the machete — tighter eval, prettier algorithm — and never climbed the tree. Great execution, no strategy. A manager move, not a leader move." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/953df7afb)
+
+### Igor's Podcast: Launch!
+
+New repo [idvorkin-ai-tools/podcast](https://github.com/idvorkin-ai-tools/podcast) — AI-narrated essays from idvork.in. Two episodes in the first week:
+
+- **Episode 001: Seven Habits** (~2h13m, Charon TTS) — the full cluster synthesized into audio, with 8 ID3 CHAP chapter markers + Podcasting 2.0 chapters.json sidecar [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/podcast/commit/e75080e7a)
+- **Episode 002: Eulogy + Affirmations** (22:16) — three pieces: the eulogy I'd want at my funeral (~14 min narrated), that eulogy as a Suno-generated pop song (~2:14), then daily affirmations (~6 min). Chapter markers + sidecar. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/podcast/commit/41353158e)
+- Cover art: raccoon narrator at microphone with open book, generated via Gemini Flash + Lanczos upscale to 3000×3000 (Apple Podcasts spec) [<i class="fa fa-github"></i>](https://github.com/idvorkin/blob/commit/4dde34f09)
+
+Subscribe: `https://idvorkin-ai-tools.github.io/podcast/feed.xml`
+
+### Infrastructure & CI (2026-05-11)
+
+- **Backlinks: exclude /changelog as a source** — changelog was accumulating false inbound edges in the delta path. Fixed + JSON encoding bug patched in the same PR. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/81ffe5f5b) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/212f04769)
+- **Gas City Home: upstream bd bug aside** — `findParentMolecules` only recognized `TypeEpic` roots so `bd close --continue` silently no-op'd on every poured molecule. Fix in [beads PR #3721](https://github.com/gastownhall/beads/pull/3721) — three lines in the recognizer, four test cases. Moral: real use surfaces real holes; patching the platform beats working around it. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/fe1145c96)
+
+### chop-conventions (2026-05-11)
+
+- **Recraft background remover** — `gen-image` skill gets opt-in `--remove-bg` via the Recraft API. Rewrote as Typer + WebP-aware Python (two commits: add then harden). Direct response to the chroma-key hill-climbing saga: the lesson applied immediately upstream. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/508ee894a) [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/7befb9f1d)
+
+### Other Projects (2026-05-11)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS health app)
+
+Major CloudKit sync push — 15 commits in one day:
+
+- **CloudKit P0→P3: full journal sync** — data model + SQLite + bidirectional sync + JSON export; Reflect zone + voice cards + Journal screen [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/b328209b3) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/6e5de74fd)
+- **Voice recording** — expo-audio + NSMicrophoneUsageDescription; prepareToRecordAsync + audio session reset before playback [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/86d5b0b6e) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/12e6f3464)
+- **Reflect zone** — moved to top of dashboard; tally + 3 deep-link shortcuts; `.systemLarge` widget with Reflect-hero layout [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/32545b319) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/2e4fd9f30)
+- **Cards UX** — text + voice on same screen, mode toggle dropped [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/cee3c0e41)
+
+**[blob](https://github.com/idvorkin/blob)** (image assets)
+
+- Raccoon illustrations for all 7 Habits chapters (c1–c7), transparent backgrounds via Recraft [<i class="fa fa-github"></i>](https://github.com/idvorkin/blob/commit/1fcaac169) [<i class="fa fa-github"></i>](https://github.com/idvorkin/blob/commit/b74f7552c)
+- Addiction vs. Passion raccoon cover (single-panel hero image) [<i class="fa fa-github"></i>](https://github.com/idvorkin/blob/commit/3418577ac)
 
 ## Week of 2026-05-04
 
