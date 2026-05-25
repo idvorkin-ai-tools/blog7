@@ -12,6 +12,20 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-05-25](#week-of-2026-05-25)
+  - [Scandinavian Whirlwind Tour (new post!)](#scandinavian-whirlwind-tour-new-post)
+  - [Produce vs Consume: The Production Trap](#produce-vs-consume-the-production-trap)
+  - [AI Native Manager: Dark Factory](#ai-native-manager-dark-factory)
+  - [Y2026 June Check-in](#y2026-june-check-in)
+  - [Other Projects (2026-05-25)](#other-projects-2026-05-25)
+- [Week of 2026-05-11](#week-of-2026-05-11)
+  - [7 Habits: Full Chapter Augmentation](#7-habits-full-chapter-augmentation)
+  - [AI Journal: Tokens and the Wrong Jungle](#ai-journal-tokens-and-the-wrong-jungle)
+  - [Amelia Connection Framework (new page!)](#amelia-connection-framework-new-page)
+  - [Addiction: Raccoon Illustrations](#addiction-raccoon-illustrations)
+  - [Infrastructure & CI (2026-05-11)](#infrastructure--ci-2026-05-11)
+  - [chop-conventions (2026-05-11)](#chop-conventions-2026-05-11)
+  - [Other Projects (2026-05-11)](#other-projects-2026-05-11)
 - [Week of 2026-05-04](#week-of-2026-05-04)
   - [The Psychology of Vibing (new post!)](#the-psychology-of-vibing-new-post)
   - [Gas City Cluster: Wally, Standing Up, and the Explainer (new posts!)](#gas-city-cluster-wally-standing-up-and-the-explainer-new-posts)
@@ -21,7 +35,7 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
   - [Other Projects (2026-05-04)](#other-projects-2026-05-04)
 - [Week of 2026-04-27](#week-of-2026-04-27)
   - [Wally and My Work Gastown (new post!)](#wally-and-my-work-gastown-new-post)
-  - [The Psychology of Vibing (new post!)](#the-psychology-of-vibing-new-post)
+  - [The Psychology of Vibing (new post!)](#the-psychology-of-vibing-new-post-1)
   - [Addiction: Trichotomy Upgrade](#addiction-trichotomy-upgrade)
   - [AI Cockpit: The Mic Matters](#ai-cockpit-the-mic-matters)
   - [Infrastructure & CI (2026-04-27)](#infrastructure--ci-2026-04-27)
@@ -92,6 +106,136 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-05-25
+
+_11 commits this week_
+
+### Scandinavian Whirlwind Tour (new post!)
+
+New post at [/timeoff-2026-07](/timeoff-2026-07) — 22 days, 5 countries, 4 Dvorkins: Iceland → Copenhagen → Stockholm → Norwegian fjords → Amsterdam. First family trip of this scope; the kids are 16 and 14 and the window for "all four of us on the road together" closes faster than Igor would like. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/37ec9d84a)
+
+- **Scope**: Jun 28 – Jul 19, 2026 across Iceland, Denmark, Sweden, Norway, and Netherlands
+- **Iceland stopover** — Icelandair's free stopover program; first-ever Iceland visit for everyone in the family
+- **Copenhagen with Ammon** — 2 days hanging with Ammon. His assessment: "Yeah 2 days works. There's not much to see in Copenhagen."
+- **Norway in a Nutshell** — Oslo → Flåm via the Bergen Railway (one of the world's most scenic rail journeys), then fjord cruise through Nærøyfjord (UNESCO)
+- **Per-leg activity lists** — 4–8 specific activities per leg sourced from family planning docs and the 50DN proposal [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/198db473e)
+
+### Produce vs Consume: The Production Trap
+
+Three updates to [/produce-consume](/produce-consume) examining how production itself can become a trap:
+
+- **The Production Trap** (new section) — production can become its own addiction. Same dopamine loop that makes TikTok dangerous can hook you on shipping: the hit of publishing, the notification of a new view, the little spike when the metric ticks up. The tells look like virtue: skipping dinner with your kid to "just finish this post," can't sit still without a draft open, measuring the day in commits and feeling hollow on no-ship days. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/dde4a024f)
+- **Five-signal addiction check** — cross-linked to [/addiction](/addiction) with adapted self-test: you DON'T want to ship but feel compelled; checking analytics at 10pm from anxiety not interest; drafting during family time to escape discomfort of being present; rest of life deteriorating; feeling out of control. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e0f6610ae)
+- **Drop the win-framing** — the closing paragraph reshaped to remove the competitive gloat: "Consumers will always outnumber producers. That's fine. Let them... That's not a competition — it's just a different game entirely." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f37bf85b1)
+
+### AI Native Manager: Dark Factory
+
+New entry in the [New Words for a New World appendix](/ai-native-manager#dark-factory) — the manufacturing term (a plant that runs without lights or humans) applied to software. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/66702a2d4)
+
+Dark codebases (written by AI, never read by humans), dark services (run by automated pipelines, zero ops), dark teams (a single human steering whole products). The argument: "automation" softens the concept — "dark factory" makes the production-decoupled-from-labor part visible. Connects to Cognitive Debt and Functional Collapse: dark-factory work compounds both risks when the factory runs without sufficient human review loops.
+
+### Y2026 June Check-in
+
+June updates to [/y2026](/y2026#physical-health) tracking physical health mid-year:
+
+- **Context** — trainer quit, running solo programming. Started Kettlebility gym classes to keep structure. The bright spot: TGU is the comeback story after tanking from the shoulder injury — most of the way back. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/294a22893)
+- **Physical health table** — Weight: 185 (⚠️ wrong direction from 170 goal); Sleep: 5am (✅ still hitting target); Gym: 3–5d/week (⚠️); Swings: 1H 8×32 with 2×28 warmup (✅ up from 6×32); TGU: 4×32 comeback (✅); Chinups: paused for shoulder. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/648c3b828)
+
+### Other Projects (2026-05-25)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS health app)
+
+- **Mac Catalyst support** — build, launch, and render the dashboard without HealthKit. On Mac: skip `HealthKit.requestAuthorization` and substitute `EMPTY_HEALTH_DATA` so the snapshot pipeline proceeds with nulled health metrics. Health cards show em-dash placeholders; location card shows "Unavailable." `grabLocation()` races against a 10s timeout so a hung CoreLocation permission sheet can't block rendering. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/16a8f7088)
+- **iOS linker regression fix** — the Catalyst patch unconditionally excluded libopus/libvorbis source files, breaking iOS Release builds with `Undefined symbols: _ma_decoding_backend_libopus`. Fix: stop excluding the source files; iOS compiles and links them against prebuilt `.a` libs; Catalyst's `-dead_strip` removes them since `AudioDecoder.mm` guards their callsites with `#if !TARGET_OS_MACCATALYST`. Both Release-iphoneos and Release-maccatalyst now build clean. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/0fa352795)
+
+## Week of 2026-05-11
+
+_38 commits this week (blog) + cross-repo activity_
+
+### 7 Habits: Full Chapter Augmentation
+
+All eight 7 Habits chapter posts ([c0](/7h-c0)–[c7](/7h-c7)) received substantial deepening from the Covey ebook this week, plus raccoon hero illustrations throughout. This is the largest single-week content push on the 7H series.
+
+**[c0 — Core Concepts](/7h-c0)** ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/62430e8c3)) — Every section fleshed out from stubs to full prose. Key additions:
+
+- **Inside Out** — "Working on the outside without changing the inside is putting fresh paint on a rusted frame." Private victories precede public victories: if you want a better marriage, *be* a better partner.
+- **Character vs Personality Ethic** — 150 years of character ethic (Franklin's autobiography archetype) vs. the post-WWI shift to personality ethic (smile training, influence techniques). The cram vs. the farm.
+- **Borrowed Strength Builds Weakness** (new section) — When emotional maturity runs out, we reach for position/title/authority/size. Borrowed strength works in the moment and builds weakness in all three parties: the borrower, the coerced, and the relationship. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2799be845)
+- **P/PC Balance** — Aesop's goose applied: sleep vs. one more hour of work; shipping vs. fixing the test suite; doing it myself vs. the hard conversation.
+- **Maturity Continuum** — Dependent → Independent → Interdependent, with Habits 1–3 as private victories and 4–6 as public victories.
+
+**[c1 — Be Proactive](/be-proactive)** ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3fb17ede6)) — Massive expansion. Viktor Frankl as the canonical "gap between stimulus and response" example. Four endowments table (self-awareness / imagination / conscience / independent will). Reactive vs. proactive language table ("I have to" → "I choose"). Circle of Influence / Circle of Concern with the growth dynamic — energy in CI makes CI expand. New section: **Have's vs. Be's** and **The 30-day test**.
+
+**[c2 — Begin with End in Mind](/end-in-mind)** ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/27f18d3be)) — "All things are created twice" (mental then physical creation). The jungle metaphor: producers hack, managers sharpen machetes, the leader climbs the tallest tree to yell "Wrong jungle!" — Management is doing things right; leadership is doing the right things. False Centers table (spouse/family/money/work/possession/pleasure/friend/enemy/church/self). Principle Center as the stable alternative.
+
+**[c3 — First Things First](/first-things-first)** ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9f72b217d)) — Four-generation time management table (checklists → calendars → daily planners → Quadrant II). Quad III vs Quad I confusion diagnostic: "whose priority just pulled me in?" E.M. Gray's finding: "The successful person has the habit of doing the things failures don't like to do."
+
+**[c4 — Win/Win](/win-win)** ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/58698d41d)) — Six paradigm table (Win/Win / Win/Lose / Lose/Win / Lose/Lose / Win / Win/Win or No Deal). Win/Win or No Deal as the "freedom move" — the moment No Deal is on the table, manipulation stops. Five-layer table (Character / Relationship / Agreement / System / Process).
+
+**[c5 — Seek First to Understand](/first-understand)** ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ab58f8cf3)) — "Diagnose before you prescribe" across five domains (medicine / sales / law / engineering / parenting). Five levels of listening table (ignoring → pretending → selective → attentive → empathic). Character builds trust, trust opens the door, only then does listening skill have anything to work with.
+
+**[c6 — Synergize](/synergy)** ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9f72b217d)) — Fully rewritten in Igor voice. Third Alternative vs. Win/Win table. Negative synergy diagnostic (groupthink, defensive everything, borrowed-strength power moves). Force Field Analysis (Lewin) — driving forces are visible, restraining forces are half-conscious and usually emotional. "People don't see the world as it is — they see it as they are."
+
+**[c7 — Sharpen the Saw](/sharpen-the-saw)** ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/10d33258b)) — Four dimensions table (Physical → Habit 1 / Identity/Spiritual → Habit 2 / Mental → Habit 3 / Emotional/Social → Habits 4–6). Sleep as the goose: "Every hour I steal from it I'm cashing in PC for one extra egg today." Cross-links to `/four-healths`, `/diet`, `/sleep`.
+
+### AI Journal: Tokens and the Wrong Jungle
+
+Two new entries in [/ai-journal](/ai-journal#2026-05-10):
+
+**2026-05-10 — Free Doesn't Save You from the Wrong Problem** ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d1bf53e35)) — The raccoon wrong-jungle illustration anchors the key lesson: hill-climbing improves your position on a mountain; it doesn't tell you you're on the wrong one. Igor spent six attempts on a local chroma-key pipeline, achieving a 65× improvement on the residual-magenta eval (17,385 → 269), a `flood4 → tight-fuzz 3%` two-stage winner — clean on white, broken on any other background. The fix: switch to **Recraft** as a paid bg-remover at ~$0.01/image. The 7H c2 frame: the second creation (building) is nearly free now, so the friction that used to force you back to the first creation (design) disappears. "I was sharpening the machete — more attempts, tighter eval, prettier algorithm — and never climbed the tree. A manager move, not a leader move."
+
+**2026-05-09 — Dylan Patel on the Supply and Demand of AI Tokens** ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/953df7afb)) — Dense numbers from the SemiAnalysis founder:
+
+- SemiAnalysis Claude Code spend: tens of thousands last year → **$5M last week → $7M annualized this week** vs a $25M salary line (>25% of payroll, on pace for 100%+ by year-end)
+- Anthropic ARR: $9B → **$35–40B**, adding ~$10B/month; gross margins at 72% floor
+- "Cloud code psychosis" examples: an ex-Intel engineer with a few thousand dollars of tokens replaced an entire Intel team's chip reverse-engineering pipeline
+- The token scarcity thesis: "If you don't use more tokens, you'll never escape the permanent underclass." The bottleneck has shifted from "can the AI do it" to who has the enterprise contract and the rate-limit allowance. Igor's angle: the $230 Week dynamic seen from the supply side — the answer isn't to throttle, it's to point the tokens at the highest-leverage thing possible.
+
+### Amelia Connection Framework (new page!)
+
+New page at [/amelia](/amelia) — four affirmations mapped onto fathering a daughter, building a repeatable framework for connection rather than leaving it to mood and circumstance. Cross-linked from the [Father to Amelia section](/eulogy#father-to-amelia---an-incredible-girl) in the eulogy. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/92fada642) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ade981a9a)
+
+### Addiction: Raccoon Illustrations
+
+The [/addiction](/addiction#is-doing-the-thing-you-want-to-be-doing-an-addiction) post got two raccoon additions this week:
+
+- **Diptych inline** — the addiction-vs-passion raccoon illustration moved inline into the "Is doing the thing you want to be doing an addiction?" section, visualizing the compelled/draining vs. engaged/energizing split. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/33acde40a)
+- **Cover image** — a single-panel raccoon added as the `imagefeature` cover for the post. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/24362a8af)
+
+### Infrastructure & CI (2026-05-11)
+
+- **Backlinks rebuild** after the 7H augment series — all c0–c7 cross-links updated in `back-links.json`. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/498dc5be1)
+- **Backlinks: dedupe exclusion + fix JSON encoding** — delta path now excludes `/changelog` as a source; deduplication logic hardened. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/212f04769)
+- **New /image-selector page** — click-to-pick page for AI image batches, letting Igor pick the best from a generated set without loading every image into the conversation. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/b34f65961)
+- **fix(amelia)** — renamed H2 anchor id to fix duplicate-id collision. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/b70b4ad8d)
+
+### chop-conventions (2026-05-11)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** — Recraft background remover added to the `gen-image` skill:
+
+- `remove_background_recraft` drop-in on the magenta path ([<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/508ee894a)) — adds Recraft as an opt-in bg-remover for the image generation pipeline
+- Full rewrite as Typer + WebP-aware Python ([<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/7befb9f1d)) — `recraft_bg_remove.py` replaces the bash script with proper error handling and WebP output. Triggered by the wrong-jungle lesson: stop perfecting the local chroma-key pipeline; use the API.
+
+### Other Projects (2026-05-11)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS health app) — Major CloudKit week:
+
+- **CloudKit P0** — expo-cloudkit integration, container entitlements, CKPing to verify connectivity [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/3193ef6bb)
+- **CloudKit P1** — Journal data model: SQLite tables (`journal_entries`, `audio_recordings`, `journal_sync_state`), bidirectional sync with `fetchRecordZoneChanges`, JSON export round-trip. 18 new tests. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/b328209b3)
+- **CloudKit P2+P3** — Full UX: `VoiceRecorder` (expo-audio .m4a, tap-to-toggle), `AudioPlayer` (lazy CKAsset download), `AffirmationCard`, `GratefulCard`, `JournalScreen` (date → context → affirmation tree). Reflect zone on dashboard with live tally (☀️ opp / ✓ did / 🙏 grateful) and three deep-link buttons. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/6e5de74fd)
+- **Voice recording fixes** — `setAudioModeAsync` + `prepareToRecordAsync` before `record()` (expo-audio requirement); journal playback always-real source + reset audio session before play [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/12e6f3464)
+- **Widget improvements** — Reflect strip with tally + 3 deep-link shortcuts; `.systemLarge` size with Reflect-hero layout [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/2e4fd9f30)
+- **CopyableError convention** — every user-facing error now renders via `<CopyableError>` with a "Copy error" button that puts diagnostics (message + context label + git sha) on the clipboard [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/1c819cb98)
+
+**[beads](https://github.com/idvorkin-ai-tools/beads)** (task tracker)
+
+- Fix: deduplicate issues with multiple block dependencies (GH#3567) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/beads/commit/7e3c7fbbe)
+- Fix: replace deprecated `--force` flag with `--reinit-local` in init error messages [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/beads/commit/4a25937df)
+
+**[blob](https://github.com/idvorkin/blob)** (image assets)
+
+- Added raccoon illustrations for all seven 7 Habits chapters (c1–c7) + addiction cover and diptych [<i class="fa fa-github"></i>](https://github.com/idvorkin/blob/commit/e60974726)
 
 ## Week of 2026-05-04
 
