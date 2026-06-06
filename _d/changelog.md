@@ -12,6 +12,17 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-06-01](#week-of-2026-06-01)
+  - [The Dark Factory: Three Limits on AI-Run Code (new post!)](#the-dark-factory-three-limits-on-ai-run-code-new-post)
+  - [Made to Stick: Book Notes (new post!)](#made-to-stick-book-notes-new-post)
+  - [Scandinavian Trip Planning (new post!)](#scandinavian-trip-planning-new-post)
+  - [AI Journal: Friction = Focus](#ai-journal-friction--focus)
+  - [Meta Rebrand + AI Lab Move](#meta-rebrand--ai-lab-move)
+  - [Gap Year: Three Dragons Framework](#gap-year-three-dragons-framework)
+  - [Topics Index: Semantic Embeddings for 336 Posts](#topics-index-semantic-embeddings-for-336-posts)
+  - [Infrastructure & CI (2026-06-01)](#infrastructure--ci-2026-06-01)
+  - [chop-conventions (2026-06-01)](#chop-conventions-2026-06-01)
+  - [Other Projects (2026-06-01)](#other-projects-2026-06-01)
 - [Week of 2026-05-18](#week-of-2026-05-18)
   - [What I Love About AI (new post!)](#what-i-love-about-ai-new-post)
   - [Parenting Books: Emotional Lives + Untangled Rewrite](#parenting-books-emotional-lives--untangled-rewrite)
@@ -109,6 +120,79 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-06-01
+
+_26 commits this week_
+
+### The Dark Factory: Three Limits on AI-Run Code (new post!)
+
+New post at [/dark-factory](/dark-factory): a dark factory is a manufacturing plant that runs with the lights off because robots don't need to see — the software version is AI writing, reviewing, and merging code with no human in the implementation loop. Three first-principles limits on how far it can go:
+
+- **Verification** — can you tell whether the output is right? Cheap tests → AI runs hot. Subtle correctness, distributed-systems race conditions, security properties → going dark is dangerous.
+- **Progress** — even with perfect verification, can the AI find a next move that makes things better without breaking something else? Three zones: Easy Zone (empty repo, everything local — "this is where all the demos live"), Complexity Wall (changes stop being local, more attempts per win), Complexity Collapse (every fix surfaces a problem elsewhere, "whack-a-mole against a board with more moles than holes").
+- **Cost** — tokens aren't free; cost-per-fix spikes exactly when progress is already failing. Still the least-understood limit.
+
+The kicker: the dark factory accelerates its own trip to collapse. With no human in the implementation loop, cognitive debt compounds, no one maintains the architectural center, and complexity accretes. Humans own the boundary — oracle at the verification limit, architect at the progress limit, decision-maker at the cost limit. ([blog](/dark-factory)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d2e44ec66)
+
+### Made to Stick: Book Notes (new post!)
+
+New post at [/made-to-stick](/made-to-stick) on the Heath brothers' classic. The villain is the **Curse of Knowledge**: once you know something, you can't remember not knowing it (the tapper/listener experiment — listeners got 2.5% of tapped songs, tappers predicted 50%). The antidote is the SUCCESs framework — Simple (Commander's Intent, "we are THE low-fare airline"), Unexpected (break the guessing machine, then fix it — curiosity is a gap you open before you fill), Concrete (Velcro theory of memory), Credible (Sinatra Test, statistics show relationships not numbers), Emotional (appeal to identity, not just self-interest), Stories (spot don't invent; springboard stories). ([blog](/made-to-stick)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/c48bdad77)
+
+### Scandinavian Trip Planning (new post!)
+
+New post at [/timeoff-2026-07](/timeoff-2026-07): 22 days, 5 countries, 4 Dvorkins — Reykjavík → Copenhagen (with Ammon, who noted "there's not much to see in Copenhagen," confirming 2 days) → Stockholm (ABBA Museum, kayak tour, rune-stone trail) → Oslo (Vigeland, Holmenkollen zipline, fjord hike) → Aurland + Voss via Bergen Railway (one of the world's most scenic train rides) → Bergen → Amsterdam. "The window for 'all four of us on the road together' closes faster than I'd like." ([blog](/timeoff-2026-07)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/da3d3ffa0)
+
+### AI Journal: Friction = Focus
+
+New entry ([2026-05-31](/ai-journal#2026-05-31)) riffing on hmmz.org's "AI is an attention hazard" post: when production gets cheap enough it collapses into consumption — "effortless AI is the case where production stops leaving a trace. Fifty half-built apps leave about as much behind as a thousand hours of TikTok: nothing." The uncomfortable part: Igor is the fifty-projects guy who literally built a multi-agent city. What saves him from the critique: journaling by hand on a Kindle Scribe every morning before any screen — "the slow input is the point; the day's plan gets written, not generated." Two takeaways: mastery still holds (reps build judgment that tokens can't hand you), and essentialism still holds ("when production is free, choosing what's worth producing becomes the whole game"). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a25db3856)
+
+### Meta Rebrand + AI Lab Move
+
+The [/facebook](/facebook) page (now canonically at [/meta](/meta)) got a rename and a new section: in May 2026, Igor got flattened (M→IC) and moved into Meta's AI training org. "Not severance — they kept me, just moved me. Arguably I'm going to a frontier lab, and we're going to figure out how training works, which I'm kind of excited for." The role is very undefined — "Scary. Ambiguous. Chaos. Wonder." His day job now aligns with what he'd been doing on the side: CHOP, vibe coding, AI projects. Bigger sandbox, no manager hat. ([blog](/meta#moving-to-metas-ai-lab-2026)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/da3d3ffa0)
+
+### Gap Year: Three Dragons Framework
+
+The [/gap-year](/gap-year) dragons section was restructured from a list of six fear-personas to the canonical **Three Dragons** framework matching the companion [/gap-year-igor](/gap-year-igor) piece:
+
+- **Scarcity Dragon** — "There will never be enough." Work's biweekly paycheck keeps it sedated; the moment you stop, it wakes up whispering about market crashes and stale skills.
+- **Entropy Dragon** — "Everything tends toward disorder." Work provides free structure; without it, body, sleep, relationships, and skills decay — "it's not paranoid, it's thermodynamics."
+- **Squander Dragon** — "You will waste this precious opportunity." Feeds on fear of having no external metrics ("no performance review, no shipped features") and identity loss ("but I am my job").
+
+The Dragon Spawn taxonomy was moved to an appendix. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4df02023c)
+
+### Topics Index: Semantic Embeddings for 336 Posts
+
+Big infrastructure week for the blog's topics system. Gemini `gemini-embedding-001` (SEMANTIC_SIMILARITY, 1536-dim, L2-normalized cosine kNN) now embeds all 336 published posts, computing `related[]` entries + 675 cross-link gap candidates per post. Content-hash cache re-embeds only changed posts; vector cache stays in gitignored `tmp/`. Also landed: `topics.json` with per-post summary, raw tags, and named entities for all 336 posts; a runbook in `docs/topics-index.md` for the full pipeline; and raw LLM outputs checked in as provenance. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/339e6be64)
+
+### Infrastructure & CI (2026-06-01)
+
+- **justfile Ruby compat shim** — `jekyll-rebuild` and `worktree-init` now load the Ruby 3.1 shim so Jekyll builds don't fail on Ruby 4.x hosts [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/20e6dd37e)
+
+### chop-conventions (2026-06-01)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** (CHOP skills & workflows)
+
+- **gen-image: Flash vs Pro model flag** — `--fast` (default) keeps historical Gemini Flash behavior; `--no-fast` switches to Gemini Pro, more obedient to style directives but slower and more expensive. Plumbs through `GenerateConfig.gemini_model` → `GEMINI_IMAGE_MODEL` env var → `gemini-image.sh`. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/5af4a7a29)
+- **gen-image: background removal cleanup** — ripped the magenta flood-fill path; Recraft is now the only background-removal route. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/182604d0c)
+
+### Other Projects (2026-06-01)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS journaling + GPS app) — a massive week of features:
+
+- Tabbed shell with Body / Move / Mind / Places / Roles tabs [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/54861c5c1)
+- Roles tab: detail sheet, expandable eulogy passages, eulogy song with inline player, bidirectional role↔journal linking, CloudKit sync for role_moments across devices [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/37f96e443)
+- Places map: real Apple Maps tiles, today's actual GPS breadcrumb trail (not centroid-to-centroid lines), emoji pins, find-me + fullscreen controls [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/c7b768c8a)
+- Composer: inline mic + continuous record on "Save & add another" [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/d0cf794c8)
+- Mind tab: recent-24h journal list + Tally→Move + shared entry component [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/c48d01bce)
+- Journaling: inline role tagging + group-by-role toggle [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/c3664c8c6)
+
+**[gascity](https://github.com/idvorkin-ai-tools/gascity)** (AI city runtime) — many hardening fixes:
+
+- Process scanner + sweep orphan runtimes before session start [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gascity/commit/7196b8ce0)
+- Dolt store maintenance loop + CLI (ADR 0002) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gascity/commit/889b28666)
+- order.env per-order env overrides + JSONL spike floor [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gascity/commit/f7a4bf65a)
+- drain-ack pokes controller socket for same-tick respawn [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gascity/commit/c41b28026)
 
 ## Week of 2026-05-18
 
