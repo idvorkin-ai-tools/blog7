@@ -815,7 +815,7 @@
             "incoming_links": [
                 "/ai-developer"
             ],
-            "last_modified": "2026-01-24T16:52:54+00:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai.md",
             "outgoing_links": [
                 "/ai-art",
@@ -849,7 +849,7 @@
                 "/ai-journal",
                 "/ai-training"
             ],
-            "last_modified": "2025-12-06T18:03:02-08:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-art.md",
             "outgoing_links": [
                 "/ai-image",
@@ -870,7 +870,7 @@
                 "/tesla",
                 "/y24"
             ],
-            "last_modified": "2025-12-07T02:26:29+00:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-bestie.md",
             "outgoing_links": [],
             "redirect_url": "",
@@ -884,7 +884,7 @@
             "incoming_links": [
                 "/ai"
             ],
-            "last_modified": "2026-01-25T17:13:56-08:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-business-model.md",
             "outgoing_links": [],
             "redirect_url": "",
@@ -928,7 +928,7 @@
                 "/ai-hiring",
                 "/hill-climbing"
             ],
-            "last_modified": "2026-04-17T02:35:03.046784+00:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-developer.md",
             "outgoing_links": [
                 "/ai",
@@ -953,7 +953,7 @@
                 "/chow",
                 "/gpt"
             ],
-            "last_modified": "2026-01-03T15:08:35+00:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-faq.md",
             "outgoing_links": [
                 "/agency",
@@ -974,7 +974,7 @@
             "incoming_links": [
                 "/ai-second-brain"
             ],
-            "last_modified": "2026-04-03T16:38:20-07:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-feed.md",
             "outgoing_links": [
                 "/agency",
@@ -1011,7 +1011,7 @@
                 "/ai-feed",
                 "/ai-native-manager"
             ],
-            "last_modified": "2026-03-28T09:29:00-07:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-hiring.md",
             "outgoing_links": [
                 "/agency",
@@ -1034,7 +1034,7 @@
                 "/ai-art",
                 "/ai-training"
             ],
-            "last_modified": "2025-12-06T18:03:02-08:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-imagegen.md",
             "outgoing_links": [],
             "redirect_url": "",
@@ -1048,7 +1048,7 @@
             "incoming_links": [
                 "/ai-training"
             ],
-            "last_modified": "2026-06-06T17:19:53.788162+00:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-inference.md",
             "outgoing_links": [
                 "/ai-faq",
@@ -1080,7 +1080,7 @@
                 "/walking-with-god",
                 "/y25"
             ],
-            "last_modified": "2026-05-31T15:16:53-07:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-journal.md",
             "outgoing_links": [
                 "/7-habits",
@@ -1153,7 +1153,7 @@
                 "/explainers",
                 "/pet-projects"
             ],
-            "last_modified": "2026-06-06T17:59:05.226064+00:00",
+            "last_modified": "2026-06-07T10:20:51-07:00",
             "markdown_path": "_d/ai-native-vocab.md",
             "outgoing_links": [
                 "/agency",
@@ -1222,7 +1222,7 @@
                 "/ai-faq",
                 "/ai-training"
             ],
-            "last_modified": "2025-11-25T22:40:07+00:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-paper.md",
             "outgoing_links": [],
             "redirect_url": "",
@@ -1290,7 +1290,7 @@
                 "/ai-faq",
                 "/ai-journal"
             ],
-            "last_modified": "2026-01-03T14:37:34+00:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-security.md",
             "outgoing_links": [
                 "/ai-faq"
@@ -1313,7 +1313,7 @@
                 "/testing",
                 "/timeoff-2024-04"
             ],
-            "last_modified": "2026-04-17T02:34:55.998613+00:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-testing.md",
             "outgoing_links": [
                 "/hill-climbing"
@@ -2096,7 +2096,7 @@
                 "/y25",
                 "/y26"
             ],
-            "last_modified": "2026-04-17T02:34:58.376356+00:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/ai-coder.md",
             "outgoing_links": [
                 "/ai-journal",
@@ -2128,7 +2128,7 @@
                 "/tesla",
                 "/y26"
             ],
-            "last_modified": "2026-06-06T18:28:44.329796+00:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/chow.md",
             "outgoing_links": [
                 "/ai-faq",
@@ -3116,7 +3116,7 @@
         },
         "/eulogy": {
             "description": "Wearing a silly hat or his zany $8 TEMU crazy shirt, his trusty folding bike at his feet, and using a purple fountain pen, Igor “Began with the end in mind” with the “important but not urgent” task of penning this eulogy, likely starting at 5am. Igor wanted this life, so he wrote it, he reviewed it, he lived it, and he worked with his family, friends, and multitude of mentors, to adjust and tweak it.\n\n",
-            "doc_size": 37000,
+            "doc_size": 38000,
             "file_path": "_site/eulogy.html",
             "incoming_links": [
                 "/7-habits",
@@ -3503,7 +3503,7 @@
             "incoming_links": [
                 "/ai-journal"
             ],
-            "last_modified": "2025-12-06T18:03:14-08:00",
+            "last_modified": "2026-06-07T10:19:45-07:00",
             "markdown_path": "_d/genai-talk.md",
             "outgoing_links": [
                 "/ai-testing"
@@ -5480,12 +5480,12 @@
         },
         "/raccoon-history": {
             "description": "Every blog needs a mascot, and mine is a raccoon — specifically, a cute anthropomorphic raccoon wearing rainbow round glasses, a green t-shirt with bold white text, and mismatched Crocs (blue left, yellow right). Here’s the story of how that character evolved from early AI experiments to a cohesive visual brand.\n\n",
-            "doc_size": 27000,
+            "doc_size": 29000,
             "file_path": "_site/raccoon-history.html",
             "incoming_links": [
                 "/ai-optimism"
             ],
-            "last_modified": "2026-05-14T06:41:51-07:00",
+            "last_modified": "2026-06-07T10:29:57-07:00",
             "markdown_path": "_d/raccoon-history.md",
             "outgoing_links": [
                 "/7-habits",
