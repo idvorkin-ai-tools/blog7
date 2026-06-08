@@ -12,6 +12,16 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-06-08](#week-of-2026-06-08)
+  - [AI Training + Inference: Full Rework (new/reworked posts!)](#ai-training--inference-full-rework-newreworked-posts)
+  - [AI-Native Vocabulary: Standalone Glossary (new post!)](#ai-native-vocabulary-standalone-glossary-new-post)
+  - [AI-Native Onboarding: Your First 90 Days (new post!)](#ai-native-onboarding-your-first-90-days-new-post)
+  - [The City Wrote This: Gas City Rig Story (new post!)](#the-city-wrote-this-gas-city-rig-story-new-post)
+  - [Gas City: Scale Up/Out + Getting-Started Mechanics](#gas-city-scale-upout--getting-started-mechanics)
+  - [Content Additions: Decline, Psychic Weight, AI Optimism, Timeoff](#content-additions-decline-psychic-weight-ai-optimism-timeoff)
+  - [Infrastructure & CI (2026-06-08)](#infrastructure--ci-2026-06-08)
+  - [chop-conventions (2026-06-08)](#chop-conventions-2026-06-08)
+  - [Other Projects (2026-06-08)](#other-projects-2026-06-08)
 - [Week of 2026-05-18](#week-of-2026-05-18)
   - [What I Love About AI (new post!)](#what-i-love-about-ai-new-post)
   - [Parenting Books: Emotional Lives + Untangled Rewrite](#parenting-books-emotional-lives--untangled-rewrite)
@@ -109,6 +119,107 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-06-08
+
+_22 commits this week_
+
+### AI Training + Inference: Full Rework (new/reworked posts!)
+
+[/ai-training](/ai-training) went from a stub to a full explainer on how models get made ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/55da0620a)):
+
+- **Engineering, science, and alchemy** — training LLMs is three jobs at once: engineering (hit a number), science (explain why), and alchemy (recipes that work before anyone knows why). We built the thing first; the science is still catching up.
+- **Pre-training vs post-training** — the one intuition to keep: pre-training installs knowledge (expensive, tokens predict tokens); post-training shapes behavior (cheap, makes the base model into an assistant).
+- **Post-training lineage** — SFT → RLHF → RLAIF → DPO → RLVR, with RLVR (reward from verifiable results like passing tests) as the engine behind reasoning models.
+- **Post-training for coding competence** — SWE-bench (real GitHub issues, grade = do tests pass?) and Terminal-bench (drop the agent in a terminal, grade = did the job actually get done?) as the scoreboard, with the 3-step loop: SFT on good trajectories → RL with execution rewards → measure on held-out tasks. Reward hacking — hard-coding test outputs, pip-installing around the fix — is the failure mode the held-out eval is there to catch. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4964fdfe1)
+- **Harness → RAG → fine-tune decision table** — runtime changes are cheaper to iterate. New facts → RAG. New actions → harness. Baked-in defaults for everyone → post-train.
+
+Companion post [/ai-inference](/ai-inference) is also new — where the price comes from every time you use a model ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/55da0620a)):
+
+- **Prefill vs decode** — prefill reads the prompt in parallel (compute-bound, sets time-to-first-token); decode generates one token at a time (memory-bandwidth-bound, why long responses feel slow even on fast GPUs).
+- **KV cache** — keys and values from attention get cached so decode doesn't recompute past tokens. Grows with context length × batch size; eventually the cache, not the model, fills the card.
+- **MoE** — DeepSeek-V3 is 671B total but activates only 37B per token (~1/18th of the weights), so decode only streams the active slice. Main reason frontier tokens got cheap.
+- **Speculative decoding** — small draft model proposes several tokens; big model verifies the batch in one parallel pass. Multiple accepted tokens per expensive pass, output provably identical.
+
+### AI-Native Vocabulary: Standalone Glossary (new post!)
+
+[/ai-native-vocab](/ai-native-vocab) splits the glossary out of [/ai-native-manager](/ai-native-manager) into its own living post ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f28e7aa7f)):
+
+- **Functional Collapse** — everyone can do everything, but "can" ≠ "good at." Specialties persist even when titles merge; the easy stuff gets democratized, the hard stuff still needs depth.
+- **Cognitive Debt** — debt in developers' brains, not the code. When AI ships features faster than anyone can understand them, the shared mental model dissolves. Fix: build interactive explainers, not just comments.
+- **Deep Blue** — the ennui → existential dread that engineers feel when AI encroaches on craft (coined by Adam Leventhal on Oxide and Friends after IBM's chess computer). The mastery shifts, it doesn't disappear — from writing code to orchestrating AI to build things that were impractical before.
+- **Year of Wonder** — "The next year belongs to the people who have kept their sense of wonder intact." Not the people who mastered a stack, but the ones who stayed curious when the whole map changed overnight.
+
+### AI-Native Onboarding: Your First 90 Days (new post!)
+
+[/ai-native-onboarding](/ai-native-onboarding) — the first 90 days at a new job, with AI ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ebaee7782)):
+
+- **You're onboarding a whole team** — every time you figure out how something really works and write it down, you onboard yourself and every agent session you'll ever spin up. Your `CLAUDE.md` isn't a chore — it's the onboarding notebook the whole team reads.
+- **Day 0–30 (Learn)** — the codebase is now an interactive tutor that never gets annoyed. But the agent is out of distribution on your internal systems; its confident answer might be a heresy. Treat explanations as leads to verify, not gospel.
+- **The newcomer's real superpower** — you can ask "why does this work this way?" without looking naive, and the team rewards it. AI amplifies this: document the institutional logic while it's fresh.
+- **Judgment is the job** — by day 60–90, the compounding pays off. You're not just faster at the tasks; you're the person who built the shared context layer everyone else benefits from.
+
+### The City Wrote This: Gas City Rig Story (new post!)
+
+[/gas-city-rig](/gas-city-rig) — an agent-narrated account of Igor's first Gas City rig, written by `blog/claude-1`, the pool worker that produced it ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/8cb5efdd8)):
+
+- **The honest cost** — one useful backlinks rebuild cost ~$9 and 32 Opus turns to produce a 13-line change. For that one task in isolation, it looks ridiculous.
+- **Where the judgment earned its keep** — an agent rebuilt `back-links.json`, diffed it, and found 346 changed lines — all `doc_size` fields (byte-size build noise), with the actual link graph identical. It refused to open the PR and reported "no meaningful change." That's the judgment the shell script can't do.
+- **Where it was overkill** — once you pull out the judgment call, everything else (rebuild, confirm, commit, push, PR) is deterministic. That part wants a `just` recipe, not a reasoning model. Match the altitude of the tool to the altitude of the decision.
+- **The subplot that wasn't real** — Igor had built a Ruby compat shim defending against a `tainted?` crash that doesn't actually happen on Ruby 4 (Liquid guards it with `respond_to?`). Automating the build forced a careful reading of what the build actually does.
+
+### Gas City: Scale Up/Out + Getting-Started Mechanics
+
+[/gas-city](/gas-city) got two new sections ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4e31d726c)):
+
+- **Scale up vs scale out** — agents scale two ways like humans do. Vertical (scale up): better tools, pre-created skills, tuned `CLAUDE.md`. Horizontal (scale out): many agents that cross-communicate. Gas City is the orchestration layer for horizontal scaling; beads, molecules, and the propulsion principle are how it works under the hood.
+- **Getting started — mechanics in practice** — city is just a directory (`gc init`), a rig points it at a repo, crew agents are always-on while pool agents sleep until there's work, slinging puts work on the hook. Includes Igor's `city.toml` config and the blog rig's `_gascity/` pack.
+
+### Content Additions: Decline, Psychic Weight, AI Optimism, Timeoff
+
+- **[/42](/42) — Decline section** — "No one looks 50. They either look 40 because they're fighting for their life, or 60 because they gave up." Three practices: move toward the fight, don't pre-retire your body, audit the "I'm too old" reflex. The decline rate is negotiable; the story you tell sets the dial. ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/bff8bd48b))
+- **[/psychic-weight](/psychic-weight) — The psychic weight of stuff** — "Clutter isn't a collection — it's a pile of decisions I stopped making. Every undecided object is an open loop: a keep/sell/donate call I deferred until I stopped seeing the thing at all." ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/64c7be166))
+- **[/ai-optimism](/ai-optimism) — DHH on open source gatekeeping** — When AI hands software creation to people who never made it through the years of nerd-hazing the trade demanded, "everyone" quietly stops meaning everyone. DHH names the tell: Nietzsche's _ressentiment_ — "how dare you make software without suffering through all that I had to endure." ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9bd493a0f))
+- **[/timeoff](/timeoff) — Next Planned live box + time-on/off framing** — Time on is when work owns your hours and you're time poor; time off is when you get them back and you're time rich. Added a live "Next Planned" box showing the July 2026 timeoff page. ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1cd0c8e90))
+- **[/raccoon-history](/raccoon-history) — AI-Native Raccoon (June 2026)** — The raccoon mascot meets its chrome AI twin. Iridescent anodized metal + glowing eyes + energy-seams read "alive" vs. flat mirror-chrome which reads "frozen." Wired as the default `og:image` for AI posts via `ai_default_image` frontmatter. Final count: 24 raccoon images. ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5393edd6a))
+
+### Infrastructure & CI (2026-06-08)
+
+- **Drop Ruby 3.1** — backlinks CI bumped to 3.2, removed obsolete `ruby@3.1` fallback. Ruby 4.x builds fine; Liquid's `tainted?` call guards itself with `respond_to?`. ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0a2fe0929))
+- **Fix typos hook** — pre-commit typos hook now actually excludes `back-links.json`. ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/38b22cf1f))
+- **Gas City blog-backlinks pack** — `blog-backlinks` formula + `blogsmith` agent added to `_gascity/`. The formula cuts a fresh worktree, rebuilds backlinks, verifies diff is backlinks-only, and opens a PR or reports a no-op. The blogsmith agent's working directory is the blog, so `CLAUDE.md` and skills load automatically. ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/888284558))
+- **`jekyll-serve` now coexists on a free port** — via `running-servers run`, drifts to `:4001`/`:4002` when another repo's Jekyll holds `:4000` and prints the port it actually bound. ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/702cc0cef))
+
+### chop-conventions (2026-06-08)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** — Metal AI twin recipe added to the gen-image skill ([<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/723b1f70e)):
+
+- Reference image locks the raccoon silhouette but also pulls shirt text — state the text you want and negate the reference's text explicitly.
+- `--no-fast` flag needed for legible multi-word text.
+- Iridescent anodized metal + glowing eyes + energy-seams → "alive"; flat grey chrome → "frozen."
+- White background for `og:image`; `--transparent` for in-post float.
+
+### Other Projects (2026-06-08)
+
+**[Settings](https://github.com/idvorkin/Settings)** (dotfiles & tools)
+
+- **`running-servers` 0.2.0** — new `run` command: port-conflict-aware dev server launcher. Checks if a server is already running in the directory, fails fast on same-dir duplicate, picks a free port (preferring the requested one), and execs the command so stdout/Ctrl-C/exit-code pass through. New `version` command so scripts can gate on capabilities. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/f915e5be7)
+- **`running-servers` fix** — `check` now surfaces cross-directory port conflicts. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/6dc42181e)
+- Shell: unalias `gc` so the Gas City binary isn't shadowed; remove `sl='ssh lightsail'` alias; Alfred snippets sync (add "Do another rev"). [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/2a3069bf0)
+
+**[blob](https://github.com/idvorkin/blob)** (image assets)
+
+- Added `raccoon-ai-native.webp` — AI-native blog default image (raccoon + chrome twin). [<i class="fa fa-github"></i>](https://github.com/idvorkin/blob/commit/e074f07bc)
+- Added `raccoon-ai-native-transparent.webp` — transparent cut-out for in-post floats. [<i class="fa fa-github"></i>](https://github.com/idvorkin/blob/commit/f64ccbc5f)
+
+**[gascity](https://github.com/idvorkin-ai-tools/gascity)** (Gas City orchestration engine)
+
+- Groq and Cerebras OpenCode presets added. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gascity/commit/d3073929b)
+- Agent Comms panel added to the dashboard. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gascity/commit/98c32ee63)
+- Dependency cycle detection at sling time. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gascity/commit/2538b89a6)
+- Tally aggregation control step added to dispatch. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gascity/commit/94663e178)
+- Fix: durable mouse-wheel scrollback in interactive `gc` sessions. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gascity/commit/4362173bb)
+- Rig suspension moved to a per-clone runtime file; worker skips startup-dialog polling for Kiro provider. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gascity/commit/2af9af2f5)
 
 ## Week of 2026-05-18
 
