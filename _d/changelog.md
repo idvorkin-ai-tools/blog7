@@ -12,6 +12,13 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-06-15](#week-of-2026-06-15)
+  - [Why Gas City? (new post!)](#why-gas-city-new-post)
+  - [Gas City Architecture: Controllers and Runtime Providers](#gas-city-architecture-controllers-and-runtime-providers)
+  - [AI Native Vocabulary: Reverse Centaur](#ai-native-vocabulary-reverse-centaur)
+  - [AI Journal: API Key Was Public for a Year](#ai-journal-api-key-was-public-for-a-year)
+  - [Infrastructure & CI (2026-06-15)](#infrastructure--ci-2026-06-15)
+  - [Other Projects (2026-06-15)](#other-projects-2026-06-15)
 - [Week of 2026-06-08](#week-of-2026-06-08)
   - [AI Training & Inference (new posts!)](#ai-training--inference-new-posts)
   - [Gas City First Rig (new post!)](#gas-city-first-rig-new-post)
@@ -118,6 +125,65 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-06-15
+
+_~40 commits this week_
+
+### Why Gas City? (new post!)
+
+**[/why-gas-city](/why-gas-city)** — new hub post: "Orchestration, Not a Smarter Prompt." Answers the question of why you'd run a Gas City at all when you already have CLAUDE.md and the most expensive model available. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/b0b24e3cb) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5432106e1)
+
+The post is organized around the four-rung ladder nobody starts at the top of:
+
+1. **Just Claude** — one session, one agent. State lives in the chat scroll and evaporates when the tab closes.
+2. **Claude + CLAUDE.md** — better context, but one agent, one opinion, serial. CLAUDE.md shapes how the agent thinks; it doesn't track what you _did_ yesterday.
+3. **Multiple agents** — throughput up, new problem: you're air-traffic control with no radar. Which one finished? Which one's stuck?
+4. **Gas City** — rung four with coordination built in. Work is durable, queryable, and survives any single agent dying.
+
+The core distinction: `CLAUDE.md` is **context** (the briefing one agent reads on the way in, then evaporates); Gas City is **work orchestration** (the durable record of what needs doing, what's blocked on what, and what already happened). They compose: a Gas City polecat boots inside the blog repo, automatically picking up the blog's own CLAUDE.md. The city told it _what_ to work on; CLAUDE.md told it _how_.
+
+"Won't the providers just build this in?" — they're already trying, but a city keeps model choice, harness ownership, and steering as _inputs_ you control, not a black box you're coaxing. The when-it's-worth-it section is honest: one run cost $9 and 32 Opus turns for a 13-line change. The rule: **match tool altitude to decision altitude**. Orchestration earns its keep for plural, judgment-heavy work. For a single deterministic task, a city is overkill.
+
+### Gas City Architecture: Controllers and Runtime Providers
+
+**[/gas-city](/gas-city)** augmented with two architecture concepts not in the original post: [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/db4f8d310) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/b10487475)
+
+- **Controller loop** (convergence): something must keep agents running — start what should be up, restart what died, notice when reality drifted from the plan. The controller holds two pictures: _desired_ state (computed from config and open beads) vs. _actual_ state (what the runtime is doing). Its whole job is closing the gap. Same idea as Kubernetes convergence: declare the end state, let a loop drive toward it in bounded steps instead of one fragile big-bang deploy. This reframed the idle-polecat bug: not just a GUPP violation but a convergence gap — the controller believed it had hit desired state, but a stalled worker was invisible to the loop.
+- **Runtime provider**: the `provider` block in `city.toml` is a swappable backend. Same city definition could target local subprocesses, tmux sessions, or Kubernetes pods by changing one block. Work shape (agents, rigs, formulas) is portable; the substrate is a deployment detail.
+- Added **DeepWiki overview link** near the top — auto-generated machine-eye tour of the whole system.
+
+### AI Native Vocabulary: Reverse Centaur
+
+**[/ai-native-vocab](/ai-native-vocab)** — new entry added: **Reverse Centaur**. ([blog](/ai-native-vocab#reverse-centaur)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a8e403033) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5cd66c062)
+
+A centaur is human-assisted-by-machine: human judgment as the head, machine horsepower as the body. A reverse centaur flips the anatomy: the AI is the head but has no hands, so it wears a human as its body — the person becomes the appendage, doing the parts the machine can't reach, at the machine's pace. Cory Doctorow's example: the Amazon delivery driver hemmed in by in-cab AI cameras, a living peripheral for a van that can't carry a parcel to the porch on its own. Whether it's dystopian or merely efficient comes down to who's holding the reins.
+
+### AI Journal: API Key Was Public for a Year
+
+New entry 2026-06-13: **"My API Key Was Public for a Year."** ([blog](/ai-journal#my-api-key-was-public-for-a-year)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/076ce4330)
+
+A live Anthropic API key sat in a public GitHub repo for ~12 months. An auto-capture hook committed a code-review session log — `ps`/env dump and all — directly to a tracked public repo. The agent did the forensic grind: found the key in `idvorkin/Settings` in a 2025-05-26 commit, proved it was live (`GET /v1/models` → `200`), diffed every secret against a full year of public git history, found a second AssemblyAI key in the same commit, confirmed everything else clean. Revoked the key; re-probed → `401`. The uncomfortable parts: the key was never even needed (Max subscription silently pre-empted by inherited API key forcing per-token billing), and the auto-capture pipeline had no secret filter — an unscoped firehose into public for a year. Honest conclusion: assume it was already harvested.
+
+### Infrastructure & CI (2026-06-15)
+
+- **Gas City blog formulas — `ai-journal-new` and `ai-journal-revise`**: two new formulas automating the AI journal workflow. `ai-journal-new` rebuilds `back-links.json` as part of the entry creation flow. `ai-journal-revise` enumerates open PR review threads via GraphQL and gates on a verify-addressed check before closing; carries a tracking-bead ID in the PR description. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5a3b600a6) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/841df28a5) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2ee054976) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1f9144b74)
+- **Backlinks rebuild perf**: `jekyll-build` is now a dep of `update-backlinks` — drops from a full clean rebuild to a cache-reusing incremental build (~5s). Formula calls one command instead of two. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/22f5a4f51) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a390aca0f)
+
+### Other Projects (2026-06-15)
+
+**[Settings](https://github.com/idvorkin/Settings)** (dotfiles & tools)
+
+- **Security**: redacted leaked API keys from chop-log env dump — auto-capture transcripts no longer include raw environment variables. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/fd4145142)
+- **`y` service manager**: prefer `kickstart` over `bootstrap` for start; fix reset/start/stop via launchctl; fix cycle crashing instead of stopping. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/f28cefdd4) [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/5f64fc1b1) [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/e13b54306)
+- **`agent-continue`**: fix macOS support (no `/proc` filesystem on macOS). [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/8c05a21bd)
+- **`amazon2monarch`**: zero-cost filter, comma-formatted amounts, Tags column, correct exit code. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/b110d4c95)
+- **`alfred` / `a`**: fix `a` going to wrong workspace (w4 → w3); Alfred JSON no longer corrupted by rich print emitting underscored command names. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/9540030ed)
+- **`gmail_reader`**: stop swallowing `typer.Exit` and refresh errors. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/b5f1f4c45)
+- **`brew_check`**: don't crash when brew is not installed. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/a2c178c56)
+- **`tmux_helper`**: scope session pane listing to the session, not the server. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/50a53ba64)
+- **`vim_python`**: include `_td/` posts in RandomBlogPost candidates. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/488066790)
+- **`install_packages`**: add editable install of local `idvorkin_scripts`. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/ed25b0a84)
 
 ## Week of 2026-06-08
 
