@@ -12,6 +12,11 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-06-22](#week-of-2026-06-22)
+  - [AI Security Explainer Maps (new sites!)](#ai-security-explainer-maps-new-sites)
+  - [AI Operator: Review More Than You Make](#ai-operator-review-more-than-you-make)
+  - [Addiction: Passion Monoculture Trap](#addiction-passion-monoculture-trap)
+  - [Other Projects (2026-06-22)](#other-projects-2026-06-22)
 - [Week of 2026-06-08](#week-of-2026-06-08)
   - [AI Training & Inference (new posts!)](#ai-training--inference-new-posts)
   - [Gas City First Rig (new post!)](#gas-city-first-rig-new-post)
@@ -118,6 +123,35 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-06-22
+
+_12 commits this week_
+
+### AI Security Explainer Maps (new sites!)
+
+Two new standalone explainer sites shipped this week — field maps for people entering the adversarial AI space:
+
+- **[red-teaming-ramp-up](https://idvorkin-ai-tools.github.io/red-teaming-ramp-up/)** [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/red-teaming-ramp-up) — a self-contained guide for security professionals crossing into AI red teaming. Covers how adversarial elicitation differs from a pentest, OWASP LLM Top 10 (2025), the canonical papers, treating findings as numbers, the taxonomies that structure real programs, hands-on tooling, where the work and the money are, and a sequenced 90-day ramp-up plan. Multiple deep-dive explainer pages added: risks, benchmarks & tools, scaling-laws foundations (Kaplan 2020 + Chinchilla 2022). [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/red-teaming-ramp-up/commit/82d8efc76) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/red-teaming-ramp-up/commit/08d4f0327) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/red-teaming-ramp-up/commit/05bbb4a7b)
+- **[ai-safety-field-map](https://idvorkin-ai-tools.github.io/ai-safety-field-map/)** [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/ai-safety-field-map) — a companion field map for the safety side: failure modes, alignment canon, interpretability, evals, and governance. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/ai-safety-field-map/commit/cf9d95fd9)
+
+**[/ai-security](/ai-security)** updated to surface both: consolidated the inline pointers under Attack Vectors and AI Safety/Ethics into a single info alert at the top of the page, so the two maps are visible immediately. ([blog](/ai-security)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/13322b044) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/c67946120)
+
+### AI Operator: Review More Than You Make
+
+**[/ai-operator](/ai-operator)** — new section: **"You Review More Than You Make."** ([blog](/ai-operator#you-review-more-than-you-make)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1ed270b70)
+
+The core argument: reacting to a draft costs far fewer thinking tokens than making one from scratch. Staring at a blank page and conjuring the thing is the expensive part; looking at something already on the page and saying "yes, no, this bit's wrong" is cheap — editors aren't as tired as writers for a reason. So let the AI make first. A generated draft hands you more inspiration than it costs to read: it sparks the idea you didn't have, shows you the shape of the thing, and gives your judgment something to push against instead of nothing. The draft being cheap matters in a second way: it's obvious which parts are throwaway — when every line is precious you polish all of them, spending the same scarce attention on boilerplate and the load-bearing bit alike.
+
+### Addiction: Passion Monoculture Trap
+
+**[/addiction](/addiction)** — new subsection: **"Don't narrow to one passion (the monoculture trap)."** ([blog](/addiction#dont-narrow-to-one-passion-the-monoculture-trap)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d090befd7)
+
+The risk of narrowing down to one dominant passion: the others atrophy from neglect, and when the dominant one breaks (and they break), there's nothing left to carry you. The fix is a portfolio of passions kept alive at lower intensity — not all equally prioritized at once, but maintained enough that any given one can carry weight when another is down.
+
+### Other Projects (2026-06-22)
+
+- **[scandinavia-2026](https://github.com/idvorkin-ai-tools/scandinavia-2026)** — new repo, initial commit. Travel planning scaffolding for Scandinavia 2026. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/scandinavia-2026/commit/e55416ba9)
 
 ## Week of 2026-06-08
 
