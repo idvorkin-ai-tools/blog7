@@ -12,6 +12,10 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-07-06](#week-of-2026-07-06)
+  - [Bad News. Maybe Not. (new post!)](#bad-news-maybe-not-new-post)
+  - [Life Journal: Happy Fluff](#life-journal-happy-fluff)
+  - [Time Off & Four Healths: Quick Updates](#time-off--four-healths-quick-updates)
 - [Week of 2026-06-22](#week-of-2026-06-22)
   - [AI Journal: Yegge's Flat Curve Society](#ai-journal-yegges-flat-curve-society)
   - [AI Operator: You Review More Than You Make](#ai-operator-you-review-more-than-you-make)
@@ -131,6 +135,37 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-07-06
+
+_11 commits this week_
+
+### Bad News. Maybe Not. (new post!)
+
+**[/maybe](/maybe)** — new post built around the Taoist farmer parable ("Good luck, bad luck — who knows?"). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e355c3979)
+
+Five personal examples where what looked like bad luck turned out good:
+
+- **The latex allergy** — forced balloon-twisting in leather gloves, which turned out to twist quieter than bare hands.
+- **The shoulder** — a Turkish get-up injury forced a full kettlebell form rebuild; now every rep is dialed in.
+- **The second phone** — air-gapping work devices meant carrying two phones, which turned into a spare for Amelia when hers dies or she forgets it.
+- **Amazon** — a bad team fit and a rough review lit a fire that led to offers from Facebook, Google, Zillow, and Indeed — and a six-year Facebook career.
+- **Mental breakdown in my thirties** — the worst stretch pushed him to treat sleep as sacred and build the [emotional-health habits](/emotional-health), the [7 Habits](/7h-concepts), and the [eulogy](/eulogy) he now runs his life on.
+
+Closing line: "I still panic first, but I've been wrong so many times about which turns were good and which were bad that I wish I could remember you never can tell." P.S. adds the reverse is just as true — "this too shall pass" cuts both ways.
+
+### Life Journal: Happy Fluff
+
+**[/life-journal#happy-fluff](/life-journal#happy-fluff)** — new 2026-07-01 entry. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/90a696255)
+
+Spotted a tub labeled **HAPPY FLUFF** on a café shelf: "nearly weightless, no nutritional value, but brings people joy anyway." Ties directly to the [Dealer of Smiles and Wonder](/eulogy) eulogy role — leave a little happy fluff in every room, walk away smiling.
+
+### Time Off & Four Healths: Quick Updates
+
+Two small but sharp edits this week:
+
+- **[/time_off#vegetation](/time_off#vegetation)** — the work-stress "drain" period used to take a solid week; now, "these days I can do it in about a day." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/42f6af25f)
+- **[/four-healths#physical-health-your-energy-foundation](/four-healths#physical-health-your-energy-foundation)** — new aphorism in the Physical section: "A healthy person has a thousand wishes; a sick person has only one." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/46cc4d30a)
 
 ## Week of 2026-06-22
 
