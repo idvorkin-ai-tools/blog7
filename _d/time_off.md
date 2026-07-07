@@ -367,6 +367,8 @@ Ensure I don't run out of terzepatide during trips/time off. Plan refills ahead 
 
 #### Packing Checklist
 
+The full, durable version lives in my [packing master list](/packing) — every trip is trimmed from it. The quick summary:
+
 - Tech: chargers, power bank, travel router, Insta360 + mounts, extra SD cards
 - Fitness: kettlebells, heavy club, bands, peanut ball, foam roller, gripper
 - Diet: popcorn popper, instant soup, travel scale, cooler (if road trip)
