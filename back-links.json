@@ -699,7 +699,6 @@
                 "/productive",
                 "/psychic-shadows",
                 "/psychic-weight",
-                "/timeoff",
                 "/vibing",
                 "/walking-with-god"
             ],
@@ -2018,10 +2017,12 @@
             "doc_size": 228000,
             "file_path": "_site/changelog.html",
             "incoming_links": [],
-            "last_modified": "2026-07-07T12:09:40.505435+00:00",
+            "last_modified": "2026-07-07T13:05:01.988538+00:00",
             "markdown_path": "_d/changelog.md",
             "outgoing_links": [
                 "/42",
+                "/7h-c0",
+                "/7h-c7",
                 "/7h-concepts",
                 "/act",
                 "/activation",
@@ -2081,6 +2082,7 @@
                 "/spiritual-health",
                 "/synergy",
                 "/taxes",
+                "/time-off",
                 "/timeoff",
                 "/timeoff-2026-07",
                 "/trusts",
@@ -2089,7 +2091,8 @@
                 "/wally",
                 "/why-gas-city",
                 "/win-win",
-                "/y26"
+                "/work-gastown",
+                "/y2026"
             ],
             "redirect_url": "",
             "title": "Changelog",
@@ -2594,7 +2597,6 @@
                 "/activation",
                 "/d/resistance",
                 "/energy-abundance",
-                "/four-healths",
                 "/hobby",
                 "/idle",
                 "/life-as-business",
@@ -2649,8 +2651,7 @@
                 "/productive",
                 "/psychic-shadows",
                 "/psychic-weight",
-                "/slow",
-                "/timeoff"
+                "/slow"
             ],
             "last_modified": "2024-10-05T21:35:59-07:00",
             "markdown_path": "_d/resistance.md",
@@ -3172,7 +3173,6 @@
                 "/overload",
                 "/parkinson",
                 "/partner-trouble",
-                "/timeoff",
                 "/timeoff-2022-07",
                 "/walking-with-god"
             ],
@@ -3402,14 +3402,14 @@
                 "/timeoff",
                 "/timeoff-2026-07"
             ],
-            "last_modified": "2026-07-03T12:06:45-07:00",
+            "last_modified": "2026-07-07T13:05:01.988538+00:00",
             "markdown_path": "_d/four-healths.md",
             "outgoing_links": [
                 "/7-habits",
                 "/affirmations",
-                "/d/habits",
                 "/emotional-health",
                 "/eulogy",
+                "/habits",
                 "/last-year",
                 "/new-skills",
                 "/operating-manual",
@@ -4260,7 +4260,6 @@
                 "/gap-year-igor",
                 "/physical-health",
                 "/shoulder-pain",
-                "/timeoff",
                 "/untangled",
                 "/y24"
             ],
@@ -4424,7 +4423,7 @@
                 "/larry",
                 "/timeoff-2026-07"
             ],
-            "last_modified": "2026-07-07T10:50:02+00:00",
+            "last_modified": "2026-07-07T13:05:01.988538+00:00",
             "markdown_path": "_d/life-journal.md",
             "outgoing_links": [
                 "/ai-operator",
@@ -4621,7 +4620,7 @@
             "doc_size": 17000,
             "file_path": "_site/maybe.html",
             "incoming_links": [],
-            "last_modified": "2026-07-06T23:30:18-07:00",
+            "last_modified": "2026-07-07T13:05:01.988538+00:00",
             "markdown_path": "_d/maybe.md",
             "outgoing_links": [
                 "/7h-concepts",
@@ -5198,10 +5197,11 @@
                 "/timeoff",
                 "/timeoff-2026-07"
             ],
-            "last_modified": "2026-07-07T05:13:07-07:00",
+            "last_modified": "2026-07-07T13:05:01.988538+00:00",
             "markdown_path": "_d/packing.md",
             "outgoing_links": [
                 "/ai-policy",
+                "/time-off",
                 "/timeoff"
             ],
             "redirect_url": "",
@@ -5492,10 +5492,11 @@
                 "/slow",
                 "/timeoff-2026-07"
             ],
-            "last_modified": "2026-07-07T02:18:48-07:00",
+            "last_modified": "2026-07-07T13:05:01.988538+00:00",
             "markdown_path": "_d/produce-consume.md",
             "outgoing_links": [
                 "/activation",
+                "/activation-energy",
                 "/addiction"
             ],
             "redirect_url": "",
@@ -6833,7 +6834,7 @@
                 "/timeoff-2024-04",
                 "/voices"
             ],
-            "last_modified": "2026-07-07T05:02:30-07:00",
+            "last_modified": "2026-07-07T13:05:01.988538+00:00",
             "markdown_path": "_d/terzepatide.md",
             "outgoing_links": [],
             "redirect_url": "",
@@ -6955,29 +6956,28 @@
                 "/timeoff-2023-08",
                 "/timeoff-2023-11",
                 "/timeoff-2024-08",
-                "/timeoff-2025-08",
-                "/timeoff-2026-07"
+                "/timeoff-2025-08"
             ],
-            "last_modified": "2026-07-07T04:37:10-07:00",
+            "last_modified": "2026-07-07T13:05:01.988538+00:00",
             "markdown_path": "_d/time_off.md",
             "outgoing_links": [
-                "/addiction",
+                "/addictions",
                 "/balloon",
-                "/d/resistance",
                 "/diet",
                 "/energy",
-                "/essentialism",
+                "/essential",
                 "/eulogy",
                 "/four-healths",
                 "/frog",
                 "/gap-year",
                 "/gap-year-igor",
                 "/happy",
-                "/kettlebell",
+                "/kettlebells",
                 "/magic",
                 "/mind-at-work",
                 "/packing",
                 "/parkinson",
+                "/resistance",
                 "/siy",
                 "/timeoff-2020-03",
                 "/timeoff-2024-02",
@@ -7271,7 +7271,7 @@
                 "/timeoff",
                 "/y26"
             ],
-            "last_modified": "2026-07-07T12:17:51+02:00",
+            "last_modified": "2026-07-07T13:05:01.988538+00:00",
             "markdown_path": "_d/time-off-2026-07.md",
             "outgoing_links": [
                 "/ai-policy",
@@ -7284,7 +7284,7 @@
                 "/mind-at-work",
                 "/packing",
                 "/produce-consume",
-                "/timeoff",
+                "/time-off",
                 "/y26"
             ],
             "redirect_url": "",
