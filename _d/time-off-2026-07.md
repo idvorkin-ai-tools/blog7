@@ -75,6 +75,14 @@ Sunday we ducked into a Greek Orthodox church, and Zach got a blessing from the 
 
 Confession: on the six-hour train from Stockholm to Oslo I went on a bit of a tech bender. The kids watched TV; I sat there and banged out the whole trip site — the city deep-dives, the maps, the war pack, all of it — and logged the blitz in my [changelog](/changelog#week-of-2026-07-06). Six hours of what I'd call super blogging time, and honestly I quite enjoyed it. At least it was [building, not scrolling](/produce-consume#the-production-advantage).
 
+### 🎭 Oslo
+
+We spent a morning in Grünerløkka, the café-and-vintage part of town — coffee, record bins, the kids picking through secondhand racks. The new Deichman library in Bjørvika stopped me cold: floors of light with kids sprawled reading everywhere, a public building that actually wants you to stay. We took a boat out on the Oslofjord, walked under the Barcode towers — a row of skinny high-rises that each look like a different building pretending to share one block — and finished on the roof of the Opera House, where the white marble slopes straight down into the water. You just walk up it and back down to the fjord. No railing, no gate, no reason not to.
+
+### 🏔️ The fjords
+
+Two nights in Aurland, right down in the middle of fjord country. The Aurland-to-Voss drive is the thing I'll remember longest from the whole trip — walls of rock straight up out of the water, waterfalls off the top of them, a scale so far past normal that it shut the whole car up. I've seen a lot of mountains. This one flattened me.
+
 ### 🤔 Unexpected realizations
 
 Before the trip I moved my social apps onto my [work phone](/maybe#the-second-phone) — but LinkedIn stayed on my main phone the whole way. And all trip my thumb kept opening it on autopilot. Why do I keep checking that? What do I think I'm going to find? It was right there, so I kept finding it.
