@@ -12,6 +12,15 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-07-13](#week-of-2026-07-13)
+  - [Pleasure vs Enjoyment: A Cross-Post Thread (2026-07-13)](#pleasure-vs-enjoyment-a-cross-post-thread-2026-07-13)
+  - [Daily Journaling: The Hyperlinked Scribe Template (rewrite!)](#daily-journaling-the-hyperlinked-scribe-template-rewrite)
+  - [Scandinavia Trip: How It's Actually Going (2026-07-13)](#scandinavia-trip-how-its-actually-going-2026-07-13)
+  - [Time Off & Diet: Restaurant Learnings + Housekeeping (2026-07-13)](#time-off--diet-restaurant-learnings--housekeeping-2026-07-13)
+  - [Physical Pain: Isometrics for Tendon Health](#physical-pain-isometrics-for-tendon-health)
+  - [Infrastructure & CI (2026-07-13)](#infrastructure--ci-2026-07-13)
+  - [chop-conventions (2026-07-13)](#chop-conventions-2026-07-13)
+  - [Other Projects (2026-07-13)](#other-projects-2026-07-13)
 - [Week of 2026-07-06](#week-of-2026-07-06)
   - [Bad News. Maybe Not. (new post!)](#bad-news-maybe-not-new-post)
   - [Time Off: Sacrifice Identity for Consumption (2026-07-06)](#time-off-sacrifice-identity-for-consumption-2026-07-06)
@@ -143,6 +152,69 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-07-13
+
+_20 commits this week_
+
+### Pleasure vs Enjoyment: A Cross-Post Thread (2026-07-13)
+
+Arthur Brooks' **Enjoyment = Pleasure + People + Memory** formula got threaded through three posts this week:
+
+- **[/build-life-you-want#pleasure-vs-enjoyment](/build-life-you-want#pleasure-vs-enjoyment)** — a big expansion sourced from Brooks' Atlantic column ("Enjoyment takes the source of pleasure and adds two things: people and memory") and his Tim Ferriss appearance ("if your goal is pleasure, you don't arrive at happiness—you wind up in rehab"). New Memory deep-dive: be present, make it novel, make it an occasion, capture a little on purpose, engineer the peak and the ending ([Kahneman's peak-end rule](/balance#peak-end-rule-and-moments)), retell it. Honest caveats included: the "old limbic vs. prefrontal brain" split is a heuristic, not neuroanatomy, and the distinction predates Brooks (Csíkszentmihályi's _Flow_, 1990). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2bae59602)
+- **[/produce-consume#you-dont-have-to-quit-consuming--upgrade-it](/produce-consume#you-dont-have-to-quit-consuming--upgrade-it)** — a new redemptive-turn section: you don't have to quit consuming to escape the dopamine treadmill, just add what pleasure is missing. The tell: "solitary and memoryless is pleasure — the trap. Shared and remembered is enjoyment." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/901e6078c)
+- **[/happy](/happy)** got a structural refactor — reordered into a logical arc, deduped the enjoyment formula, promoted headings — plus deepened memory-making guidance under Anticipate/Savor/Reminisce: novelty for Anticipate, "you can't encode what you didn't attend to" for Savor, and peak-end reframed as a memory-design tool you engineer on purpose rather than just observe. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0bdde53d8) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/16ed118ec)
+
+### Daily Journaling: The Hyperlinked Scribe Template (rewrite!)
+
+**[/process-journal](/process-journal)** got rewritten around Igor's actual current workflow, replacing a stale draft:
+
+- **[One hyperlinked PDF instead of a notebook per day](/process-journal#journalling-workflow-in-2025)** — a Python-generated quarterly template where the month index and every page header (day-jump arrows, page tabs 1-5, home button) make the whole quarter one tap-navigable book. A [blank template](/static/igor-journal-template.pdf) is available to fork. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d6a827f1a)
+- **The round-trip**: generate the template → write on the Kindle Scribe → export the flattened PDF to Google Drive → pull with `rclone` → transcribe with vision OCR → extract TODOs to OmniFocus. The old Gmail-link tool is now a fallback, not the main path.
+- **[Journal Structure](/process-journal#journal-structure)** updated to the real 5-page-per-day template (setup / intentions / three open-writing pages), plus a new **[Prompts at the Bottom](/process-journal#the-prompts-at-the-bottom)** section: dim eulogy-role reflection questions drawn from a pool of 80 (10 per role), shuffled so pages rarely repeat. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ce46ad06f)
+- **[Appendix: The Evolution of How I Journal](/process-journal#appendix-the-evolution-of-how-i-journal)** preserves the pre-rewrite history instead of deleting it — the 2011-2025 750words typing years, then the 2025 notebook-a-day-on-the-Scribe/email-to-self flow (with its original screenshots), dated via `git blame`. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5d53a5ef1)
+
+### Scandinavia Trip: How It's Actually Going (2026-07-13)
+
+**[/timeoff-2026-07#how-its-actually-going](/timeoff-2026-07#how-its-actually-going)** — the trip post gained a running log of real-time entries:
+
+- **Reykjavík** — the pools (an 8°C plunge through 40/42/44°C, ocean-fed), a 5am kettlebell session salvaged by taking the rental Tesla when the rain hit early, and a hostel dinner cooked next to strangers. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/704a95b18)
+- **Stockholm** — Skansen's live-action open-air village (a silversmith raising a vase over a wood fire, "his whole summer in one object"), Amelia out-preparing Igor at the zoo, the salvaged Vasa warship, and nearly getting thrown out of a Greek Orthodox church for doing magic in the pews — which turned into a Viktor Frankl moment (the gap between stimulus and response) and two wins: catching the fight-or-flight reaction instead of firing back, and getting memorization practice in.
+- **The train to Oslo** — a six-hour "tech bender" building the entire Scandinavia trip site (city deep-dives, maps, war pack) while the kids watched TV, logged as "super blogging time" — still [building, not scrolling](/produce-consume#the-production-advantage). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/85e1bb83c)
+- **Unexpected realizations** — moved social apps to the work phone pre-trip, but LinkedIn stayed on the main phone and his thumb kept opening it on autopilot the entire trip. Finally locked it out — and caught himself navigating to the LinkedIn login page mid-block anyway, "like the habit walked me there on its own." Left sitting with the [habit loop](/habits#habit-model) question of what's still pulling the trigger once the reward is gone.
+
+### Time Off & Diet: Restaurant Learnings + Housekeeping (2026-07-13)
+
+- **[Eating out isn't worth it](/timeoff#where-to-eat)** — past 45, restaurant grease leaves Igor feeling worse, not better; the fix is booking a room or Airbnb with a kitchen and cooking plain food instead. Hotel breakfast gets the same verdict (skip it — too greasy), but the plainer motel breakfast passes. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0e0d3fd91)
+- **New flip-side framing on /timeoff** — "if you plan to have a good time, you will": enjoyment isn't luck, it's mostly people + memory, and planning is how both get built into a trip before it starts.
+- **DRY cleanup** — `/timeoff` no longer duplicates the packing-gear item lists (bands, kettlebells, chargers, travel router, and more); those now live solely in [/packing](/packing), with `/timeoff` keeping only the process and rationale. The Terzepatide stub also collapsed to a single pointer at the in-page appendix. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4b794f767)
+- **[/terzepatide gained its own "Traveling with it" section](/terzepatide#traveling-with-it-or-any-med-that-needs-a-fridge)** — the TSA-cooler / ask-the-front-desk / pack-the-whole-supply advice, mirrored from the /timeoff appendix into this page's first-person voice. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d8390caf2)
+- **/packing's dead tirzepatide anchor fixed** after last week's appendix-promotion changed the target anchor. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ecf156223)
+
+### Physical Pain: Isometrics for Tendon Health
+
+**[/physical-pain#isometrics-how-to-load-a-tendon-without-moving-the-joint](/physical-pain#isometrics-how-to-load-a-tendon-without-moving-the-joint)** — answers the open question left by "The Tendon Problem": how do you load a tendon that can't warn you before it's hurt? Keith Baar's research: tendons adapt to **load × time under tension**, not reps. Overcoming vs. yielding isometrics; Ebonie Rio's finding that a single heavy isometric hold cuts tendon pain by nearly 7 points (on a 0-10 scale) for ~45 minutes via reduced brain inhibition, not just a local effect. Baar's protocol: ~30-second holds, ~4 reps, 6+ hours between sessions, gelatin + vitamin C 30-60 minutes beforehand (roughly doubled collagen-synthesis markers in his 2016 study). Flagged honestly: the analgesia and load-drives-adaptation principle are solid; the exact numbers are emerging science. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/15651e441)
+
+### Infrastructure & CI (2026-07-13)
+
+- **Recovered a missing changelog week** — the week-of-2026-06-01 entry had gone missing from a stale PR the bot couldn't push to; recovered and inserted in chronological order between the 06-08 and 05-18 weeks, with TOC and back-links regenerated. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/7a47f514b)
+- Routine `back-links.json` regeneration.
+
+### chop-conventions (2026-07-13)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** — pr-hygiene, a new sibling tool to git-safe-push:
+
+- **[pr-hygiene](https://github.com/idvorkin/chop-conventions/commit/021ebde12)** — sweeps open PRs across both GitHub identities (idvorkin + idvorkin-ai-tools) and sorts them into 🔴 needs action / 🟡 awaiting merge / 🟢 clean, based on unresolved review threads, `CHANGES_REQUESTED`, and whether a human reviewer has the last word. The classification is the whole point: a naive "last comment isn't mine" filter over-flags roughly 3x — validated against a live 52-PR audit (17 🔴 / 29 🟡 / 5 🟢, vs. ~46 flagged naively). Ships with 29 unit tests.
+- **git-safe-push naming + fix** — the "check PR state before pushing" rule now uses `gh pr list --head <branch> --state all` instead of `gh pr view <N>`, which was blind to cross-fork PRs (head in a fork, base in the canonical repo) — exactly the orphan-commit scenario the rule exists to prevent. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/7fe0c380a)
+- **`/up-to-date` Step 6** — runs `pr-hygiene --no-fail` during sync to surface stale review comments on a user's _other_ open PRs, non-blocking. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/ed7e0c35f)
+
+### Other Projects (2026-07-13)
+
+**[Scandinavian Whirlwind 2026](https://idvorkin-ai-tools.github.io/scandinavia-2026/)** (trip site) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/scandinavia-2026) — grew from a trip companion into a much broader "Explainer Atlas":
+
+- Trip polish: a route map, war timelines, a cross-linking + de-dup pass, Leaflet maps added to both city and war-explainer pages, Seattle-neighborhood translations, corrected kettlebell/church trip-memory details, and a "what drives the waterfalls" fjords addition.
+- Six new Nordic deep-dives: oil money, the Reformation, the Nordic economic model, the Hanseatic League, "why Scandinavians are tall," and Iceland's renewables.
+- A big general-knowledge expansion beyond the trip itself — 20+ new explainers wired into a new **Explainer Atlas index**, spanning performer history (juggling, magic/conjuring, ventriloquism, puppetry, mime, clowning, busking, the circus), Nordic culture (Janteloven, the Sámi people, why Iceland has no surnames, Scandinavian design, Finnish sauna culture, the Nordic prison paradox, Nordic social trust), and general psychology/culture (Flow, the science of awe and wonder — later expanded into a 9-point performer playbook — the Seven Deadly Sins reframed around Evagrius's original eight, and the economics of religious dietary laws).
 
 ## Week of 2026-07-06
 
