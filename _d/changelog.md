@@ -12,6 +12,18 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-07-20](#week-of-2026-07-20)
+  - [The Performer's Playbook (new post)](#the-performers-playbook-new-post)
+  - [Sleight of Mouth: The Full Book, Fleshed Out](#sleight-of-mouth-the-full-book-fleshed-out)
+  - [Scandinavia Trip Wrap-Up + Discernment Horizon](#scandinavia-trip-wrap-up--discernment-horizon)
+  - [Content Quality Audit: Tier-3/Tier-4 Sweep](#content-quality-audit-tier-3tier-4-sweep)
+  - [Infrastructure & CI (2026-07-20)](#infrastructure--ci-2026-07-20)
+  - [Other Projects (2026-07-20)](#other-projects-2026-07-20)
+- [Week of 2026-07-13](#week-of-2026-07-13)
+  - [Pleasure vs Enjoyment: Brooks' Formula Threaded Through Three Posts](#pleasure-vs-enjoyment-brooks-formula-threaded-through-three-posts)
+  - [Scandinavia Trip: Oslo Train Bender + Diet Learnings](#scandinavia-trip-oslo-train-bender--diet-learnings)
+  - [Isometrics and Tendon Health](#isometrics-and-tendon-health)
+  - [Other Projects (2026-07-13)](#other-projects-2026-07-13)
 - [Week of 2026-07-06](#week-of-2026-07-06)
   - [Bad News. Maybe Not. (new post!)](#bad-news-maybe-not-new-post)
   - [Time Off: Sacrifice Identity for Consumption (2026-07-06)](#time-off-sacrifice-identity-for-consumption-2026-07-06)
@@ -143,6 +155,102 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-07-20
+
+_26 commits this week_
+
+### The Performer's Playbook (new post)
+
+**[/performer-playbook](/performer-playbook)** — the tactical companion to [/joy](/joy): nine rules Igor noticed he runs on autopilot doing magic for one kid or a whole room, finally written down. Aim for the impossible moment, not the trick; perform for the group, not the person (the glance between spectators is "the wonder doubling"); give the moment room instead of filling the silence; make the spectator the hero of their own trick; let your own delight cue theirs ("Robert-Houdin said a magician is an actor playing the part of a magician; I'm playing the part of a guy who can't believe this is happening either"); engineer a peak and a clean ending; keep the story simple enough to retell at dinner ("He signed my card and then it was inside a lemon" survives — five conditions and a diagram doesn't); disarm before you astonish, since nobody feels wonder while braced to be embarrassed; small self, big generosity. Grounded in three borrowed frameworks: Keltner/Haidt's awe = vastness + accommodation, Brooks' enjoyment = pleasure + people + memory, and Kahneman's peak-end rule. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e4561175b)
+
+### Sleight of Mouth: The Full Book, Fleshed Out
+
+**[/sleight-of-mouth](/sleight-of-mouth)** grew from 1,678 to 2,984 words after Igor's review note ("research this book/content and flesh out this post, don't erase these ideas") sent Claude back to Robert Dilts' source material — every thin one-liner and bare bullet list got real prose and worked examples, all fourteen original patterns preserved:
+
+- **Punctuation & Repunctuation** — the cryptic one-liner became the actual concept plus the classic comma-placement example.
+- **Applying the patterns as a system** — three bare bullets became a worked example running one of Igor's own limiting beliefs ("my back has hurt forever") through ten of the fourteen patterns, plus the thought-virus concept, cross-linked to [/physical-pain](/physical-pain).
+- **One-word reframes** — reframed as positive→neutral→negative slides (Responsible → Stable → Rigid; Friendly → Nice → Naive) with the takeaway: "whoever gets to pick the word gets to pick the meaning."
+- **Second position** — named all three perceptual positions (mine, theirs, the observer's) with what each does; "most stuck arguments are two people jammed in first position, each certain the other is just wrong."
+- **Chunking down** — "I'm ugly" chunked to: ugly *which* part, ugly to *whom* — "the word can't survive the questions."
+- **Finding Isomorphisms** — fixed the typo heading and explained why the borrowed-domain metaphor smuggles in a reframe the direct statement fights off.
+
+[<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3c04d09f8) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2dd0f438f)
+
+### Scandinavia Trip Wrap-Up + Discernment Horizon
+
+**[/timeoff-2026-07](/timeoff-2026-07#how-its-actually-going)** — the fjord leg got corrected from a planned drive to what actually happened: a fjord cruise up the Nærøyfjord from Aurland to Gudvangen (the Viking town), then a bus to Voss — "walls of rock straight out of the water, waterfalls off the top, a scale that shut the whole boat up." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3f251b724) Oslo's forward-looking itinerary was swapped for what actually happened: Grünerløkka morning, the new Deichman library, an Oslofjord boat tour, the Barcode towers, the Opera House roof. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/77d844f1b) Per Igor's PR review, two durable frameworks — role re-stacking and the daily-review vegetating/meditation learnings — moved out of the trip-specific post into the evergreen **[/timeoff](/timeoff#get-real-what-should-i-do)**, since they're not specific to this trip. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6e083cfd1)
+
+**[/ai-native-vocab#discernment-horizon](/ai-native-vocab#discernment-horizon)** — new glossary entry from Steve Yegge's [The Flat Curve Society](https://steve-yegge.medium.com/the-flat-curve-society-36c8b01eb33b): the point past which you can't tell whether an AI is right, because checking the work is itself beyond you ("Superhuman means unverifiable"). Paired with Yegge's **Demand Horizon** — set by the hardest problem you actually bring, since easy problems never stretch a smarter model enough to show the gap. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2b5aa7009)
+
+### Content Quality Audit: Tier-3/Tier-4 Sweep
+
+A multi-PR quality pass swept dozens of posts for the stuff that accumulates over a decade of writing — broken openers, dead links, empty scaffold headers, orphaned posts, typos:
+
+- **Tier-3 post openers** — fixed openers across `/42`, `/first-things-first`, `/win-win`, `/first-understand`, `/ai-image`, `/balance`, `/breath`, `/meta`, `/frog`, `/negotiate`, `/lonely`, `/osx`, `/planning`, `/psychic-shadows`, `/shoulder-pain`, `/like-switch`, `/trusts`, `/comp`, `/screencast`, and `/smilebox` — garbled sentences, un-attributed quotes voiced as Igor's own words, duplicated paragraphs, and `ai-slop` includes sitting above the opening paragraph (which silently breaks Jekyll's feed/social excerpt). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/8023274bf)
+- **Tier-4 sweeps by topic** — [7 Habits series](https://github.com/idvorkin/idvorkin.github.io/commit/b76d2e280), [Health & body](https://github.com/idvorkin/idvorkin.github.io/commit/ae51190cb) (owned the made-up-numbers table in `/terzepatide`, folded a HIIT notes-dump into prose), [Time-off journals](https://github.com/idvorkin/idvorkin.github.io/commit/b7f22ace4) (nine old trip logs from 2020–2024, deduped headers, resolved leftover TBD checkboxes), [Emotional & spiritual](https://github.com/idvorkin/idvorkin.github.io/commit/b997020c0) (rescued `/maybe` and `/suicide` from being orphan pages by adding inbound links from `/depression`, `/mania`, `/mental-pain`, `/death`), and [Work & productivity](https://github.com/idvorkin/idvorkin.github.io/commit/81ee7794f).
+- **Tech notes** — `/vlc` cut from 143 lines of stale detail; `pysrc/brython_runner_passage.py` and `pysrc/html_snjb.py` doc comments cleaned up. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/839e2cb52)
+- **Post-merge CodeRabbit follow-ups** — promoted the seven 7-Habits chapter headings from h3 to h2 (they were the post's only headings and had no h2 parent), hyphenated "win-win" in visible link text, framed the "thousand wishes" line in `/42` as an attributed saying rather than a bare quote. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/27601f1f9)
+
+### Infrastructure & CI (2026-07-20)
+
+**Changelog backfill** — filled the two-week coverage gap between the 2026-06-08 and 2026-05-18 entries (weeks of 2026-06-01 and 2026-05-25), and folded three orphaned items into the existing Week of 2026-06-29 entry as a new "Life & Health Notes" section. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1ca78f15c)
+
+### Other Projects (2026-07-20)
+
+**[yegge-field-map](https://idvorkin-ai-tools.github.io/yegge-field-map/)** (dark field map) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/yegge-field-map)
+
+New explainer site mapping Steve Yegge's writing — one page per essay, best lines quoted, sources pinned. Launched with one page per Medium AI article, then expanded with "the Beads saga" (4 posts) and "The Future of Coding Agents." [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/yegge-field-map/commit/dc1630990)
+
+**[guideway-field-map](https://idvorkin-ai-tools.github.io/guideway-field-map/)** (dark field map) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/guideway-field-map)
+
+"Rails, Ropes & Rack" — a fixed-guideway field map spanning gondolas to maglev. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/guideway-field-map/commit/6a2d1e726)
+
+**[arthur-brooks-field-map](https://idvorkin-ai-tools.github.io/arthur-brooks-field-map/)** (dark explainer site) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/arthur-brooks-field-map)
+
+An 8-page dark explainer site on Arthur Brooks, whose pleasure/enjoyment formula threaded through last week's posts. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/arthur-brooks-field-map/commit/3e4fd9996)
+
+**[Scandinavian Whirlwind 2026](https://idvorkin-ai-tools.github.io/scandinavia-2026/)** (trip site) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/scandinavia-2026)
+
+Kept growing as the trip wrapped: cruise-tourism/overtourism section for the Bergen explainer, a "Locals vs. summer crowds" callout added to all 8 city stops, six Amsterdam deep-dives (canals, VOC, below sea level, tulip mania, canal houses, curiosities), and 5 colonial-history deep-dives plus a Dutch Wars explainer. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/scandinavia-2026/commit/73204eef6)
+
+## Week of 2026-07-13
+
+_9 commits this week_
+
+### Pleasure vs Enjoyment: Brooks' Formula Threaded Through Three Posts
+
+The intellectual through-line of the week — Arthur Brooks' **Enjoyment = Pleasure + People + Memory** formula got a deep-dive and then got applied everywhere:
+
+- **[Pleasure vs Enjoyment, sourced](/build-life-you-want#pleasure-vs-enjoyment)** — pleasure runs on the dopamine circuit and slides toward compulsion on its own ("if your goal is pleasure, you don't arrive at happiness — you wind up in rehab," Brooks on Tim Ferriss #692); enjoyment adds **People** (the beer-ad tell: "if you're doing it alone, you're probably doing it wrong") and **Memory** — six concrete levers (be present, make it novel, make it an occasion, capture a little on purpose, engineer the peak-end, retell it). Two honest caveats added: the triune-brain framing is metaphor not neuroanatomy, and the pleasure/enjoyment split predates Brooks — Csíkszentmihályi drew it in *Flow* (1990). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2bae59602)
+- **[You Don't Have to Quit Consuming — Upgrade It](/produce-consume#you-dont-have-to-quit-consuming--upgrade-it)** — a redemptive turn in the consumption-trap post: you don't need to nuke every guilty pleasure, just add what's missing. "Solitary and memoryless is pleasure — the trap. Shared and remembered is enjoyment. Same two hours of TV; wildly different outcome for the person you are next week." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/901e6078c)
+- **[/happy refactored](/happy)** — pure structural cleanup (no new ideas): headings promoted to match blog convention, the post reordered into a clean arc (define → three types → enjoyment → equations → pursuit → the three selves + practices → moments/idle-loop/mood), duplicate content deduped, and the old "Maximize Enjoyment" practices folded under **[The Three of You](/happy#the-three-of-you)** so Anticipate/Savor/Reminisce map onto the future/experiencing/remembering selves. Savor now spells out the memory-encoding mechanics. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0bdde53d8) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/16ed118ec)
+- **Peak-end link consolidated** — the Kahneman peak-end cross-link across the site now points to the canonical `/balance` write-up instead of `/happy`. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/fad8ae2d9)
+
+### Scandinavia Trip: Oslo Train Bender + Diet Learnings
+
+**[/timeoff-2026-07](/timeoff-2026-07#how-its-actually-going)** — the trip log kept filling in:
+
+- **Reykjavík + Stockholm memories** — an 8°C cold plunge into 40/42/44°C pools fed straight from the ocean, a 5am kettlebell session beaten by rain, Skansen's in-character silversmith raising a vase from a flat disk over a wood fire, Amelia out-prepping Igor with a spare phone battery, and a near-ejection from a Stockholm Greek Orthodox church for doing magic in the pews — met with a Viktor Frankl beat on the stimulus-response gap. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/704a95b18)
+- **🚂 The train to Oslo** — confession: on the six-hour Stockholm→Oslo train, while the kids watched TV, Igor went on a tech bender and built the entire [Scandinavian Whirlwind explainer site](https://idvorkin-ai-tools.github.io/scandinavia-2026/) in one sitting — "at least it was building, not scrolling." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/85e1bb83c)
+- **🤔 Unexpected realizations** — LinkedIn stayed off the [work phone split](/maybe#the-second-phone) but Igor's thumb kept opening it anyway on autopilot; locking it out led straight back to the login page "like the habit walked me there on its own" — an open question about which part of the [habit loop](/habits#habit-model) (cue, craving, response, reward) still fires with the reward gone. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/85e1bb83c)
+- **Restaurant-diet learnings folded into evergreen [/timeoff](/timeoff#where-to-eat)** — eating out past 45 isn't worth it ("my gut can't handle the grease"); book a kitchen and cook plain grocery-store food instead; skip the hotel breakfast spread but the motel breakfast is fine — modest enough that self-control holds. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0e0d3fd91)
+
+### Isometrics and Tendon Health
+
+**[/physical-pain — Isometrics section](/physical-pain#isometrics-how-to-load-a-tendon-without-moving-the-joint)** — answers the open question left by "The Tendon Problem": how do you load a tendon that can't warn you when you're overloading it? Overcoming vs. yielding isometrics; Keith Baar's load × time-under-tension research on collagen synthesis; Ebonie Rio's finding that a single bout of heavy isometric holds cut tendon pain nearly 7 points on a 0-10 scale for ~45 minutes. Baar's protocol: ~30-second holds, ~4 reps, 6+ hours between sessions, 15g gelatin + vitamin C 30-60 minutes before loading (roughly doubled collagen-synthesis markers in his 2016 study). Flagged honestly: the analgesia and core load-drives-adaptation principle are solid; the exact hold length, spacing, and dosing are emerging science. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/15651e441)
+
+### Other Projects (2026-07-13)
+
+**[Scandinavian Whirlwind 2026](https://idvorkin-ai-tools.github.io/scandinavia-2026/)** (trip site) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/scandinavia-2026)
+
+The tech-bender site keeps growing — 30 commits added ~20 new explainers plus an atlas index organizing all of them into Cities & Places, War Context Packs, How the Nordics Work, Nordic Culture & People, and a cross-cutting Rabbit Holes bucket:
+
+- **Rabbit holes** — Janteloven (Law of Jante), the Sámi people, why Norway said no to the EU twice, Scandinavian design, the Nordic prison paradox, Finnish sauna culture, why Iceland has no surnames, Nordic social trust, Flow (Csíkszentmihályi), the science of awe and wonder — later expanded into a 9-point "instructions for the performer" playbook cross-linking history-of-magic and flow-state. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/scandinavia-2026/commit/cfc8a37a5)
+- **Performance-history deep dives** — short histories of the circus, ventriloquism, puppetry, mime and physical comedy, busking and street performance, and clowning — plus balloon twisting and the history of magic (Robert-Houdin). [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/scandinavia-2026/commit/45ec2e7dd)
+- **Seven Deadly Sins & the Three Dragons** — traces Evagrius' eight logismoi through Cassian, Gregory's seven, Aquinas' capital vices, and Dante's terraces, then maps the seven onto Igor's Three Dragons (Entropy, Squander, Scarcity) as a weekly diagnostic — honest about the clean fits vs. the stretches. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/scandinavia-2026/commit/09bbaf3a4)
+- **Parenting: encouraging curiosity in a teenager** — Self-Determination Theory, the overjustification effect, Loewenstein's information-gap theory, Dweck's praise research, and a nine-move practical toolkit. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/scandinavia-2026/commit/ae94185c7)
+- **Fjords explainer expanded** — hanging valleys as the waterfall mechanism, orographic rainfall + fjell snowmelt, the May–July seasonal peak, named falls (Seven Sisters, Vøringsfossen), and fjords elsewhere in the world (NZ Fiordland, Chilean Patagonia, Greenland's Scoresby Sound, Scotland's sea lochs). [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/scandinavia-2026/commit/3aa08c5dc)
 
 ## Week of 2026-07-06
 
