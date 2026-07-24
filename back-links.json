@@ -608,7 +608,7 @@
             "incoming_links": [
                 "/timeoff-2026-07"
             ],
-            "last_modified": "2026-04-14T20:26:12-07:00",
+            "last_modified": "2026-07-24T15:25:37.947464+00:00",
             "markdown_path": "_d/act.md",
             "outgoing_links": [
                 "/addiction",
@@ -620,11 +620,11 @@
                 "/class-act",
                 "/coaching",
                 "/curious",
-                "/d/habits",
                 "/emotional-health",
                 "/emotions",
                 "/eulogy",
                 "/goals",
+                "/habits",
                 "/mind-at-work",
                 "/mind-monsters",
                 "/mortality-software",
@@ -1057,7 +1057,7 @@
             "incoming_links": [
                 "/ai-training"
             ],
-            "last_modified": "2026-06-07T10:19:45-07:00",
+            "last_modified": "2026-07-24T15:25:37.947464+00:00",
             "markdown_path": "_d/ai-inference.md",
             "outgoing_links": [
                 "/ai-faq",
@@ -1673,7 +1673,7 @@
             "doc_size": 22000,
             "file_path": "_site/bc.html",
             "incoming_links": [],
-            "last_modified": "2025-12-07T03:02:44+00:00",
+            "last_modified": "2026-07-24T15:25:37.947464+00:00",
             "markdown_path": "_d/bc-vacation.md",
             "outgoing_links": [
                 "/ig66/718",
@@ -2150,7 +2150,7 @@
                 "/gap-year-igor",
                 "/last-year"
             ],
-            "last_modified": "2025-12-07T02:39:31+00:00",
+            "last_modified": "2026-07-24T15:25:37.947464+00:00",
             "markdown_path": "_d/chasing-daylight.md",
             "outgoing_links": [
                 "/death",
@@ -2601,7 +2601,6 @@
             "doc_size": 21000,
             "file_path": "_site/d/habits.html",
             "incoming_links": [
-                "/act",
                 "/activation",
                 "/energy-abundance",
                 "/four-healths",
@@ -2954,7 +2953,7 @@
             "incoming_links": [
                 "/untangled"
             ],
-            "last_modified": "2026-05-16T14:06:25-07:00",
+            "last_modified": "2026-07-24T15:25:37.947464+00:00",
             "markdown_path": "_d/emotional-lives.md",
             "outgoing_links": [
                 "/anxiety",
@@ -7479,7 +7478,7 @@
             "incoming_links": [
                 "/emotional-lives"
             ],
-            "last_modified": "2026-05-16T14:10:54-07:00",
+            "last_modified": "2026-07-24T15:25:37.947464+00:00",
             "markdown_path": "_d/untangled.md",
             "outgoing_links": [
                 "/be-proactive",
@@ -7499,7 +7498,7 @@
             "incoming_links": [
                 "/first-things-first"
             ],
-            "last_modified": "2025-12-07T03:19:48+00:00",
+            "last_modified": "2026-07-24T15:25:37.947464+00:00",
             "markdown_path": "_d/upstream.md",
             "outgoing_links": [],
             "redirect_url": "",
