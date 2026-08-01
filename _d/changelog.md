@@ -12,6 +12,12 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-07-27](#week-of-2026-07-27)
+  - [AI Inference: Why Checking Beats Generating](#ai-inference-why-checking-beats-generating)
+  - [Joy: The Clown's Prayer](#joy-the-clowns-prayer)
+  - [Infrastructure & CI (2026-07-27)](#infrastructure--ci-2026-07-27)
+  - [chop-conventions (2026-07-27)](#chop-conventions-2026-07-27)
+  - [Other Projects (2026-07-27)](#other-projects-2026-07-27)
 - [Week of 2026-07-20](#week-of-2026-07-20)
   - [The Performer's Playbook (new post)](#the-performers-playbook-new-post)
   - [Sleight of Mouth: The Full Book, Fleshed Out](#sleight-of-mouth-the-full-book-fleshed-out)
@@ -170,6 +176,58 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-07-27
+
+_9 commits this week_
+
+### AI Inference: Why Checking Beats Generating
+
+**[/ai-inference#the-model-matters-moe-speculative-decoding-smaller-models](/ai-inference#the-model-matters-moe-speculative-decoding-smaller-models)** — deepened the speculative-decoding bullet with the core asymmetry it exploits: checking a draft batch is about as cheap as generating a single token, since verification streams the weights only once. A draft model that's usually right nets ~2-3 accepted tokens per expensive big-model pass; wrong guesses just get thrown away, so the output stays provably identical to what the big model alone would've produced. New source alongside the bentoml explainer: salmanq.com's "why checking beats generating." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/725a54cab)
+
+### Joy: The Clown's Prayer
+
+**[/joy#the-clowns-prayer](/joy#the-clowns-prayer)** — new Appendix section adds "The Clown's Prayer" as a verse blockquote: "Never let me become so indifferent that I will fail to see the wonder in the eyes of a child... When you made My people smile, you made Me smile." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0d0165fe2)
+
+### Infrastructure & CI (2026-07-27)
+
+**Tag normalization** — folded duplicate/misspelled frontmatter tags into canonical form across 9 posts: `accomplishemnt`→`accomplishment`, `heath`→`health`, `emotional-intelligence`→`emotional intelligence`, `how-igor-ticks`→`how igor ticks`, `mental-health`→`mental health`. Frontmatter-only, no prose changed. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/925861877)
+
+### chop-conventions (2026-07-27)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** — a security-and-reliability sweep across skills:
+
+- **harden-telegram** — delivery attribution + a doctor DELIVERY check; separately, failed transactions now roll back, emergency reads are gated, and the backlog drains past a stale socket. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/9aa45b572) [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/ff9769c7a)
+- **Credential leaks plugged** — `image-explore` stopped leaking the gh token into the gist clone URL and /tmp; `gen-image` keeps `GOOGLE_API_KEY` out of curl argv. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/ebfd05511) [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/1f440a795)
+- **pr-hygiene** — count the author's own thread replies as responses in `human_last_word`. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/d00f08315)
+- **bulk** parses bd's real dependency schema in `bd_show`; **cost-impact** gets current-gen pricing rows plus quantified unknown-model exclusions; **up-to-date** computes `can_force_align` from real cherry data on main. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/798c99fff) [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/1e1c2aa99) [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/716c48ef6)
+- **Docs** — fixed a `/doctor` collision, the image-read model enum, and stale paths in skill docs; noted a Playwright bundled-Chromium codec gotcha in the global CLAUDE.md fragment. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/b53864735) [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/d603fea4f)
+
+### Other Projects (2026-07-27)
+
+**[Clowns Explainer](https://idvorkin-ai-tools.github.io/clowns-explainer/)** (dark explainer site) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/clowns-explainer)
+
+New single-page, source-verified explainer on why we invented clowns — the six-archetype lineage (jester/commedia/circus/sacred/trickster/carnival) as tap-to-open cards, the hospital-clown RCT evidence, and the shadow side. Companion to [/joy](/joy). [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/clowns-explainer/commit/39c2a3959) Followed by a section on why every circus keeps a clown (emotional pacing, comic relief, the everyman surrogate) and a safety→connection→joy mechanism section. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/clowns-explainer/commit/ddeac4c48)
+
+**[AirPods Eat Your Words](https://idvorkin-ai-tools.github.io/airpods-mic-explainer/)** (interactive case study) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/airpods-mic-explainer)
+
+New explainer with real audio evidence: waveform cards comparing AirPods fragments against USB-mic captures, dual-ASR adjudication, a session timeline, and a signal-chain diagram. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/airpods-mic-explainer/commit/a8d857232)
+
+**[Arthur Brooks Field Map](https://idvorkin-ai-tools.github.io/arthur-brooks-field-map/)** (dark explainer site) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/arthur-brooks-field-map)
+
+Expanded past last week's 8-page launch: 4 new concept pages (The Four Pillars, The Second Curve, Enjoyment vs Pleasure, The Culture of Contempt), a chapter-by-chapter ToC for "The Meaning of Your Life," the episode index regrouped by theme, two more books, 4 new transcript-sourced casts, and a complete 283-item Atlantic column index. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/arthur-brooks-field-map/commit/b83cd2510) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/arthur-brooks-field-map/commit/efa80aca2)
+
+**[magic-monitor](https://magic-monitor.surge.sh)** (smart mirror) [<i class="fa fa-github"></i>](https://github.com/idvorkin/magic-monitor)
+
+A 6-PR reliability program (Phase 0+1) on the card-detection/camera/recording pipeline: camera selection is now a pure policy that never defaults to first-in-list, mid-recording camera switches stop/save/resume cleanly, IndexedDB aborts reject instead of hanging forever, the card-detection loop survives inference errors, and a smart-zoom model failure is now visible instead of silent. [<i class="fa fa-github"></i>](https://github.com/idvorkin/magic-monitor/commit/bdbce9bc9)
+
+**[swing-analyzer](https://github.com/idvorkin-ai-tools/swing-analyzer)** (swing analysis tool)
+
+A Phase 0+1 reliability program mirroring the magic-monitor sweep: fixed false-positive HTTPS detection for the vite dev server, stopped persisting per-frame ImageData to IndexedDB (~77KB/frame), added a typed `batchComplete` event that survives quota errors, and wired a visible StatusBanner to the pipeline error stream. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/swing-analyzer/commit/a22086987)
+
+**[omnifocus_cli](https://github.com/idvorkin/omnifocus_cli)** (task CLI)
+
+Repaired a drifted test suite (61 of 105 tests were failing after a refactor moved production onto new OmniJS methods the tests never followed) and fixed a real production bug the repair surfaced: Groq had decommissioned the default model, so `flow` had silently stopped shortening names. Swapped to `openai/gpt-oss-120b` with reasoning-effort gated per model (llama-3.x 400s on it, Qwen3 only accepts none/default). [<i class="fa fa-github"></i>](https://github.com/idvorkin/omnifocus_cli/commit/ba0b70713)
 
 ## Week of 2026-07-20
 
