@@ -12,6 +12,12 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-08-03](#week-of-2026-08-03)
+  - [AI Eval Tools: Survey Page + smevals Results](#ai-eval-tools-survey-page--smevals-results)
+  - [Herdr: The Agent Multiplexer Upgrade](#herdr-the-agent-multiplexer-upgrade)
+  - [Scandinavia Trip Recap: Cross-Checking the Timeline](#scandinavia-trip-recap-cross-checking-the-timeline)
+  - [chop-conventions (2026-08-03)](#chop-conventions-2026-08-03)
+  - [Other Projects (2026-08-03)](#other-projects-2026-08-03)
 - [Week of 2026-07-27](#week-of-2026-07-27)
   - [AI Inference: Why Checking Beats Generating](#ai-inference-why-checking-beats-generating)
   - [The Clown's Prayer](#the-clowns-prayer)
@@ -176,6 +182,43 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-08-03
+
+_20 commits this week_
+
+### AI Eval Tools: Survey Page + smevals Results
+
+New page **[/ai-eval-tools](/ai-eval-tools)** surveys the eval-tool field against six criteria (agent-in-a-workdir, deterministic checkers first, decoupled grading, local-first, cheap authoring, useful reports): smevals, PromptFoo, Pydantic Evals, Inspect AI, DeepEval, Giskard, the SaaS tier (Braintrust/LangSmith/Langfuse), and a container-native agentic tier (Terminal-Bench, SWE-bench, METR Vivaria) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3d033025e). The two axes that actually separate tools: **execution environment** (function-call-and-inspect-return vs. spawn-and-inspect-side-effects — only the latter can test an agent mutating a repo) and **decoupled grading** (immutable run records you can re-grade for free vs. assertions coupled to execution) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1460455c2). Also covers the Mac container-VM gotcha: OrbStack machines are shared-kernel, no user-namespace support, so Docker/bubblewrap/agent sandboxes fail by architecture — Lima (`vmType: vz`) or UTM brings a real kernel instead [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/eaa6d0cfc).
+
+Meanwhile **[/ai-testing#grading-the-agent-with-smevals](/ai-testing#grading-the-agent-with-smevals)** got real results from that survey's favorite tool. First sweep: sonnet and haiku both 100% across edit-landed/TOC-correct/no-collateral on the [blog-edit-evals](https://github.com/idvorkin-ai-tools/smevals-blog-edit-evals) (renamed from blog-edit-evals) checkers [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/442cc0b8b). Adding a deliberately-dumb Codex config (gpt-5.4-mini, zero reasoning, sandbox swapped for a command allowlist) broke the saturation — 3 of 10 runs failed, every failure a give-up after the first blocked edit, never a wrong edit: "the permission envelope is part of the harness under test, not just the model" [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/c5906762e). A second LLM-judge grader layered on after the fact (decoupled grading paying off) found daylight the deterministic checks couldn't: sonnet 0.99 vs. haiku 0.96, haiku docked for unspaced em-dashes on a page that uses spaced hyphens [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5891c9dac).
+
+### Herdr: The Agent Multiplexer Upgrade
+
+**[/ai-journal#herdr-the-agent-multiplexer-my-tmux-rig-was-trying-to-become](/ai-journal#herdr-the-agent-multiplexer-my-tmux-rig-was-trying-to-become)** — [Herdr](https://herdr.dev) replaces a year of hand-built tmux duct tape (a Rust pane picker, auto-renaming windows, a Stream Deck plugin) with a multiplexer that knows what an agent is: every workspace shows blocked/working/done/idle, `herdr worktree create` is branch+worktree+workspace in one move, and a socket API (`herdr agent read | prompt | send-keys | wait`) lets agents drive each other. Keeps tmux's virtues — real PTYs, detach/reattach over plain SSH, no Electron, no account. This entry itself was written by a Claude running in the Herdr-created worktree while a sibling workspace fixed `rmux_helper` two tabs over [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/53707ce87). **[/how-igor-chops#the-upgrade-herdr](/how-igor-chops#the-upgrade-herdr)** got the companion writeup plus a live screenshot of the herd — nine workspaces, agent-state panel, a Claude session mid-task (the same session that took the screenshot) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2ed0200e0).
+
+### Scandinavia Trip Recap: Cross-Checking the Timeline
+
+**[/timeoff-2026-07#where-we-went-by-leg](/timeoff-2026-07#where-we-went-by-leg)** — the trip wrapped July 19 but the post still read as a pre-trip plan; converted "Things we want to do" to "Where we went," each bullet backed by written evidence (in-post recap prose, /changelog, /life-journal, in-trip git history) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/7c53a400f). The 49-photo album Igor linked turned out to be Google Maps Timeline screenshots, not photos — decoding them promoted venue-level labels across every leg to confirmed-visited (Round Tower, Christiansborg, and Tivoli in Copenhagen; the Oslo-Myrdal train + Flåmsbana; Bryggen in Bergen; the Jordaan and Rijksmuseum in Amsterdam), with two Telegram-confirmed skips (Blue/Sky Lagoon, the Amsterdam canal cruise) and one cropped Timeline day-map embedded per leg [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/812e8cb62). Bookended with two more Timeline frames: the wheels-up world map with the home pin redacted (masked with PIL, verified before commit), and the return-flight frame home [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/39a5b6b13).
+
+### chop-conventions (2026-08-03)
+
+- **New `herdr` skill** — drive Herdr workspaces/agents headlessly and keep integrations healthy [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/4764a8035).
+- **machine-doctor** — a new CLI (`watch`/`report`/`at`/`snapshot`) for historical resource forensics: SQLite-backed process sampling, spike detection, retention pruning, and leak profiles (generic + a Gas City-specific one), replacing the one-off `gascity_doctor` script [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/2b7ad5baa). Follow-up fix: stopped claiming a CPU recovery that was never actually measured [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/cf3f6dc93).
+- **cost-impact** — added the missing `claude-opus-5` pricing row, which had been silently dropping Opus 5 spend into `unknown_models` [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/790f26c0d).
+- `architect-review` now inherits the session's model instead of pinning `opus` [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/6a43abb14).
+
+### Other Projects (2026-08-03)
+
+**[Settings](https://github.com/idvorkin/Settings)** (dotfiles & tools)
+
+- **rmux_helper under Herdr** — `third` (the 3-pane layout helper) now auto-detects tmux vs. Herdr and drives either one through a shared mux module; the scrollback link picker (`pick-links`) got the same treatment, filtering its actions by which multiplexer is active and yanking captures via the Herdr CLI [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/4cefee092).
+- Herdr config: default new panes to zsh, sidebar shows each agent's current task (then dropped the redundant agent-name row), and a Cursor hook feeds agent state into Herdr [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/cc82357eb).
+- `rmux_helper` build: thin LTO + a shared Cargo target dir, cutting rebuild time across worktrees [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/08246ffa5).
+
+**[swing-analyzer](https://github.com/idvorkin-ai-tools/swing-analyzer)** (golf swing analysis)
+
+A dense reliability week across both the upstream repo and the AI-tools fork: dedicated error channels so thrown pipeline errors and per-frame status writes both count toward the failure threshold, an atomic pose-track persist path, an fps estimator clamped to a sane range with every fallback logged, a fixed leak where overlapping `startVideoFile` calls left the superseded video source running, and the CI fixture-hash guard restored after a config regression let it go unenforced [<i class="fa fa-github"></i>](https://github.com/idvorkin/swing-analyzer/commit/a0d7131ee). On the fork side: deleted the legacy RxJS streaming path and a duplicate rep counter, split `PoseTrackFrame` into persisted vs. runtime shapes, fixed legacy pose tracks that assumed 30fps forever, and replay-from-cache now runs in chunks instead of one blocking task [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/swing-analyzer/commit/ff7b7ff0c).
 
 ## Week of 2026-07-27
 
