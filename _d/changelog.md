@@ -12,6 +12,15 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-08-10](#week-of-2026-08-10)
+  - [Manager to IC in the Agentic Era (new post!)](#manager-to-ic-in-the-agentic-era-new-post)
+  - [Scandinavia: Day-Strips, City-List Merge, and the SATS Gyms](#scandinavia-day-strips-city-list-merge-and-the-sats-gyms)
+  - [AI Eval Tools: SWE-bench Column](#ai-eval-tools-swe-bench-column)
+  - [Blog Annotate: Highlight-and-Comment Review Tool](#blog-annotate-highlight-and-comment-review-tool)
+  - [Local Search: Algolia Out, Pagefind In](#local-search-algolia-out-pagefind-in)
+  - [Infrastructure & CI (2026-08-10)](#infrastructure--ci-2026-08-10)
+  - [August 2026 Focus](#august-2026-focus)
+  - [Other Projects (2026-08-10)](#other-projects-2026-08-10)
 - [Week of 2026-08-03](#week-of-2026-08-03)
   - [AI Testing: Grading the Agent with smevals](#ai-testing-grading-the-agent-with-smevals)
   - [AI Eval Tools (new post!)](#ai-eval-tools-new-post)
@@ -184,6 +193,46 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-08-10
+
+_28 commits this week_
+
+### Manager to IC in the Agentic Era (new post!)
+
+**[/em-to-ic](/em-to-ic)** — Igor got flattened M→IC in May 2026 after a decade managing, and this is the post working through what actually changed. The value-prop trap: running the old manager scorecard against the new IC job without noticing — shipping something genuinely good and feeling vaguely useless because no one grew. The symmetry he didn't see until living both sides: a manager can't own all the technical decisions, an IC can't own the people; the only way through either is trusting someone else will solve it, with two failure modes he's done both of — shadow managing (still coaching with none of the authority) and pretending not to care. The agentic twist: he traded a team of humans for a team of agents (Wally), so the IC job now looks a lot like manager-of-managers — a table maps writing a crisp spec → writing a crisp prompt, code review as coaching → review as the only quality gate left. What doesn't port: "Agents don't have career growth plans. They don't get demoralized, and they don't come back in three years to tell you it mattered. I got the manager's leverage back without the manager's meaning." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9223db695)
+
+### Scandinavia: Day-Strips, City-List Merge, and the SATS Gyms
+
+**[/timeoff-2026-07](/timeoff-2026-07)** — five commits of review-driven polish on the trip post. A new `_includes/timeline_strip.html` renders 2-4 day-maps as a captioned strip, pulling in 12 more Google Maps Timeline crops so every leg (Reykjavik, Copenhagen, Stockholm, Oslo, the fjords, Bergen, Amsterdam) gets its own strip instead of one full-width portrait [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/8a1061af0). Igor's annotate-tool review pass (see below) then drove a full restructure: deleted "How I tried to do this trip" entirely, merged the two separate city lists into one per-leg narrative → places → Timeline-strip flow, added the Oslo subway story (the pull-up guy: "I am not a special man" / "I am an African man" / "I am an Islamic man," with Tori's closing line) and the Bergen backyard-hill walk with a magic trick for a stranger's daughter, and added a new section on the one thing actually researched for the trip — where the kettlebells were, including the rope climb and bell at the top of the Voss gondola [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4ae7fe8c3). Round 2 fixed the Voss timing (confirmed via 750words: "Sixteen days into the trip," not two and a half weeks) and converted two callouts to alert boxes [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/038a81e98). Two of Igor's own gym photos ("Some of the gyms even looked like a nightclub") landed in the kettlebell section as a side-by-side strip [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/603fa8cdb), and `timeline_strip.html` got an escaping fix after a caption containing a quote silently broke its own thumbnail [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/451bc4786).
+
+### AI Eval Tools: SWE-bench Column
+
+**[/ai-eval-tools](/ai-eval-tools)** — added a SWE-bench column to both the rosetta-stone and capability-grid tables, and corrected the Terminal-Bench column against its current harness (renamed **Harbor** since Nov 2025). New prose on the distinction the tables hide: Terminal-Bench isolates the *agent* — it gets a shell, tests are copied in only after its clock stops, and the final container state is what's graded — while SWE-bench isolates only the *grading*: the harness applies an already-finished patch string and runs the repo's tests, with no agent code in the benchmark repo at all. Their vocabularies show it — trial/agent vs. task instance/`model_name_or_path`. With the corrected rows, Terminal-Bench now sweeps the capability grid rather than Inspect. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9ff130359)
+
+### Blog Annotate: Highlight-and-Comment Review Tool
+
+New two-sided review tool: Igor highlights a line on the rendered blog, adds a comment, and ships the batch to a secret gist so Larry can turn it into revision PRs. The client (`_includes/annotate.html`) is inert for readers — no UI, no DOM, no network — unless `?annotate=1` or `Cmd/Ctrl+Shift+A`; each note stores a W3C TextQuoteSelector triple (quote plus ~30 chars of prefix/suffix) that lets the CLI find the spot in source markdown, verified against 166 probe selections across 25 posts. The reader side (`scripts/blog_review.py`) resolves permalink → `_d/<post>.md` through a five-tier matching cascade and exits 2 rather than guessing on anything unlocatable [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/76dc58367). A real 6-note review batch on `/timeoff-2026-07` immediately crashed the CLI on a note quoting a markdown link (`MarkupError`), which drove an escaping fix plus Cmd+Enter to save / Escape to cancel [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/7f04c0231). Batches now record capture *origin* alongside permalink — a preview server and production render the same permalink identically, so without origin a note captured against a Tailscale `jekyll serve` could be silently applied as if it described production [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/44b727854).
+
+### Local Search: Algolia Out, Pagefind In
+
+Algolia's app got blocked in production (403 on every DSN host), so search now runs entirely client-side against static files — no service, no API key, no quota, $0/mo. Two engines: Pagefind shards its index and fetches only the chunks a query needs (~200-300KB first search, ~3KB per result after) since a monolithic index of the blog is 1.6MB gzipped, paired with a 9KB title-only MiniSearch index for fuzzy matching Pagefind is weak at. The family-journal exclusion moved from a query-time filter (an Algolia `NOT tags:` clause a client bug could bypass) to index time — excluded pages never carry the `data-pagefind-body` attribute, so they never enter the index, with `scripts/verify-search-index.sh` asserting this in CI [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/229259617). Review-feedback follow-up added `escapeAttr()` for URL interpolation into HTML attributes, scoped deploy credentials to the deploy job only, and fixed a featured-count bug that silently floored the limit to 10 [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5ae790aa5). Since GitHub Pages' native Jekyll build has no post-build hook to run Pagefind, the built index (4.6MB, 472 files) is committed as an interim measure until Pages moves to an Actions-based deploy [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a6e17ecc8).
+
+### Infrastructure & CI (2026-08-10)
+
+- **EPUB build pipeline** — `scripts/build-epub.sh` walks `_d/` + `_posts/`, strips Liquid tags, rewrites image paths, sorts chronologically, and runs a single `pandoc --to=epub3` pass to produce a single-volume `dist/idvork-collected.epub` for Kindle reading — 286 chapters, 27MB, ~38s build, additive and touching no existing Jekyll path. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/cc3ca94b1)
+- **SKIP= escape hatch documented** — the `anchor-checker` pre-commit hook scans every markdown file regardless of what's staged (`pass_filenames: false`), so pre-existing broken anchors anywhere block unrelated commits; CLAUDE.md now documents `SKIP=anchor-checker git commit` as the surgical fix, distinct from the banned `--no-verify`. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/846c7377b)
+- **Framing quotes** — added epigraphs to `/ai-testing` (Pydantic Evals docs, on evals being an emerging art) and `/ai-journal` (an unattributed "the tokens will wash all of this away" quote, shipped `source unknown` rather than guessed). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d5f9a059a)
+
+### August 2026 Focus
+
+**[/y26#august-2026-focus](/y26#august-2026-focus)** — post-Scandinavia goal reset. The overarching rule: courage — *"When I think I should do an act of joy for a stranger, I always do it"* — framed as a bright-line rule rather than a target, so there's nothing left to decide in the moment. Concrete moves: carry a balloon inflator clipped to the belt (closes the gap between impulse and act, "which is exactly where 'eh, next time' lives"), a weight waypoint of 175 en route to the annual 170 goal, kettlebell-swing gaps to fix (plank at the top through the fold), and daily SKY breathing. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/cca3c5b6a)
+
+### Other Projects (2026-08-10)
+
+**[swing-analyzer](https://github.com/idvorkin-ai-tools/swing-analyzer)** (golf swing analysis)
+
+Continued working through a codex architecture review: extracted a `useVideoViewport` hook (crop, aspect-ratio, canvas-sync) out of the monolithic exercise-analyzer hook, deleted a dead duplicate rep counter and a vestigial frame-acquisition layer that forwarded crop state nowhere, and corrected ARCHITECTURE.md/CLAUDE.md claims the code no longer supported (a `useSwingAnalyzerV2` file that doesn't exist; a "no DOM manipulation" rule that was never true for video/canvas control). Also closed the fps audit by *direction* rather than "not obviously wrong" — the prior fix could permanently bless a 60fps video misrecorded as 30fps off one under-sampled reading — and fixed a one-pass re-analysis budget that was refusing a user's manual correction and silently zeroing the rep count on decline. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/swing-analyzer/commit/36b4462b9)
 
 ## Week of 2026-08-03
 
