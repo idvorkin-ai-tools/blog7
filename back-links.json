@@ -1126,7 +1126,7 @@
                 "/walking-with-god",
                 "/y25"
             ],
-            "last_modified": "2026-08-02T15:38:00-07:00",
+            "last_modified": "2026-08-10T15:59:36.055875+00:00",
             "markdown_path": "_d/ai-journal.md",
             "outgoing_links": [
                 "/7-habits",
@@ -1137,13 +1137,13 @@
                 "/ai-journal",
                 "/ai-second-brain",
                 "/ai-security",
+                "/ai-talk",
                 "/chop",
                 "/chow",
                 "/claw",
                 "/end-in-mind",
                 "/eulogy",
                 "/gas-city",
-                "/genai-talk",
                 "/gpt",
                 "/hill-climbing",
                 "/how-igor-chops",
@@ -1407,7 +1407,7 @@
                 "/testing",
                 "/timeoff-2024-04"
             ],
-            "last_modified": "2026-08-02T16:33:46-07:00",
+            "last_modified": "2026-08-10T15:59:36.055875+00:00",
             "markdown_path": "_d/ai-testing.md",
             "outgoing_links": [
                 "/ai-eval-tools",
@@ -2972,7 +2972,7 @@
             "doc_size": 49000,
             "file_path": "_site/em-to-ic.html",
             "incoming_links": [],
-            "last_modified": "2026-08-09T17:11:48.419123+00:00",
+            "last_modified": "2026-08-10T15:59:36.055875+00:00",
             "markdown_path": "_d/em-to-ic.md",
             "outgoing_links": [
                 "/agency",
