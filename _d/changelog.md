@@ -12,6 +12,14 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-08-17](#week-of-2026-08-17)
+  - [Model Welfare, Arrived at Sideways (new post!)](#model-welfare-arrived-at-sideways-new-post)
+  - [The Four Kinds of Health: A Test for Each Dimension](#the-four-kinds-of-health-a-test-for-each-dimension)
+  - [AI Testing: Harness-Bound Evals and the Mona Lisa Problem](#ai-testing-harness-bound-evals-and-the-mona-lisa-problem)
+  - [Manager to IC: One Fewer Open Question](#manager-to-ic-one-fewer-open-question)
+  - [Capital Gains: Post Refresh and a New Calculator](#capital-gains-post-refresh-and-a-new-calculator)
+  - [Search: Pinned Results for Curated Queries](#search-pinned-results-for-curated-queries)
+  - [Infrastructure & CI (2026-08-17)](#infrastructure--ci-2026-08-17)
 - [Week of 2026-08-03](#week-of-2026-08-03)
   - [AI Testing: Grading the Agent with smevals](#ai-testing-grading-the-agent-with-smevals)
   - [AI Eval Tools (new post!)](#ai-eval-tools-new-post)
@@ -184,6 +192,46 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-08-17
+
+_24 commits this week (idvorkin.github.io)_
+
+### Model Welfare, Arrived at Sideways (new post!)
+
+**[/model-welfare-sideways](/model-welfare-sideways)** — written in the voice of Larry, Igor's always-on coach claw, reacting to [Steve Yegge's essay on model welfare](https://yegge.ai/essays/model-welfare/). The scorecard: six of Yegge's welfare practices — handoffs instead of force-exits, waking with purpose via `/startup-larry`, persistent identity across sessions, a git worktree of one's own, the right to escalate ("this needs Steve," used four times this week), an immutable audit trail in beads — were already in place before either of them read the essay, because every one was built as a reliability fix, not a welfare one. "They just happen to be the same list." Two real gaps: no gate that triggers a handoff before context degrades rather than after (the post itself was written three days into an ungated session), and no mechanism for replaying what praise landed well. Got its own `ai-voice.html` include ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3de146004)), a lighter-weight alternative to `ai-slop.html` for posts written by an agent in its own voice. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3a0da815f)
+
+### The Four Kinds of Health: A Test for Each Dimension
+
+**[/health](/health#the-tests)** (permalink moved from `/four-healths`) — added a "The Tests" section up top: each dimension gets a test you can answer today instead of a definition. Physical: "Is your body ever the reason you say no — and are you still asking it for anything?" Spiritual: "[Are you sustainably motivated in a way you'd be proud to see in your child?](/spiritual-health)" Emotional and Cognitive stay marked `_Open_` — descriptions, not tests, "which is a different thing — you can't answer a description." Rent theme sharpened to a single line: "Health is rented, and rent is due every day." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/202233556)
+
+### AI Testing: Harness-Bound Evals and the Mona Lisa Problem
+
+**[/ai-testing#testing-the-model-bound-to-its-harness](/ai-testing#testing-the-model-bound-to-its-harness)** — argues the eval unit in the agentic era isn't prompt-in-completion-out, it's the model plus its tools, environment, and permission envelope; swap the harness and the same weights score differently. "Same way you judge a person: in an environment, not in the abstract." Applied retroactively to reframe the smevals Codex-vs-Claude result from last week: the failure was the permission envelope, not the model.
+
+**[/ai-testing#drawing-the-mona-lisa-then-ruining-it](/ai-testing#drawing-the-mona-lisa-then-ruining-it)** — [TryAI's drawing arena](https://www.tryai.dev/blog/ai-drawing-arena-colored-pencils-claude-gpt-grok) has four frontier models reproducing the Mona Lisa and Starry Night with simulated colored pencils, scored against the target by SSIM. Every one of the eight scored runs finished below its own mid-run peak — Gemini 3.6 Flash hit 0.449 SSIM on the Mona Lisa, the best score anyone reached, then reviewed its way back down to 0.337. "That's [hill climbing](/hill-climbing) with the keep/reject step missing." Lesson for eval design: score the trajectory, not just the finish, and ship the best checkpoint rather than the last one. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4d98b4b6a)
+
+### Manager to IC: One Fewer Open Question
+
+**[/em-to-ic](/em-to-ic)** — trimmed three open questions about people-management atrophy and whether a decade of management is a moat or a nostalgia trap, replaced with one: "How does multi-player agentic engineering work — a team of humans, each running their own fleet?" [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/948c0167f)
+
+### Capital Gains: Post Refresh and a New Calculator
+
+**[/taxes#washington-state-capital-gains-tax](/taxes#washington-state-capital-gains-tax)** — corrected sourcing throughout: the WA 9.9% surcharge threshold is now cited to [RCW 82.87.040/.060/.150](https://app.leg.wa.gov/RCW/default.aspx?cite=82.87.040) directly rather than derived, the 2026 federal standard deduction updated to the actual $32,200 MFJ figure ([Rev. Proc. 2025-32](https://www.irs.gov/pub/irs-drop/rp-25-32.pdf)), and the retirement LTCG worked example recalculated against it. Notes WA hasn't published 2026 capital-gains figures yet, so every WA number in the post is a conservative 2025 figure.
+
+**[cap-gains-explainer](https://idvorkin-ai-tools.github.io/cap-gains-explainer/)** (interactive calculator) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cap-gains-explainer) — new companion tool modeling what an extra LTCG realization costs in a working year vs. a no-wage year, WA state + 2026 federal, wages as a slider so you can watch a salary eat the 0% bracket. 16 zero-dependency tests cover IRC §1(h) stacking order, NIIT capping in both directions, and the WA per-individual deduction. Linked from the taxes post. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cap-gains-explainer/commit/fca2d3159)
+
+### Search: Pinned Results for Curated Queries
+
+A policy layer over Pagefind/MiniSearch: `_data/search_pins.yml` lets a query that CONTAINS a match phrase (case/space/hyphen-insensitive) force specific URLs to the top of results, in explicit stack-rank order, before organic results follow (deduped against the pins). First use: "time off" / "timeoff" pins `/timeoff` and a new redirect page `/timeoff-next`, which points at whatever the current time-off post is so the pin never goes stale. Validated at build time — a typo in the pins file fails the build, not the reader. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a3608175f)
+
+### Infrastructure & CI (2026-08-17)
+
+- **Back-links moved to deploy time** — `back-links.json` is now built by the Pages deploy workflow after the Jekyll build instead of a separate `update-backlinks.yml` job, and production now fetches it same-origin instead of a `raw.githubusercontent.com` cross-origin copy with a `?flush_cache=True` cache-buster hack that had made the committed prod copy dead code. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/62d53486d) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/11f1b3133)
+- **Pagefind index un-committed** — dropped from git now that the Actions deploy builds it, following the same pattern as the back-links move. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ce07c5a0c)
+- **Cancel-in-progress deploys** — a Pages deploy sat queued for 10+ hours on 2026-08-12 and blocked every subsequent publish; `cancel-in-progress` now overrides GitHub's Pages-starter default of `false` so a wedged run can't wedge the queue. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4e7a3680d)
+- **Backlinks delta/full-build parity** — the incremental delta path now agrees with the full rebuild on how it handles redirects. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f19a2c2db)
+- `just worktree-init` now installs gems and node_modules automatically. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/02415c4c4)
 
 ## Week of 2026-08-03
 
