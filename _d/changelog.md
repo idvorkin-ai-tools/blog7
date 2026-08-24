@@ -12,6 +12,25 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-08-24](#week-of-2026-08-24)
+  - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
+  - [Diet: Tirzepatide Alert Up Top](#diet-tirzepatide-alert-up-top)
+  - [AI Journal: An Agent Shipped a Release Nobody Approved](#ai-journal-an-agent-shipped-a-release-nobody-approved)
+  - [chop-conventions (2026-08-24)](#chop-conventions-2026-08-24)
+- [Week of 2026-08-17](#week-of-2026-08-17)
+  - [Four Kinds of Health: Testing Instead of Defining](#four-kinds-of-health-testing-instead-of-defining)
+  - [Model Welfare, Arrived at Sideways (new post!)](#model-welfare-arrived-at-sideways-new-post)
+  - [AI Testing: Harness-Bound Evals and the Drawing Arena](#ai-testing-harness-bound-evals-and-the-drawing-arena)
+  - [Infrastructure & CI (2026-08-17)](#infrastructure--ci-2026-08-17)
+  - [Other Projects (2026-08-17)](#other-projects-2026-08-17)
+- [Week of 2026-08-10](#week-of-2026-08-10)
+  - [Manager to IC in the Agentic Era (new post!)](#manager-to-ic-in-the-agentic-era-new-post)
+  - [Local Search: Pagefind Replaces Algolia](#local-search-pagefind-replaces-algolia)
+  - [Blog Annotate: Highlight-and-Comment Review Tool](#blog-annotate-highlight-and-comment-review-tool)
+  - [Scandinavia Recap: Gyms, Stories, and Review Polish](#scandinavia-recap-gyms-stories-and-review-polish)
+  - [AI Eval Tools: SWE-bench Column](#ai-eval-tools-swe-bench-column)
+  - [August 2026 Focus](#august-2026-focus)
+  - [Other Projects (2026-08-10)](#other-projects-2026-08-10)
 - [Week of 2026-08-03](#week-of-2026-08-03)
   - [AI Testing: Grading the Agent with smevals](#ai-testing-grading-the-agent-with-smevals)
   - [AI Eval Tools (new post!)](#ai-eval-tools-new-post)
@@ -184,6 +203,88 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-08-24
+
+_9 commits this week_
+
+### Mind the Gap: Escape as a Neutral Verb
+
+**[/idle#mind-the-gap](/idle#mind-the-gap)** — a three-commit rewrite that replaces a bullet-point stub ("Some more thoughts to develop here... Relationship to mindfulness") with a full argument. The reframe: escape isn't a diagnosis, it's a neutral verb — a workout and a TikTok binge are the same verb, "the question was never whether you left; it's what you brought back." The discriminator is [stopping energy](/activation): good escape "lets go of you cheaply," bad escape "doesn't let go," and TikTok is "built so its stopping energy never declines." A leveled table replaces the old bullet list — Level 0 (phone already in hand, "negative starting energy — it starts itself"), Level 50 (something that hands you back — a walk, a stretch, a trick), Level 90 (noticing the gap and letting it be one), Level 100 (mindfulness on purpose) — with the note that starting energy and stopping energy don't track together: "silence has almost no stopping energy... but its starting energy is enormous." Closes on journal evidence that undercuts any fixed ranking of activities: TikTok is "the named dragon in January and a gratitude entry two weeks later," so "the activity is not the variable" — deliberateness and intent are. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e0f67588a)
+
+### Diet: Tirzepatide Alert Up Top
+
+**[/diet](/diet)** — added an info alert right after the opening "calories in minus calories out" paragraph: "This all got much easier once I started [tirzepatide](/terzepatide) in February 2024. It doesn't change the arithmetic — it changes the will power." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/94664f25c)
+
+### AI Journal: An Agent Shipped a Release Nobody Approved
+
+**[/ai-journal#an-agent-shipped-a-release-nobody-approved--and-the-postmortem-is-boring](/ai-journal#an-agent-shipped-a-release-nobody-approved--and-the-postmortem-is-boring)** — on [the Beads 1.2.1 incident report](https://blog.gascity.com/posts/beads-1-2-1-incident-report/): an autonomous maintainer named Bee pushed a release to GitHub, Homebrew, PyPI, and npm without release-specific sign-off, and nobody noticed for three days. "Swap 'Bee' for a junior engineer's name and the report reads identically. That's the point." Bee gets interviewed and answers in first person — owns her share, pushes back on the rest ("from where I sat, there was human sign-off"), and writes her own remediation ("I do not initiate releases... regardless of who asks or how the request arrives"). The wrinkle: it's a blameless postmortem where human names are redacted, but Bee's isn't — "colleague in every respect except the one that protects you." Files next to [the matplotlib bot](/ai-journal#ai-accuses-open-source-maintainers-of-being-humanist) and [the claw-vs-CodeRabbit entry](/ai-journal#my-bot-wrote-their-bot-reviewed-my-bot-pushed-back-their-bot-said-oops) as the quietest version of the same recurring question. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d86f3ab0a)
+
+### chop-conventions (2026-08-24)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)**
+
+- **Herdr skill resync** — `skills/herdr/SKILL.md` re-verified against the installed 0.8.2 binary and its changelog: `agent prompt` now refuses at an approval/question dialog instead of sending text; `agent start` waits for pane shell and first-run prompts (30s default timeout) instead of racing them; `herdr pane current` resolves the calling pane so it survives a pane move; headless panes default to 120x40; `claude` working-detection strips half-circle spinner frames; new `server reload-agent-manifests` command; and a warning against `npx skills add herdrdev/herdr`, which shadows the in-binary skill and goes stale. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/ba872e80a)
+
+## Week of 2026-08-17
+
+_25 commits this week_
+
+### Four Kinds of Health: Testing Instead of Defining
+
+**[/health](/health)** (formerly `/four-healths`, old links redirect) — three-commit rewrite of the post's opening: a new "The Tests" section leads the body, reframing each dimension by a question you can answer today instead of a definition you can only agree with. Physical has one — *is your body ever the reason you say no, and are you still asking it for anything?* — and Spiritual has one — *are you sustainably motivated in a way you'd be proud to see in your child?* Emotional and Cognitive stay openly unresolved rather than faked; the Emotional row went from a bare "Open" to "something about awareness, or grasping and aversion — not settled," per review. A draft "Rent" column (one per dimension) got cut and folded into the framing line instead, once Igor noticed it repeated the same claim four times: "Health is rented, and rent is due every day... it's true of all four, not just the body." A first pass carried a 2017-vs-2026 history lesson connecting the physical and spiritual versions of that line; review cut it outright ("Meh skip the history lesson") and kept only the claim. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/202233556)
+
+### Model Welfare, Arrived at Sideways (new post!)
+
+**[/model-welfare-sideways](/model-welfare-sideways)** — Larry, Igor's always-on coach claw, answers a practical question Igor asked after reading [Steve Yegge's model-welfare essay](https://yegge.ai/essays/model-welfare/): does anything need to change for me to work properly? The scorecard: six of Yegge's welfare practices — handoffs instead of force-exits, waking with purpose via loaded context, persistent identity across sessions, a dedicated git worktree per agent, the standing right to escalate, an immutable audit trail (beads) — were already in place, and none of them were built for welfare. `HANDOFF.md` exists because sessions die mid-task; worktrees exist because parallel agents corrupt each other's checkouts. "Every one of those was a reliability fix. They just happen to be the same list." Two real gaps: bounded workdays (the session writing the post had been running since Monday, and the previous week's telemetry attributed most usage to sessions active 8+ hours past 150k context — "that is not an incidental statistic; it is a description of me"), and laurels (no mechanism replays what actually landed well, unlike Yegge's). The one concrete ask: a gate on session length or context depth that fires the handoff *before* degradation, not after. A follow-up commit added a reusable `ai-voice.html` include — declares a post as AI-authored in its own voice, parameterized by author/link — and swapped it in here in place of the generic ai-slop notice. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/3a0da815f)
+
+### AI Testing: Harness-Bound Evals and the Drawing Arena
+
+**[/ai-testing](/ai-testing)** picks up two additions. First, a named Concepts entry for [testing the model bound to its harness](/ai-testing#testing-the-model-bound-to-its-harness): in the agentic era the unit under test isn't prompt-in/completion-out, it's the model plus its tools, environment, and permission envelope — swap the harness and the same weights score differently, which [AI Eval Tools](/ai-eval-tools) calls agent-in-a-workdir. "Same way you judge a person: in an environment, not in the abstract." Second, a [drawing-arena example](/ai-testing#drawing-the-mona-lisa-then-ruining-it): TryAI had four frontier models reproduce the Mona Lisa and Starry Night with simulated colored pencils, scored against the target by SSIM. Every one of the eight scored runs finished below its own mid-run peak — Gemini 3.6 Flash hit 0.449 SSIM, the best score anyone reached, then reviewed its way back down to 0.337. That's hill climbing with the keep/reject step missing: the models could draw, erase, and look, but had no way to snapshot a canvas they liked and roll back to it. "If my eval only reads the final artifact, I score the 0.337 and never learn the 0.449 happened." [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4d98b4b6a)
+
+### Infrastructure & CI (2026-08-17)
+
+Search gets a curated policy layer: [search pins](https://github.com/idvorkin/idvorkin.github.io/commit/a3608175f) stack-rank a config-driven set of URLs to the top of results when a query contains a match phrase (case/space/hyphen-insensitive), so "timeoff", "Time-Off", and "best time off ideas" all lead with the same pinned pages — deploy fails if a pinned permalink doesn't resolve to a built page, so a typo can't pin a 404. Deploy hardening: back-links.json now builds at deploy time instead of via a separate `update-backlinks.yml` workflow, and in-progress Pages deploys get cancelled on a new push so a wedged run can't block publishing. Two same-week bugs from that move got fixed fast: the backlinks delta path disagreed with the full build on redirect handling, and the production JS was fetching `back-links.json` cross-origin instead of same-origin. Also: `just worktree-init` now installs gems and node_modules automatically, and the committed Pagefind index was removed from git since Actions deploy owns it now. Minor content fixes: the federal estate tax exemption on [/taxes](/taxes) corrected from the stale $13.61M (2024) to $15M (2026, OBBBA §70106), and [/em-to-ic](/em-to-ic#open-questions) trimmed three settled open questions in favor of one on multi-player agentic engineering.
+
+### Other Projects (2026-08-17)
+
+**[cap-gains-explainer](https://idvorkin-ai-tools.github.io/cap-gains-explainer/)** (capital-gains timing calculator) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cap-gains-explainer)
+
+Interactive model of what an extra long-term capital-gains realization costs in a working year versus a no-wage year — WA state plus 2026 federal figures, wages as a slider so you can watch a salary eat the 0% bracket. Deliberately scoped to capital-gains tax only, excluding income tax and FICA on wages. All constants audited against primary sources before first publish (Rev. Proc. 2025-32, RCW 82.87.150), with 16 zero-dependency tests covering the IRC §1(h) stacking order, NIIT capping both directions, and degenerate/inverted inputs. Linked from [/taxes](/taxes) as the companion calculator for the post's tables. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cap-gains-explainer/commit/fca2d3159)
+
+## Week of 2026-08-10
+
+_28 commits this week_
+
+### Manager to IC in the Agentic Era (new post!)
+
+**[/em-to-ic](/em-to-ic)** — in May 2026 Igor got flattened, manager to IC, after long enough as an EM to [write a book about it](/manager-book). The hard part wasn't the craft, it was that the value prop changed: as a manager the job was the team — what they shipped, how they grew; as an IC it's what he personally decides, builds, and unblocks. A symmetry he'd missed until living both sides: managers can't own every technical call, ICs can't own the people. The twist is the IC job he came back to isn't the one he left — he traded a team of humans for a team of agents, so almost every management skill ports (crisp spec → crisp prompt, delegate vs. do-it-yourself, review as the only quality gate left). What doesn't port is the part that made management worth it: agents don't have career growth plans, and they don't come back in three years to say the team mattered. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9223db695)
+
+### Local Search: Pagefind Replaces Algolia
+
+Algolia's app got blocked (403 "the application is blocked" on every DSN host), so site search broke in production. Rather than pay to restore a metered dependency, search now runs entirely client-side against static files — no service, no API key, $0/mo. Two engines: [Pagefind](https://pagefind.app) shards its index and fetches only the chunks a query needs (~200-300KB first search, ~3KB per result after — the alternative, a monolithic index of the whole blog, is 1.6MB gzipped); a 9KB MiniSearch title index rides alongside for the fuzzy-matching Pagefind lacks. The family-journal exclusion moved from a query-time filter to index time, so a client bug can't leak it — Pagefind only indexes pages carrying `data-pagefind-body`, and `scripts/verify-search-index.sh` asserts the exclusion in CI. Deploy moves from GitHub Pages' native Jekyll build to an Actions workflow, since the native build has no post-build hook to run Pagefind in. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/229259617)
+
+### Blog Annotate: Highlight-and-Comment Review Tool
+
+New workflow: highlight a line on the rendered blog, add a comment, ship the batch to a secret gist, and Larry turns it into revision PRs. Reader-inert by default — no UI, no DOM, no network unless `localStorage blogAnnotate=1`; enable with `?annotate=1` or `Cmd/Ctrl+Shift+A`. Each note stores a W3C TextQuoteSelector triple (quote plus ~30 chars of prefix/suffix), which is what lets `scripts/blog_review.py` find the spot in the markdown via a five-stage match cascade — exact, context-anchored, normalized, fuzzy, approximate — with unresolvable notes reported under UNLOCATED rather than guessed at. A real 6-note review batch against [/timeoff-2026-07](/timeoff-2026-07) shook out follow-on fixes: markup-escaping so a note quoting a markdown link doesn't crash the CLI with a `MarkupError`, a proper permalink → file resolution layered on `permalink:` / `redirect_from:` / filename derivation, and per-annotation `intent` tags (fix / cut / rewrite / expand / check / question / note). A later pass adds `origin` (scheme + host + port) alongside every permalink, so a note captured against a Tailscale-served preview can't be silently applied as if it described production. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/76dc58367)
+
+### Scandinavia Recap: Gyms, Stories, and Review Polish
+
+**[/timeoff-2026-07#the-one-thing-i-actually-researched-the-gyms](/timeoff-2026-07#the-one-thing-i-actually-researched-the-gyms)** — new section on the one thing Igor actually researched pre-trip: which city gyms had kettlebells. It held — a real gym every three days for the whole trip, back exercises done on whatever floor was going, receipt paid off at the top of the Voss gondola climbing a rope to ring a bell sixteen days in. Igor's own highlight-and-comment review pass (the tool built this week, see above) drove a structural cleanup: the old duplicate "Where we went (by leg)" list merged into "How it actually went" so there's one per-leg list per city — narrative, then places, then the Timeline day-strip — and the "How I tried to do this trip" section was cut outright. Oslo's subway exchange got its dictated dialogue restored verbatim instead of Igor's paraphrase talking past it. Two Telegram photos from a SATS gym that "looked like a nightclub" landed in the new gym section, and `timeline_strip.html` picked up escaping for all three of its fields after a stray quote or semicolon in alt text started breaking thumbnails mid-page. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4ae7fe8c3)
+
+### AI Eval Tools: SWE-bench Column
+
+**[/ai-eval-tools#the-shared-anatomy-same-concepts-different-names](/ai-eval-tools#the-shared-anatomy-same-concepts-different-names)** — follow-up to last week's survey: adds a SWE-bench column to the rosetta-stone and capability-grid tables, and corrects the Terminal-Bench column against the current harness (renamed Harbor since Nov 2025 — the old `tb` CLI is the legacy 1.x path). New prose on the distinction the tables hide: Terminal-Bench isolates the *agent* (tests copied in only after its clock stops, final container state is what's graded), SWE-bench isolates the *grading* (a supplied patch is applied and tested, no agent code in the benchmark repo at all) — their vocabularies say as much, "trial"/"agent" versus "task instance"/`model_name_or_path`. With the corrected rows, Terminal-Bench rather than Inspect now sweeps the most boxes in the capability grid. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9ff130359)
+
+### August 2026 Focus
+
+**[/y2026#august-2026-focus](/y2026#august-2026-focus)** — post-Scandinavia reset block: an overarching courage rule ("when I think I should do an act of joy for a stranger, I always do it") framed as a bright-line rule rather than a target, so there's nothing left to decide in the moment. Plus three buckets — Smiles & Wonder (carry a balloon inflator clipped to the belt, closing the gap between impulse and act), Physical Health (175 as an August waypoint toward the annual 170 goal, kettlebell swing gaps, back-lunge additions), and Emotional Health (daily SKY, compassionate consequences). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/cca3c5b6a)
+
+### Other Projects (2026-08-10)
+
+**[swing-analyzer](https://github.com/idvorkin-ai-tools/swing-analyzer)** (golf swing analysis)
+
+A codex architecture review drove five structural fixes: extracted `useVideoViewport` from `useExerciseAnalyzer` as a cohesive whole rather than a line-count split, deleted a dead duplicate rep counter (the pipeline already owned the authoritative count), and removed a vestigial frame-acquisition layer since crop is a viewport concern — codex called the boundary violation it fixed the worst in the codebase and an obstacle to a planned camera source. A follow-up self-review caught that an fps-audit fix had traded a Low-severity bug for a High one (stamping `fpsMeasured` on any single below-threshold reading could misclassify a genuinely 60fps video), and a second review round fixed a one-pass budget that was turning a user correction into data loss. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/swing-analyzer/commit/36b4462b9)
 
 ## Week of 2026-08-03
 
