@@ -12,6 +12,12 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-09-07](#week-of-2026-09-07)
+  - [The Den: Two New Strips, a Real Lightbox, and One Less Thing to Chase](#the-den-two-new-strips-a-real-lightbox-and-one-less-thing-to-chase)
+  - [Field Maps: Six New Explainer Sites, One Index to Find Them (2026-09-07)](#field-maps-six-new-explainer-sites-one-index-to-find-them-2026-09-07)
+  - [Infrastructure & CI (2026-09-07)](#infrastructure--ci-2026-09-07)
+  - [chop-conventions (2026-09-07)](#chop-conventions-2026-09-07)
+  - [Other Projects (2026-09-07)](#other-projects-2026-09-07)
 - [Week of 2026-08-24](#week-of-2026-08-24)
   - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
   - [AI Journal: The Beads 1.2.1 Incident Report](#ai-journal-the-beads-121-incident-report)
@@ -203,6 +209,47 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-09-07
+
+_15 commits this week_
+
+### The Den: Two New Strips, a Real Lightbox, and One Less Thing to Chase
+
+**[/the-den#6--do-a-russian-accent](/the-den#6--do-a-russian-accent)** and **[/the-den#7--before-ai--after-ai](/the-den#7--before-ai--after-ai)** — two new strips, plus a swap and a viewer rebuild. Den #6, "Do a Russian Accent," ships as Igor asking his phone how much it sounds like him, then asking it to do a Russian accent for laughs — "HA HA! OF COURSE, COMRADE. LIFE IS HEAVY, LIKE ROCK" — before the AI accidentally mirrors his own opening line back at him ("IT STILL SOUNDS LIKE I'M TALKING TO MYSELF" / Larry: "YES"). It shipped once on a Gemini 3 Pro render, then Igor picked an OpenAI gpt-5.4-image-2 take instead — "That looks best" — swapping it in as the strip's main art while keeping the Gemini version for **[/the-den-styles](/the-den-styles)**, a new page comparing the same script rendered by three models side by side (Gemini 3 Pro, a Gemini Flash slip that shipped by accident when nobody pinned `GEMINI_IMAGE_MODEL`, and OpenAI). Den #7, "Before AI / After AI," runs the same mugging scene twice — a knife in an alley, "HAND OVER YOUR WALLET!" — first with Igor pleading he has three kids at home, then with three AI agents waiting for his response instead, closing on Larry and two robots working the attic under mugs marked COACH, PLAN, and SHIP. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2d1491506) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/263019b23) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f83d621da) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/970259341)
+
+The panel-by-panel reader got rebuilt as a real lightbox (Codex-built): full-viewport, keyboard and swipe navigation, focus trapping, reduced-motion support, and large translucent edge tap-zones instead of small opaque buttons that covered the art. It's folded directly into `/the-den` — the standalone `/den-viewer` demo page is gone and now redirects — and navigation never crosses between strips; the fourth panel steps to a full-strip composite instead of wrapping to the next comic. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9b87d3e0f) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/93fa542a1) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/710e0c533)
+
+Larry's claw canon also dropped a rule: which arm the giant red lobster claw sits on is no longer scored or flagged. The model gets it right in wide shots but flips it in nearly every close two-shot, and respinning a panel to fix the *side* was the actual cause of the recurring two-claw failure — so the contract now only asserts "exactly one claw, exactly one furry paw," never which arm. Separately, `gutter/cut-panels.py`'s panel-cropping rect now trims one extra pixel off each edge — the outermost line of a rendered stroke measured 0.57-0.62 dark against 0.98 for the lines just inside it, antialiased enough that `check-panels.py` was rightly rejecting the export. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6b419a9df)
+
+### Field Maps: Six New Explainer Sites, One Index to Find Them (2026-09-07)
+
+A burst of new "field map" sites — per-lecture/per-chapter explainer pages with timestamped video links, cleaned transcripts, and annotated code — landed across six repos this week, all under `idvorkin-ai-tools`:
+
+- **[technical-ai-safety-field-map](https://idvorkin-ai-tools.github.io/technical-ai-safety-field-map/)** (BlueDot's Technical AI Safety course) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/technical-ai-safety-field-map) — all 27 chapter pages across six units, original explainers linked back to the course readings.
+- **[cs336-field-map](https://idvorkin-ai-tools.github.io/cs336-field-map/)** (Stanford CS336, Language Modeling from Scratch) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cs336-field-map) — all 17 lecture pages plus assignment walkthroughs A1-A5.
+- **[build-gpt-field-map](https://idvorkin-ai-tools.github.io/build-gpt-field-map/)** (Karpathy's "Let's build GPT") [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/build-gpt-field-map) — eight explainer parts, annotated code, a cleaned transcript.
+- **[micrograd-field-map](https://idvorkin-ai-tools.github.io/micrograd-field-map/)** (Karpathy's micrograd) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/micrograd-field-map) — same eight-part format applied to backprop from scratch.
+- **[3b1b-entropy-field-map](https://idvorkin-ai-tools.github.io/3b1b-entropy-field-map/)** (3Blue1Brown on entropy) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/3b1b-entropy-field-map) — twenty pages, including a Hamming-arc detour on reinventing the code and a page on the Wordle proxy-objective bug.
+- **[man-in-the-arena](https://idvorkin-ai-tools.github.io/man-in-the-arena/)** (Theodore Roosevelt's speech) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/man-in-the-arena) — thirteen pages, the full speech text, and a verified-sources page.
+
+**[idvorkin-ai-tools.github.io](https://idvorkin-ai-tools.github.io/)** (index of every live explainer and field map) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/idvorkin-ai-tools.github.io) — the org's index page now cards up all of the above in one place, added incrementally as each field map shipped. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/idvorkin-ai-tools.github.io/commit/84166fa43)
+
+### Infrastructure & CI (2026-09-07)
+
+The prettier pre-commit hook has a second failure mode beyond the known stash-rollback abort: it can let a commit land and leave its reformatted files unstaged (seen on the Den viewer PR, with `_includes/den_viewer.html` and `tests/e2e/den-viewer.spec.ts` silently un-included). `CLAUDE.md` now says to run `git status` after every commit and, if files turn up dirty, `SKIP=prettier git commit --amend --no-edit`. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ff61856bb)
+
+### chop-conventions (2026-09-07)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** (shared CHOP skills & conventions)
+
+`Designing Software` picks up four rules cherry-picked from the `ponytail` CLAUDE.md plugin (MIT-licensed, adopted in lieu of installing it): climb a "laziness ladder" before writing code — does it need to exist at all, is it already in the codebase, the stdlib, a native platform feature, an already-installed dependency, one line? — plus "boring over clever," a `ponytail:` comment convention for naming a deliberately cut corner's ceiling and upgrade path, and "if the explanation is longer than the code, delete the explanation." [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/794e51969)
+
+### Other Projects (2026-09-07)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS app exporting HealthKit & location data for AI life coaching)
+
+The call feature got a diagnostics upload path — a private gist per troubled call with a delete-when-processed note, token kept in the Keychain — plus fixes for audio that stops mid-call healing itself, the greeting waiting for the speaker, a held greeting surviving a mic reset, and a live line showing what Igor is saying before it settles into the transcript. Also: the cockpit's phone icon now jumps straight to the Call tab over the bridge, and a dependency pass took the vulnerable transitive package count from 32 down to 18, superseding twelve separate Dependabot PRs at once. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/7504fa6f6) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/6b9e44306)
 
 ## Week of 2026-08-24
 
