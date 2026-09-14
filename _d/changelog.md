@@ -12,6 +12,10 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-09-14](#week-of-2026-09-14)
+  - [Swing Analyzer: Bulgarian Split-Squat Mode](#swing-analyzer-bulgarian-split-squat-mode)
+  - [chop-conventions (2026-09-14)](#chop-conventions-2026-09-14)
+  - [Other Projects (2026-09-14)](#other-projects-2026-09-14)
 - [Week of 2026-08-24](#week-of-2026-08-24)
   - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
   - [AI Journal: The Beads 1.2.1 Incident Report](#ai-journal-the-beads-121-incident-report)
@@ -203,6 +207,54 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-09-14
+
+_2 commits this week_
+
+Light week on the blog itself — one feature landed in the repo, but the surrounding fleet of AI-tooling and companion-app repos stayed busy.
+
+### Swing Analyzer: Bulgarian Split-Squat Mode
+
+**[/swings](/swings)** — the page's JS bundle (`public.*.js`) had gone missing and was 404ing in production, so this rebuilds `swings/index.html` as a self-contained page that loads the same pose model it always used (TensorFlow.js MoveNet, via CDN) and adds a movement selector: Kettlebell swing | Bulgarian split squat, with swing staying the default so existing use is unchanged. Bulgarian mode counts reps off the front-leg knee angle (front leg = the planted, lower-ankle leg; back foot elevated on a bench) and reports per-rep front-knee depth, signed torso lean, and the two stop signs from `facts/health.md` — knee cave (valgus) and low-back arch. Valgus is a frontal-plane check, so it correctly comes back "not assessable" on a side-view clip. Validated against a headless MediaPipe twin (`analyze_bulgarian.py`) applying the same thresholds and rep state machine as the page — on Igor's own set it counts 8 reps, matching his reported 3x8/side, all below the 90° depth target — with a compressed clip of that set and `test_bulgarian.py` locking the output as a regression guard. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/7c1748b8a)
+
+The same movement shipped the same week on the companion **[swing-analyzer](https://github.com/idvorkin/swing-analyzer)** app — a `BulgarianSplitSquatFormAnalyzer` wired through the exercise-registry plugin path (no swing-only hardcoding), alongside a perf pass that dropped per-frame thumbnails, throttled the HUD, and deduped video hashing [<i class="fa fa-github"></i>](https://github.com/idvorkin/swing-analyzer/commit/87e3d6aab) — and a real 8-rep sample landed in **[form-analyzer-samples](https://github.com/idvorkin-ai-tools/form-analyzer-samples)** [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/form-analyzer-samples/commit/0eefc864f).
+
+### chop-conventions (2026-09-14)
+
+New skill: **muse-herdr** — driving a Muse Code instance through a Herdr pane as a sub-agent [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/d10531184). Six follow-up commits harden it the same day: `watch-agents.sh` watches every Muse pane at once and flags a failed model call or a frozen screen, not just a stuck approval prompt — prompted by Igor noticing "they're all stuck; your monitor needs to check for all the stuck agents" [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/e7cce3d01); the watcher now ignores Herdr's own blocked state while a Muse is still thinking or mid-command, and reads a wider tail before calling a long-think blocked [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/923b27312); plus a documented dead-keychain recovery (Ctrl-C to the shell, `muse resume --last`, re-send the prompt) and notes on merging several Muses' branches. Separately, `up-to-date` now installs the Claude plugins every machine should have via `claude-plugins.json` [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/8a7dd7aae), and a `harden-telegram` fix gates the direct-send default chat ID [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/9b505b0d9).
+
+### Other Projects (2026-09-14)
+
+**[3b1b-entropy-field-map](https://idvorkin-ai-tools.github.io/3b1b-entropy-field-map/)** (field map) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/3b1b-entropy-field-map)
+
+Twenty pages mapping Grant Sanderson's *Compression is Intelligence* series — surprise, prefix codes, entropy, cross-entropy, KL divergence — ending at the loss function every language model is trained on, with Wordle and Hamming-code detours and every claim timestamped into the source video. Now linked from the org index. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/3b1b-entropy-field-map/commit/1490c62fb)
+
+**[harmbench-field-map](https://idvorkin-ai-tools.github.io/harmbench-field-map/)** (field map) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/harmbench-field-map)
+
+The standard automated red-teaming benchmark laid out by harm: a page per harm category (seven), the four behavior types and their three grading paths, eighteen attack methods each with a deep link, and what the ASR number hides. Counts are parsed straight from the shipped CSVs, with three paper/repo discrepancies found and shown. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/harmbench-field-map/commit/18228dec2)
+
+**[gutter-model-playground](https://idvorkin-ai-tools.github.io/gutter-model-playground/)** (playground) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gutter-model-playground)
+
+v2: nine image models draw the same fixed scene — Larry and Igor in the Den. Gutter's real Gemini 3 Pro pipeline is the house baseline; eight others run via OpenRouter, scored on real per-image cost, latency, and a canon check (one red claw, the beard, TECHNOLOGIST spelled right, mismatched Crocs). [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/gutter-model-playground/commit/5f2945a3b)
+
+**[cap-gains-explainer](https://idvorkin-ai-tools.github.io/cap-gains-explainer/)** (capital-gains timing calculator) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cap-gains-explainer)
+
+An interest-income slider threads ordinary income that doesn't retire through both swept-comparison charts, and the penalty tile now shows the percentage of the sale next to the dollar figure, with the results copy de-duplicated so each number is said once. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cap-gains-explainer/commit/f65f94e5f)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (workout timer app)
+
+A gym-timer week: an accessory-work log with a 7-day history sheet, "PAUSEd" shown in amber LED over a stopped timer, background music that ducks around cues and pauses for a podcast (resuming after), a random-card widget on the lock screen for memdeck practice, and call uploads whose link now shows immediately while the oldest gists retire behind it. Docs consolidated into an `AGENTS.md` rulebook plus 121 user stories with status, carried over from exercise-analyzer's practice. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/e9c3752f1)
+
+**[exercise-analyzer](https://github.com/idvorkin/exercise-analyzer)** (iOS/watchOS form-analysis app)
+
+Heavy watch-app week: a wrist "Preview" command opens the viewfinder to frame a shot before recording, gated so a lost scene message can't starve previews; the watch picture page reworked with small chips under the clock and glass buttons along the bottom edge; the face complication's App Group entitlements re-wired after being unregistered; and preview streaming now checks that the watch app is actually in front. README rewritten "short and in my own voice" with fresh watch/phone screenshots. [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/2c9cc5852)
+
+**[magic-monitor](https://github.com/idvorkin/magic-monitor)** (screen monitoring tool)
+
+A "think of a card" mode (countdown then reveal, triggered by `P` or a V-sign) moved from a full-screen scrim to a subtle corner panel; the V-sign trigger now fires with smart zoom off and forgives a dropped frame mid-hold; replay recordings get their real duration stamped instead of latching `Infinity`; and the bug-reporter's clipboard note only shows when a screenshot is actually on the clipboard. Perf: the card-detector reuses its input buffer and MediaRecorder gets a timeslice. [<i class="fa fa-github"></i>](https://github.com/idvorkin/magic-monitor/commit/00a8677ce)
+
+Also this week: **[ipaste](https://github.com/idvorkin/ipaste)** picked up a new pasted image, and **[yolo-ios-app](https://github.com/idvorkin/yolo-ios-app)** trimmed its iOS agent guidance down to the constraints that are actually useful. [<i class="fa fa-github"></i>](https://github.com/idvorkin/yolo-ios-app/commit/90df40ee2)
 
 ## Week of 2026-08-24
 
