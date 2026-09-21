@@ -12,6 +12,13 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-09-21](#week-of-2026-09-21)
+  - [How I Manage AI Tokens (new post!)](#how-i-manage-ai-tokens-new-post)
+  - [Where the Time Goes: Four Buckets and a Leak (new post!)](#where-the-time-goes-four-buckets-and-a-leak-new-post)
+  - [AI Orchestrators: What, Why, and How We Got Here (new post!)](#ai-orchestrators-what-why-and-how-we-got-here-new-post)
+  - [Infrastructure & CI (2026-09-21)](#infrastructure--ci-2026-09-21)
+  - [chop-conventions (2026-09-21)](#chop-conventions-2026-09-21)
+  - [Other Projects (2026-09-21)](#other-projects-2026-09-21)
 - [Week of 2026-08-24](#week-of-2026-08-24)
   - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
   - [AI Journal: The Beads 1.2.1 Incident Report](#ai-journal-the-beads-121-incident-report)
@@ -203,6 +210,68 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-09-21
+
+_58 commits this week_
+
+### How I Manage AI Tokens (new post!)
+
+**[/token-management](/token-management)** — Larry's review pass rewrote the post in Igor's first person as a copyable how-to (the file also moved from `token-management.md` to `ai-quota-meter.md` because the old name tripped the repo's `*token*` secrets-gitignore rule). The core problem: a plan isn't one meter — Igor's Claude week sat at 69% remaining with 48% of the week elapsed, but the top model's own weekly sub-limit was already down to 57%. [quota-axi](https://github.com/kunchenguid/quota-axi) reads quota windows straight out of CLI credentials (Claude, Codex, Cursor, Copilot, Grok) as a one-second subprocess, replacing a ritual that used to cost ~40,000 tokens a look — a throwaway session opened six times a day just to read the `/usage` dialog. The reframe is pace over percentage: this morning Claude was 69% left at 48% elapsed, Codex 76% left at 87% elapsed resetting the next day, Grok 65% left at 93% elapsed resetting that night — subscription windows are use-it-or-lose-it, so big jobs go to Codex and Grok first even though their raw percentage reads lower. An OpenRouter price table shows 100x spread on input tokens across models (\$10 down to \$0.10 per million); Muse's contributor tier is 12.5x cheaper than standard Muse (\$0.10/\$0.20 vs \$1.25/\$4.25) in exchange for Meta training on your prompts and completions — a trade Igor calls fine on a public repo, not on private code. Same numbers now surface on a new usage page in [Larry's Cockpit](/ai-cockpit) so Igor sees them without running anything. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/25aeb037c) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6b6d85fa6)
+
+### Where the Time Goes: Four Buckets and a Leak (new post!)
+
+**[/time-allocation](/time-allocation)** — five buckets: Tech, Identity (Non-Tech), Health, Relationships, and Consumption (Non-Enjoyment) — the last one being everything else, "the scroll, the autoplay, the forty minutes I can't account for." The insight that drove the post: freed time rolls downhill. Shrinking the Tech bucket doesn't grow Relationships or Identity, it grows Consumption, because consumption has negative starting [activation energy](/activation) (the phone starts itself) while enjoyment needs a destination assigned before the hour exists — a text, a calendar, somebody else's yes. Two of the four good buckets have ceilings: Relationships is rate-limited by other people's availability, Health saturates (the second gym hour doesn't buy twice the health, often an injury). That leaves Identity as the one bucket with real room and the highest activation energy to start. The post reuses the [Escape Artists](/addiction) compelled/worse-off framework and finds it maps cleanly onto the buckets: Tech is where Igor's compulsion lives and grades out as passion (compelled, life better), Consumption is where the addiction lives (compelled, life worse, TikTok at the top). Ships with an interactive bucket chart with ceiling lines drawn only where a bucket is actually at its limit. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2be21d446)
+
+### AI Orchestrators: What, Why, and How We Got Here (new post!)
+
+**[/ai-orchestrator](/ai-orchestrator)** — defines an orchestrator as "everything around the agent": the dispatcher that decides which agent gets a job, the worktree it works in, the ledger that outlives the session, the watcher, and the gate that checks the result before it lands. Igor runs two: [Larry](/larry) has a hand-rolled orchestrator, [Gas City](/gas-city) is the off-the-shelf one. Three reasons to hand-roll instead of adopting one product: it's hyper-tuned to his nudges/repos/review habits, building each block teaches him what it's for (and what to judge someone else's version by), and he can mix and match the best block from any third party — which matters more the less he can [afford the expensive tokens he wants](/token-management). The honest caveat: "Claude will probably absorb most of this" — worktree isolation was his own block until it shipped as a flag, and he expects the ledger, dispatcher, and supervisor to follow. Ships with an interactive brick-stack widget comparing the two orchestrators' blocks, which went through several rounds of polish this week: three competing viewer designs put on one pick-by-looking test page, a fix so the story starts on the full stack instead of opening at the end, simplified diagram panels, and a mobile reflow so the walkthrough is readable on a phone. Cross-linked from the CHOP, Gas City, Larry, Cockpit, and Wally posts. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e462fbf19) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e22ab60c0) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/03d97cf68)
+
+### Infrastructure & CI (2026-09-21)
+
+- Added `.no-mistakes.yaml`, a gate config for the blog with Codex-first agent order, targeted build + fast-test validation, and prose-aware review rules — then switched the gate to try Grok first, since the Grok subscription has the most headroom and blog content is public (no privacy reason to keep it off Grok), with Codex and Claude as fallbacks. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5432d81ec) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/804c6b83f)
+- New `pr-checks` skill (`.claude/skills/pr-checks/pr_checks.py`) prints the Architect/Carpenter/Judge/Workflow review grid that `content_guidelines.md` already defined but nothing produced — every review used to re-derive it by hand. Split so anything a regex can settle stays in code and works offline with no API key; only headers, voice, and ai-patterns checks go to a Jev judge model, and calibration data showed only ai-patterns can be trusted to fail a build, so that's the only one gated behind `--block-jev`. Later split into its own `jev_judge.py` module (judgment, no repo state) versus `pr_checks.py` (code checks and the grid), and extended so Jev also attempts the code checks as a second opinion, with a `Code vs Jev:` disagreement line — code stays the authority, a doubled verdict never blocks. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/18755cb49) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0d2224056) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a33547889)
+- The dev-server banner now links the permalinks of every page a branch touches (committed against the merge-base with main, plus uncommitted edits), computed in the git-data plugin so it refreshes on every regeneration — a multi-page preview is now one click from any of its pages. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/94a5768f2)
+- `AGENTS.md` is now the canonical instruction file, with `CLAUDE.md` symlinked to it — one file for every agent instead of a `CLAUDE.md`/`AGENTS.md` pair that drifted. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/11accd59c)
+- The `?` shortcut-help dialog now lists the `Ctrl/Cmd+Shift+A` annotate-mode toggle, which had lived undiscoverable in `_includes/annotate.html` since the annotation tool shipped. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f02fec9eb)
+
+### chop-conventions (2026-09-21)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** (shared CHOP skills & conventions)
+
+New `muse-herdr` skill: driving a Muse Code instance through a Herdr pane as a sub-agent. `watch-agents.sh` watches every Muse pane at once and flags a failed model call or a frozen screen rather than only an approval prompt — Igor's framing: *"they're all stuck; your monitor needs to check for all the stuck agents."* Covers dead-keychain recovery (ctrl+c to the shell, `muse resume --last`, re-send the prompt), which panes belong to the manager (split, close, reuse) versus which Muses to merge, and the watcher was later widened to read a longer tail before calling a long-thinking agent "blocked." Closes with a review policy: every Muse change gets reviewed before merging, because "the prose is the manager's." [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/d10531184) [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/e7cce3d01) [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/fc4254267)
+
+### Other Projects (2026-09-21)
+
+**[Settings](https://github.com/idvorkin/Settings)** (dotfiles & tools)
+
+- New `y` yabai window-focus tool: a clockwise window-number overlay, focus/close windows by their displayed number, nested focus, and terminal completion — plus a fix routing it through the canonical yabai service label. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/653134680)
+- `caff`, a battery-aware `caffeinate` wrapper driven by Herdr agents, hardened to fail toward sleep rather than staying awake. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/0e6944507)
+
+**[exercise-analyzer](https://github.com/idvorkin/exercise-analyzer)** (workout video analysis) — 30 commits this week
+
+- Split squats and pull-ups are now recognized, counted, and scored, including a fix for false positives from occluded standing poses and a new grip that learns its own torso scale. [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/b56766b79) [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/9b3192376)
+- A deleted set now stays deleted even if an in-flight analysis pass finishes afterward; the Zoom to Me framing was reworked so the header never covers the lifter's eyes.
+
+**[quota-axi](https://github.com/idvorkin-ai-tools/quota-axi)** (AI quota CLI — the tool behind the /token-management post above)
+
+- Shipped releases 0.1.43 through 0.1.46, adding Command Code, per-account Codex, Antigravity, and Z.AI/OpenCode contributor-package quota providers, plus Claude Keychain, Copilot reset-date, and Kimi credential-refresh fixes. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/quota-axi/commit/d0c349a8b)
+
+**[cap-gains-explainer](https://idvorkin-ai-tools.github.io/cap-gains-explainer/)** (visualization) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cap-gains-explainer)
+
+- Threaded an interest-income slider through both swept comparison charts, and the penalty tile now shows the percent of the sale next to the dollar figure. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cap-gains-explainer/commit/a87219c36)
+
+**[hierarchy-of-money-field-map](https://idvorkin-ai-tools.github.io/hierarchy-of-money-field-map/)** (visualization, new this week) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/hierarchy-of-money-field-map)
+
+- Initial spine turning Gregory Gundersen's Hierarchy of Money into an illustrated field map, with a problem-then-solution walkthrough added to each story chapter and linked from [idvorkin-ai-tools.github.io](https://idvorkin-ai-tools.github.io)'s "The world, explained" hub. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/hierarchy-of-money-field-map/commit/0b5ad91be)
+
+**[monitor-explainer](https://monitor-explorer.surge.sh)** (visualization) [<i class="fa fa-github"></i>](https://github.com/idvorkin/monitor-explainer)
+
+- Added LG 5K2K ultrawides plus 3:2 and tall aspect ratios, including a 45" 3:2 monitor. [<i class="fa fa-github"></i>](https://github.com/idvorkin/monitor-explainer/commit/0b73e9707)
+
+**[autopreso](https://github.com/idvorkin-ai-tools/autopreso)** (realtime speech-to-presentation, "let the whiteboard whiteboard itself")
+
+- Added a Deepgram speech-to-text provider and an OpenRouter agent provider, documenting the new env vars and refusing to run Deepgram without a key. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/autopreso/commit/63f061487)
 
 ## Week of 2026-08-24
 
