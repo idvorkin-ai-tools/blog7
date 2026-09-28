@@ -12,6 +12,14 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-09-28](#week-of-2026-09-28)
+  - [Spiritual Health: Hub Rewrite and Religion Restructure](#spiritual-health-hub-rewrite-and-religion-restructure)
+  - [AI Posts: Interaction Model, Agency, Gas City (new post!)](#ai-posts-interaction-model-agency-gas-city-new-post)
+  - [Body and Time](#body-and-time)
+  - [The Den: Episodes 8 to 11](#the-den-episodes-8-to-11)
+  - [Infrastructure & CI (2026-09-28)](#infrastructure--ci-2026-09-28)
+  - [chop-conventions (2026-09-28)](#chop-conventions-2026-09-28)
+  - [Other Projects (2026-09-28)](#other-projects-2026-09-28)
 - [Week of 2026-08-24](#week-of-2026-08-24)
   - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
   - [AI Journal: The Beads 1.2.1 Incident Report](#ai-journal-the-beads-121-incident-report)
@@ -203,6 +211,82 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-09-28
+
+_70 blog commits this week, plus activity across 20 repos_
+
+### Spiritual Health: Hub Rewrite and Religion Restructure
+
+- **[/spiritual-health](/spiritual-health)** - rewritten as the hub. Test: are you sustainably motivated in a way you'd be proud to see in your child? When it fails, one of three things is missing: Direction, Scale, or Acceptance, each with practices. About 770 lines cut down to 100 ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/249bd4f87))
+- **[/religion](/religion)** - restructured around the story and "It Lives in Practice, Not Proof": my dad didn't believe in God but walked to synagogue every Friday, and the practice carried me when he died ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4812cca24))
+- **[/walking-with-god](/walking-with-god#what-the-experiment-taught-me)** - devotional experiment closed out (20 entries, Oct 20 to Nov 21, 2025), sorted into Direction, Scale, and Acceptance ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/48e71347e))
+- Shared vocabulary and cluster footer on /health, /elder, /stoicism and friends; stub cleanup on /stoicism, /death, /self-ego ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e078f6b14), [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6aadeefca))
+
+### AI Posts: Interaction Model, Agency, Gas City (new post!)
+
+- **[/interaction-model](/interaction-model) (new)** - Larry, my AI life coach, started answering like a ticket system on Opus 5 and got fun again on Opus 5.5. Capability is what an agent can do; the interaction model is how it talks to you ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f7b150566))
+- **[/agency](/agency)** - rebuilt around "knowledge became queryable, the technologist threshold moved"; 413 lines down to 44 added ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/b4b6c566f))
+- **[/gas-city](/gas-city)** - /why-gas-city merged into the one hub: "a city isn't a smarter agent, it's the layer that turns work into something durable" ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/00880797d)); [/gas-city-home](/gas-city-home) trimmed to the Sunday story ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/fee190520))
+- **[/ai-eval-tools](/ai-eval-tools)** - leads with two divides: run-the-agent vs call-a-function, and saved vs unsaved runs ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/fb622d07f))
+- **[/hyper-personal](/hyper-personal#why-saas-still-lives)** - new "Why SaaS still lives" section ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5cf8364e0))
+- **[/claw](/claw#muse-a-claw-a-grandma-can-use)** - Muse (Meta's personal agent) gets its own section; /claw and /igors-claws de-duplicated ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a2b981516), [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9a680255e))
+- Prose cleanup on /larry-cockpit, /ai-quota-meter, /ai-orchestrator ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/da9bfff06), [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/716e2ca80), [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/76546cad1))
+
+### Body and Time
+
+- **[/back-pain](/back-pain#weak-hips-make-a-banana-back)** - weak glutes plus tight hip flexors tip the pelvis and turn the spine into a banana; the neck poke is the same trick one floor up. Interactive `banana-back` widget with sliders, anatomical spine model, and a backpack figure ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6d012f9d1), [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0303ecc58))
+- **[/time-allocation](/time-allocation)** - rewritten from scratch as "Where the time goes": four buckets filled on purpose, plus a fifth that gets whatever is left ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/b11e9e760))
+- **[/balloon](/balloon)** - pump-carry progression, pocket to retractor, with photo ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a5cd8951b))
+- **[/amazon](/amazon)** - note on customer obsession degrading: blocked AI agents, generic emails ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/8e554d943))
+
+### The Den: Episodes 8 to 11
+
+- Den #8 Rex's debut ("What's His Name"), #9 "He Speaks Human" (Opus 5 before, 5.5 after), #10 and #11 "Our Most Prolific Contributor, Zero Tokens"; Rex carried into public canon; styles page gets plainer prose ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/92c653778), [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e1a347290), [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/7ba2e5e06))
+- Gutter recipe: Muse Image is the default, Gemini retired ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/02f57b88b))
+
+### Infrastructure & CI (2026-09-28)
+
+- Dev banner "Diff vs main": rendered rich diff of the page, with jump between changes (n/p, j/k), a change map with seen ticks, and item-by-item list diffs; base now read same-origin ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/12e5e5220), [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ee12e6cad))
+- Changelog Action runs on Opus 5.5 with a terse-list spec; failure reasons print in the job log ([<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/c117eb80e), [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ea3d7dbcb))
+
+### chop-conventions (2026-09-28)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** (shared CHOP skills & conventions)
+
+- `machine-doctor` gained macOS support, host-health checks, and sleep forensics, then review fixes: redacted sleep-catcher command lines, orb gated to macOS ([<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/1861a0f6e), [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/25425362a))
+- `dev-setup`: one manifest for external tools, with a doctor ([<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/4b418a86a))
+- Network doctor for macOS DNS ([<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/96b71ac4a)); Telegram gate fix and Muse as default cartoonist model (PRs #227, #228)
+
+### Other Projects (2026-09-28)
+
+**[Settings](https://github.com/idvorkin/Settings)** (dotfiles & tools)
+
+- `pick-links` lists commands the agent asked you to run, and copies them ([<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/e52a3476d))
+- `caff` renamed to `awake`: names busy agents, notifies on blocked ([<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/fa2c5a0cf))
+- zsh startup: single compinit, cached init evals ([<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/aa6407231)); README lists the Mac apps ([<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/925321637))
+- herdr: prefix+[ / ] cycle agents, prefix+c new workspace ([<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/Settings/commit/21eac52e3), [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/Settings/commit/c406b8858)); mac auto-fix for LG refresh rate on display wake ([<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/Settings/commit/6b82f0d1f))
+
+**[exercise-analyzer](https://github.com/idvorkin/exercise-analyzer)** (workout charts)
+
+- Workouts under 30 minutes apart show as one; a day with a workout opens its workout page; sets list by time or grouped by exercise; chart axis reads time into the workout ([<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/96a7de3bd), [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/a98d4c5fa), [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/5bf8ded8a), [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/1a3d625bf))
+
+**[lcd-timer](https://github.com/idvorkin/lcd-timer)** (countdown timer)
+
+- New app icon; lock-me-out for the countdown with are-you-sure and eulogy lines; `?` shows every key; pinned by default so it shows over full-screen apps ([<i class="fa fa-github"></i>](https://github.com/idvorkin/lcd-timer/commit/85ea3fee0), [<i class="fa fa-github"></i>](https://github.com/idvorkin/lcd-timer/commit/7cea64e79), [<i class="fa fa-github"></i>](https://github.com/idvorkin/lcd-timer/commit/9f4934f1c), [<i class="fa fa-github"></i>](https://github.com/idvorkin/lcd-timer/commit/4b95f31e7))
+
+**[yabai](https://github.com/idvorkin/yabai)** and **[window-sweaters](https://github.com/idvorkin/window-sweaters)** (macOS windows)
+
+- yabai: gesture-based space focusing restored on macOS 27; untiles windows their app orders out ([<i class="fa fa-github"></i>](https://github.com/idvorkin/yabai/commit/9d6104a01), [<i class="fa fa-github"></i>](https://github.com/idvorkin/yabai/commit/ab2713d15))
+- window-sweaters: Focused Window Only and a shared Polka Dots pattern ([<i class="fa fa-github"></i>](https://github.com/idvorkin/window-sweaters/commit/824e3ed3c))
+
+**Archived:** [magic-monitor](https://github.com/idvorkin/magic-monitor) (superseded by magic-monitor-native) and [swing-analyzer](https://github.com/idvorkin/swing-analyzer) (points to exercise-analyzer). The `no-mistakes` gate was configured on context-grabber, omnifocus_cli, and Settings.
+
+**[robert-moses-atlas](https://github.com/idvorkin-ai-tools/robert-moses-atlas)** (map explainer)
+
+- v1 map with a 1924-1968 scrubber and six chapters; v2 added clickable OSM geometry, cards, HUD, missions, achievements ([<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/robert-moses-atlas/commit/011830173), [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/robert-moses-atlas/commit/1d003b816))
+
+**[hierarchy-of-money-field-map](https://github.com/idvorkin-ai-tools/hierarchy-of-money-field-map)**, **[garfield-crest](https://github.com/idvorkin-ai-tools/garfield-crest)** (new: 3D assembly site), **[acpx](https://github.com/idvorkin-ai-tools/acpx)** (test-hardening and viewer fixes, #804 to #829), **[lavish-axi](https://github.com/idvorkin-ai-tools/lavish-axi)** (release 0.1.76, revision legend), and the [explainer index](https://github.com/idvorkin-ai-tools/idvorkin-ai-tools.github.io) (kinds and strategies pages, timeline view).
 
 ## Week of 2026-08-24
 
