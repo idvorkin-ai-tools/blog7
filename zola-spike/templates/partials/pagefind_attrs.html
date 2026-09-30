@@ -1,0 +1,4 @@
+{#- Port of _includes/pagefind-attrs.html. site.search.exclude_permalinks is
+    not ported (none of the spike's 15 posts are on it). -#}
+{%- set tags = page.taxonomies.tags or [] -%}
+{%- if page.extra.fj or page.extra.search_exclude or "family-journal" in tags or not page.title -%}data-pagefind-ignore{%- else -%}data-pagefind-body data-pagefind-meta="title:{{ page.title }}"{%- endif -%}
