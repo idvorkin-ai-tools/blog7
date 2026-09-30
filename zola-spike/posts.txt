@@ -1,0 +1,15 @@
+_d/ai-quotes.md
+_d/act.md
+_d/ai-post-training.md
+_d/ai-post-training-agents.md
+_d/religion.md
+_d/time-off-2026-07.md
+_d/ai-relationships.md
+_d/sat_dsat.md
+_d/switch.md
+_posts/2019-09-21-decisive.md
+_posts/2018-05-25-strength-finder.md
+_d/energy-abundance.md
+_d/wally.md
+_d/fortune-cookies.md
+_d/coaching.md
