@@ -555,7 +555,7 @@ function ft(e, t = 2e3) {
 }
 function ue(e) {
   if (!e) return "";
-  const o = (window.location.pathname.replace(/^\//, "").replace(/\.html$/, "") || "index").replace(/-/g, " "), r = [], i = e.tagName, s = Number.parseInt(i.substring(1)), a = Array.from(e.childNodes).filter((c) => c.nodeType === Node.TEXT_NODE).map((c) => c.textContent?.trim()).join(" ").trim();
+  const o = (window.location.pathname.replace(/^\//, "").replace(/\.html$/, "").replace(/\/$/, "") || "index").replace(/-/g, " "), r = [], i = e.tagName, s = Number.parseInt(i.substring(1)), a = Array.from(e.childNodes).filter((c) => c.nodeType === Node.TEXT_NODE).map((c) => c.textContent?.trim()).join(" ").trim();
   if (s >= 2) {
     let c = e.previousElementSibling;
     const d = [], u = /* @__PURE__ */ new Set();
@@ -583,7 +583,7 @@ function ue(e) {
 function pe(e, t) {
   let n = e;
   n = n.replace("localhost:4000/", "idvorkin.azurewebsites.net/"), t.domainMapping && (n = n.replace(t.domainMapping.from, t.domainMapping.to));
-  const o = new URL(n), r = o.pathname.replace(/^\//, "").replace(/\.html$/, "") || "index", i = o.hash.replace("#", "");
+  const o = new URL(n), r = o.pathname.replace(/^\//, "").replace(/\.html$/, "").replace(/\/$/, "") || "index", i = o.hash.replace("#", "");
   return i ? `${r}#${i}` : r;
 }
 async function mt(e, t) {
@@ -766,7 +766,7 @@ function me(e) {
   return "";
 }
 function ht(e, t, n, o, r) {
-  const s = window.location.pathname.replace(/^\//, "").replace(/\.html$/, ""), a = document.querySelector('meta[property="markdown-path"]'), l = a ? a.getAttribute("content") : `${s || "index"}.md`, c = "https://github.com/idvorkin/idvorkin.github.io", d = n ? `${s || "index"}/${e}: ${n}` : `${s || "index"}/${e}: Issue with ${t}`, u = encodeURIComponent(d), p = o || n || `Issue with section: ${t}`, g = r ? Te(r) : "";
+  const s = window.location.pathname.replace(/^\//, "").replace(/\.html$/, "").replace(/\/$/, ""), a = document.querySelector('meta[property="markdown-path"]'), l = a ? a.getAttribute("content") : `${s || "index"}.md`, c = "https://github.com/idvorkin/idvorkin.github.io", d = n ? `${s || "index"}/${e}: ${n}` : `${s || "index"}/${e}: Issue with ${t}`, u = encodeURIComponent(d), p = o || n || `Issue with section: ${t}`, g = r ? Te(r) : "";
   let h = `${`📍 [${s || "index"}](https://idvorkin.azurewebsites.net/${s})/[${e}](https://idvorkin.azurewebsites.net/${s}/${e}) - [[GitHub]](${c}/blob/main/${l}#${e})`}
 
 ## Description
@@ -1174,7 +1174,7 @@ async function St(e) {
       console.log("No backlinks available");
       return;
     }
-    if (t = new URL(document.URL).pathname, !e[t]) {
+    if (t = new URL(document.URL).pathname.replace(/(.)\/$/, "$1"), !e[t]) {
       console.log(`Page ${t} not found in backlinks`);
       return;
     }

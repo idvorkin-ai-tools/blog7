@@ -1,5 +1,8 @@
 {% component orchestrator_viewer(controls="top", id="orc-viewer", assets=true) -%}
-{% if assets %}{{<orchestrator_shared />}}{{<orchestrator_viewer_assets />}}{% endif %}
+{%- if assets %}
+{{<orchestrator_shared />}}
+{{<orchestrator_viewer_assets />}}
+{%- endif %}
 {%- set pos = controls -%}{%- set vid = id -%}
 {%- set ob = load_data(path="data/orchestrator_blocks.yml") -%}
 <div

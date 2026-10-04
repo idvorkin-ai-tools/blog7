@@ -197,7 +197,8 @@ async function AddLinksToPage(allUrls: IURLInfoMap) {
       return;
     }
 
-    page_path = new URL(document.URL).pathname;
+    // back-links.json keys are /x; a Zola build serves the page at /x/.
+    page_path = new URL(document.URL).pathname.replace(/(.)\/$/, "$1");
 
     // Safe check for the URL in allUrls
     if (!allUrls[page_path]) {

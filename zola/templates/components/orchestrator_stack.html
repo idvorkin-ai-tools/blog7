@@ -1,5 +1,8 @@
 {% component orchestrator_stack(assets=true) -%}
-{% if assets %}{{<orchestrator_shared />}}{{<orchestrator_viewer_assets />}}{% endif %}
+{%- if assets %}
+{{<orchestrator_shared />}}
+{{<orchestrator_viewer_assets />}}
+{%- endif %}
 <style>
   .orc {
     box-sizing: border-box;
@@ -12,24 +15,20 @@
     color: var(--orc-ink);
     accent-color: var(--orc-accent);
   }
-
   .orc * {
     box-sizing: border-box;
   }
-
   /* The viewer is the top half of this box, not a page-level block of its own. */
   .orc .orcv {
     max-width: none;
     margin: 0;
   }
-
   .orc-h {
     margin: 1.4rem 0 0.3rem;
     font-family: Georgia, "Times New Roman", serif;
     font-size: 1.05rem;
     font-weight: 700;
   }
-
   .orc-toggles {
     display: flex;
     flex-wrap: wrap;
@@ -37,7 +36,6 @@
     gap: 0.35rem 0.9rem;
     padding: 0.3rem 0;
   }
-
   .orc-toggles-label {
     font-family: var(--orc-mono);
     font-size: 0.6rem;
@@ -45,7 +43,6 @@
     text-transform: uppercase;
     color: var(--orc-ink-faint);
   }
-
   .orc-toggles label {
     display: inline-flex;
     align-items: center;
@@ -55,19 +52,16 @@
     font-weight: 400;
     cursor: pointer;
   }
-
   .orc-table-wrap {
     overflow-x: auto;
     padding-top: 0.5rem;
   }
-
   .orc-table {
     width: 100%;
     margin: 0;
     border-collapse: collapse;
     font-size: 0.8rem;
   }
-
   .orc-table th,
   .orc-table td {
     padding: 0.4rem 0.5rem;
@@ -76,7 +70,6 @@
     vertical-align: top;
     line-height: 1.4;
   }
-
   .orc-table thead th {
     font-family: var(--orc-mono);
     font-size: 0.62rem;
@@ -86,14 +79,12 @@
     color: var(--orc-ink-soft);
     white-space: nowrap;
   }
-
   .orc-table tbody th {
     font-family: Georgia, "Times New Roman", serif;
     font-size: 0.88rem;
     font-weight: 700;
     min-width: 8rem;
   }
-
   .orc-why {
     display: block;
     max-width: 24rem;
@@ -104,7 +95,6 @@
     line-height: 1.35;
     color: var(--orc-ink-soft);
   }
-
   .orc-tag {
     display: inline-block;
     padding: 0 0.3rem;
@@ -116,7 +106,6 @@
     text-transform: uppercase;
     color: var(--orc-ink-soft);
   }
-
   /* _layouts/post.html runs $("table").addClass("table table-striped"), which
      hard-codes a light-theme text color on every other row. Beat it on
      specificity and re-stripe with our own tokens. */
@@ -126,15 +115,12 @@
     background-color: transparent;
     box-shadow: none;
   }
-
   .orc .orc-table > thead > tr > * {
     color: var(--orc-ink-soft);
   }
-
   .orc .orc-table > tbody > tr:nth-of-type(odd) > * {
     background-color: var(--orc-panel);
   }
-
   .orc-foot {
     margin: 0.8rem 0 0;
     padding-top: 0.7rem;
@@ -143,7 +129,6 @@
     line-height: 1.5;
     color: var(--orc-ink-soft);
   }
-
   @media (max-width: 640px) {
     .orc {
       padding: 1rem 0.9rem 0.9rem;
@@ -441,7 +426,6 @@ stops being the right shape.
     var root = document.getElementById("orc-stack");
     if (!root) return;
     var svg = root.querySelector(".orc-svg");
-
     // The layer checkboxes hide table rows and dim the matching blocks in the
     // drawing; the column ones hide a column; the last one hides the why line.
     function applyToggles() {
@@ -465,11 +449,9 @@ stops being the right shape.
         el.hidden = !why;
       });
     }
-
     root.addEventListener("change", function (ev) {
       if (ev.target.type === "checkbox") applyToggles();
     });
-
     document.getElementById("orc-toggles").hidden = false;
     document.getElementById("orc-toggles-cols").hidden = false;
     applyToggles();

@@ -16,7 +16,6 @@
     gap: 0;
     min-height: 500px;
   }
-
   .six-cell-matrix-title {
     position: absolute;
     top: -80px;
@@ -26,7 +25,6 @@
     font-size: 1.2em;
     font-weight: bold;
   }
-
   .six-cell-matrix-subtitle {
     position: absolute;
     top: -60px;
@@ -37,7 +35,6 @@
     font-style: italic;
     color: #666;
   }
-
   .matrix-cell {
     display: flex;
     flex-direction: column;
@@ -48,7 +45,6 @@
     border: 1px solid #ccc;
     position: relative;
   }
-
   .matrix-cell-name {
     font-size: 1.15em;
     font-weight: bold;
@@ -56,7 +52,6 @@
     text-align: center;
     line-height: 1.3;
   }
-
   .matrix-cell-subtitle {
     font-size: 0.9em;
     font-style: italic;
@@ -64,14 +59,12 @@
     margin: 0 0 12px 0;
     text-align: center;
   }
-
   .matrix-cell-traits {
     font-size: 0.85em;
     text-align: center;
     line-height: 1.6;
     color: #333;
   }
-
   .matrix-row-label {
     position: absolute;
     font-weight: bold;
@@ -82,15 +75,12 @@
     left: -100px;
     transform: translateY(-50%);
   }
-
   .matrix-row-label.row1 {
     top: 25%;
   }
-
   .matrix-row-label.row2 {
     top: 75%;
   }
-
   .matrix-col-label {
     position: absolute;
     font-weight: bold;
@@ -101,19 +91,15 @@
     top: -30px;
     transform: translateX(-50%);
   }
-
   .matrix-col-label.col1 {
     left: 16.67%;
   }
-
   .matrix-col-label.col2 {
     left: 50%;
   }
-
   .matrix-col-label.col3 {
     left: 83.33%;
   }
-
   /* Mobile responsiveness */
   @media (max-width: 768px) {
     .six-cell-matrix {
@@ -121,46 +107,37 @@
       min-height: 600px;
       max-width: 95%;
     }
-
     .matrix-cell-name {
       font-size: 1em;
     }
-
     .matrix-cell-subtitle {
       font-size: 0.75em;
     }
-
     .matrix-cell-traits {
       font-size: 0.7em;
     }
-
     .matrix-cell {
       padding: 15px 10px;
     }
-
     .matrix-row-label {
       left: -70px;
       font-size: 0.75em;
     }
-
     .matrix-col-label {
       font-size: 0.7em;
       top: -25px;
     }
   }
-
   @media (max-width: 500px) {
     .six-cell-matrix {
       grid-template-columns: 1fr;
       grid-template-rows: repeat(6, auto);
       min-height: auto;
     }
-
     .matrix-row-label,
     .matrix-col-label {
       display: none;
     }
-
     .matrix-cell::before {
       content: attr(data-label);
       display: block;

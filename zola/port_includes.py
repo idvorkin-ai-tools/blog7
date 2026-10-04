@@ -83,21 +83,26 @@ def flatten(src: str) -> str:
     """
     if "flatten: off" in src:
         return src
-    out, raw = [], False
+    out, raw = [], None
     for line in src.split("\n"):
         t = line.strip()
-        if re.match(r"<(style|script|pre|textarea)\b", t) and not re.search(
-            r"</(style|script|pre|textarea)>", t
-        ):
-            raw = True
+        m = re.match(r"<(style|script|pre|textarea)\b", t)
+        if m and not re.search(rf"</{m.group(1)}>", t):
+            raw = m.group(1)
+            if raw in ("pre", "textarea") and out and out[-1].strip():
+                # Start a fresh CommonMark HTML block (type 1), which runs to
+                # the close tag even across the blank lines <pre> may hold.
+                out.append("")
             out.append(t)
             continue
         if raw:
-            # Keep content, but no blank lines: a blank line inside <script>
-            # is fine for CommonMark, yet Tera's {%- trims can glue lines.
-            out.append(line)
-            if re.search(r"</(style|script|pre|textarea)>", t):
-                raw = False
+            # A <script>/<style> line inside the component's one HTML block
+            # must not be blank: the block would end there and the rest of
+            # the code would be parsed as Markdown. <pre> keeps its blanks.
+            if t or raw in ("pre", "textarea"):
+                out.append(line)
+            if re.search(rf"</{raw}>", t):
+                raw = None
             continue
         if not t:
             continue
@@ -176,7 +181,7 @@ def special_ports() -> dict[str, str]:
     s = strip_comments(inc("orchestrator-viewer"))
     s = must_sub(
         r"\{%-?\s*include orchestrator-shared\.html\s*-?%\}\s*\{%-?\s*assign pos =\s*include\.controls \| default: \"top\"\s*-?%\}\s*\{%-?\s*assign vid = include\.id \| default:\s*\"orc-viewer\"\s*-?%\}\s*\{%-?\s*include orchestrator-viewer-assets\.html\s*-?%\}",
-        "{% if assets %}{{<orchestrator_shared />}}{{<orchestrator_viewer_assets />}}{% endif %}\n"
+        "{% if assets %}\n{{<orchestrator_shared />}}\n{{<orchestrator_viewer_assets />}}\n{% endif %}\n"
         "{%- set pos = controls -%}{%- set vid = id -%}\n"
         '{%- set ob = load_data(path="data/orchestrator_blocks.yml") -%}',
         s,
@@ -209,7 +214,7 @@ def special_ports() -> dict[str, str]:
     s = strip_comments(inc("orchestrator-stack"))
     s = must_sub(
         r"\{%-?\s*include orchestrator-shared\.html\s*-?%\}\s*\{%-?\s*include\s+orchestrator-viewer-assets\.html\s*-?%\}",
-        "{% if assets %}{{<orchestrator_shared />}}{{<orchestrator_viewer_assets />}}{% endif %}",
+        "{% if assets %}\n{{<orchestrator_shared />}}\n{{<orchestrator_viewer_assets />}}\n{% endif %}",
         s,
         "orchestrator-stack",
     )

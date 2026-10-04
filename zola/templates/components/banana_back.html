@@ -285,7 +285,6 @@ eyes stay level
     var MAX_POKE = 34; // lower-neck flexion (deg) at full head forward
     var SS0 = 38; // neutral sacral slope (deg)
     var S1 = { x: 150, y: 262 }; // center of the S1 endplate, neutral pelvis
-
     // The chain, bottom to top. len = center-to-center spacing, w = body
     // depth, rot = neutral joint angle below this vertebra (deg; negative
     // tips it back = extension/lordosis, positive tips it forward =
@@ -315,7 +314,6 @@ eyes stay level
     // Neck poke: lower neck flexes (most at C4-C6), upper neck extends.
     var LOW_NECK_W = { C7: 0.2, C6: 0.3, C5: 0.3, C4: 0.2 };
     var UP_NECK_W = { C1: 0.5, C0: 0.5 };
-
     function rad(d) {
       return (d * Math.PI) / 180;
     }
@@ -341,7 +339,6 @@ eyes stay level
     function set(el, attrs) {
       for (var k in attrs) el.setAttribute(k, attrs[k]);
     }
-
     // The spine for pelvic tilt t and lower-neck flexion a. rigid = no extra
     // lumbar arch, so everything above the sacrum tips with the pelvis.
     function spine(t, a, rigid) {
@@ -366,7 +363,6 @@ eyes stay level
       dir += SKULL_ROT - a * UP_NECK_W.C0;
       return { verts: out, top: p, headDir: dir };
     }
-
     // The neutral head direction defines "eyes level".
     var HEAD0 = spine(0, 0, false).headDir;
     function headPts(sp) {
@@ -392,7 +388,6 @@ eyes stay level
         ],
       };
     }
-
     var vg = $("bb-verts");
     var rects = CHAIN.map(function () {
       var r = document.createElementNS(NS, "rect");
@@ -401,7 +396,6 @@ eyes stay level
       vg.appendChild(r);
       return r;
     });
-
     var PELVIS = [
       { x: 136, y: 236 }, // back of the iliac crest (PSIS)
       { x: 168, y: 224 }, // top of the crest
@@ -422,7 +416,6 @@ eyes stay level
       { x: 130, y: 300 },
       { x: 130, y: 270 },
     ];
-
     function smooth(pts) {
       // closed Catmull-Rom spline through pts
       var n = pts.length;
@@ -442,7 +435,6 @@ eyes stay level
       }
       return d + " Z";
     }
-
     function draw(strength, fwd) {
       var t = (1 - strength) * MAX_TILT;
       var a = fwd * MAX_POKE;
@@ -458,7 +450,6 @@ eyes stay level
         "d",
         "M" + pt(HIP) + " L173 362 L170 422 L198 422"
       );
-
       var sp = spine(t, a, false);
       sp.verts.forEach(function (v, i) {
         var hot =
@@ -478,13 +469,11 @@ eyes stay level
         return step(v.c, v.dir - 90, v.w / 2 + 3);
       });
       $("bb-cord").setAttribute("d", "M" + cord.map(pt).join(" L"));
-
       var H = headPts(sp);
       $("bb-head").setAttribute("d", smooth(H.outline));
       set($("bb-eye"), { cx: H.eye.x.toFixed(1), cy: H.eye.y.toFixed(1) });
       set($("bb-gaze"), { x1: H.eye.x + 8, y1: H.eye.y, x2: 332, y2: H.eye.y });
       set($("bb-gaze-label"), { x: 334, y: H.eye.y - 9 });
-
       // Lever: horizontal distance from the head's center of mass to C7.
       var c7 = sp.verts[CHAIN.length - 7].c;
       set($("bb-plumb"), {
@@ -501,7 +490,6 @@ eyes stay level
         y2: c7.y,
         opacity: fwd > 0.05 ? 1 : 0,
       });
-
       // Labels on the levels doing the bending.
       var l4 = sp.verts[1].c;
       $("bb-hot-label").style.opacity = t > 5 ? 1 : 0;
@@ -514,7 +502,6 @@ eyes stay level
       set($("bb-up-label"), { x: c1.x - 22, y: c1.y + 2 });
       $("bb-low-label").style.opacity = neckOn;
       set($("bb-low-label"), { x: c6.x - 12, y: c6.y + 12 });
-
       // Ghost: the same spine with no extra arch, so the column and the
       // head tip with the pelvis and the gaze drops by t.
       root.querySelector(".bb-ghostg").style.opacity =
@@ -542,7 +529,6 @@ eyes stay level
       });
       set($("bb-ghost-l1"), { x: 334, y: GH.c.y + 46 });
       set($("bb-ghost-l2"), { x: 334 });
-
       var parts = [];
       if (t >= 4)
         parts.push(
@@ -560,13 +546,11 @@ eyes stay level
         ? parts.join(" ")
         : "Hips doing their job, head over shoulders: spine stacked, eyes level for free.";
     }
-
     function update() {
       draw(hips.value / 100, headf.value / 100);
     }
     hips.addEventListener("input", update);
     headf.addEventListener("input", update);
-
     var reduce =
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -606,7 +590,6 @@ eyes stay level
       }
       anim = requestAnimationFrame(tick);
     });
-
     update();
   })();
 </script>

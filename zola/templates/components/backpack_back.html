@@ -184,7 +184,6 @@ aria-valuetext="loose"
     var UPPER = 0.62;
     var UPPER_H = 150;
     var BELT_SHARE = 0.3; // Lafiandra & Harman 2004: ~30% of vertical load
-
     // Same chain and neutral angles as banana-back.html.
     var CHAIN = [
       { n: "L5", len: 14, w: 15, rot: -16 },
@@ -208,7 +207,6 @@ aria-valuetext="loose"
     var SKULL_ROT = -3;
     // To keep the eyes level, the lean is undone at the top of the neck.
     var UP_NECK_W = { C1: 0.5, C0: 0.5 };
-
     function rad(d) {
       return (d * Math.PI) / 180;
     }
@@ -262,7 +260,6 @@ aria-valuetext="loose"
       }
       return open ? d : d + " Z";
     }
-
     // The whole trunk leans by `lean` about the hip (hip flexion); the top of
     // the neck extends by the same amount so the head comes back level.
     function spine(lean) {
@@ -308,7 +305,6 @@ aria-valuetext="loose"
         ],
       };
     }
-
     var PELVIS = [
       { x: 136, y: 236 },
       { x: 168, y: 224 },
@@ -360,7 +356,6 @@ aria-valuetext="loose"
     var SHOULDER = { x: 150, y: 58 };
     var CHEST = { x: 206, y: 122 };
     var ASIS = { x: 198, y: 246 };
-
     function packGeom(s) {
       var c = mixPt(LOOSE.c, LATCHED.c, s);
       var tip = mix(LOOSE.tip, LATCHED.tip, s);
@@ -386,7 +381,6 @@ aria-valuetext="loose"
         botFront: r(hw - 2, hh - 6),
       };
     }
-
     // Solve the balance about the hip for the lean angle (degrees).
     function leanFor(frac, s) {
       if (frac <= 0) return 0;
@@ -396,7 +390,6 @@ aria-valuetext="loose"
       var y = HIP.y - com.y;
       return (Math.atan2(m * d, UPPER * UPPER_H + m * y) * 180) / Math.PI;
     }
-
     var vg = $("bp-verts");
     var rects = CHAIN.map(function () {
       var r = document.createElementNS(NS, "rect");
@@ -405,7 +398,6 @@ aria-valuetext="loose"
       vg.appendChild(r);
       return r;
     });
-
     var neutral = spine(0);
     var HEADX0 = headPts(neutral).c.x;
     $("bp-ghost-spine").setAttribute(
@@ -425,7 +417,6 @@ aria-valuetext="loose"
       "M" + pt(HIP) + " L173 362 L170 422 L198 422"
     );
     set($("bp-hipjoint"), { cx: HIP.x, cy: HIP.y });
-
     function draw(frac, s) {
       var lean = leanFor(frac, s);
       var T = function (p) {
@@ -437,7 +428,6 @@ aria-valuetext="loose"
       $("bp-pelvis").setAttribute("d", smooth(Ts(PELVIS)));
       $("bp-sacrum").setAttribute("d", smooth(Ts(SACRUM)));
       $("bp-torso").setAttribute("d", smooth(Ts(TORSO)));
-
       var sp = spine(lean);
       sp.verts.forEach(function (v, i) {
         set(rects[i], {
@@ -453,13 +443,11 @@ aria-valuetext="loose"
         return step(v.c, v.dir - 90, v.w / 2 + 3);
       });
       $("bp-cord").setAttribute("d", "M" + cord.map(pt).join(" L"));
-
       var H = headPts(sp);
       $("bp-head").setAttribute("d", smooth(H.outline));
       set($("bp-eye"), { cx: H.eye.x.toFixed(1), cy: H.eye.y.toFixed(1) });
       set($("bp-gaze"), { x1: H.eye.x + 8, y1: H.eye.y, x2: 332, y2: H.eye.y });
       set($("bp-gaze-label"), { x: 334, y: H.eye.y - 9 });
-
       // Pack, straps and the weight arrow.
       var g = packGeom(s);
       var packVis = frac > 0 ? 1 : 0.35;
@@ -508,7 +496,6 @@ aria-valuetext="loose"
       set($("bp-sternum-label"), { x: ch.x + 12, y: ch.y + 5 });
       $("bp-clip").style.opacity = beltOn * packVis;
       set($("bp-clip"), { x: ch.x - 4, y: ch.y - 4 });
-
       var com = T(g.c);
       set($("bp-com"), { cx: com.x.toFixed(1), cy: com.y.toFixed(1) });
       set($("bp-load"), {
@@ -519,12 +506,10 @@ aria-valuetext="loose"
         opacity: frac > 0 ? 1 : 0,
       });
       $("bp-com").style.opacity = frac > 0 ? 1 : 0;
-
       var fwdCm = (H.c.x - HEADX0) * CM;
       $("bp-lean-text").textContent = "Trunk lean " + lean.toFixed(0) + "°";
       $("bp-head-text").textContent =
         "Head forward +" + Math.max(0, fwdCm).toFixed(0) + " cm";
-
       var pct = Math.round(frac * 100);
       var belt = Math.round(BELT_SHARE * s * 100);
       straps.setAttribute(
@@ -550,7 +535,6 @@ aria-valuetext="loose"
           ? "The hip belt hands ~" + belt + "% of the load to the pelvis."
           : "The shoulders carry all of it.");
     }
-
     function update() {
       draw(weight.value / 100, straps.value / 100);
     }

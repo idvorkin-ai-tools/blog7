@@ -112,7 +112,6 @@
     stroke-width: 2;
     stroke-dasharray: 6 4;
   }
-
   /* Every keyframed element: paused until the figure is on screen. */
   .pta [class*="k-"] {
     animation-duration: 5s;
@@ -123,7 +122,6 @@
   .pta.is-on [class*="k-"] {
     animation-play-state: running;
   }
-
   /* SFT: the model's lines morph onto the teacher's; the loss bar shrinks. */
   .pta .k-sft1,
   .pta .k-sft2,
@@ -202,7 +200,6 @@
       opacity: 0;
     }
   }
-
   /* RLHF: a person picks A, the reward meter learns, the model leans to A on a leash. */
   .pta .k-rlhfhand {
     animation-name: pta-rlhfhand;
@@ -277,7 +274,6 @@
       transform: scaleX(1);
     }
   }
-
   /* DPO: a seesaw. Preferred answer up, rejected down, no meter anywhere. */
   .pta .k-dposeesaw {
     transform-box: fill-box;
@@ -294,7 +290,6 @@
       transform: rotate(-9deg);
     }
   }
-
   /* RLAIF: the human judge is swapped for a robot holding the rulebook. */
   .pta .k-rlaifhuman {
     animation-name: pta-rlaifhuman;
@@ -337,7 +332,6 @@
       stroke-width: 3;
     }
   }
-
   /* RLVR: the checker marks each try; ✓ lift, ✗ sink. */
   .pta .k-rlvr1,
   .pta .k-rlvr2,
@@ -411,7 +405,6 @@
       opacity: 1;
     }
   }
-
   /* GRPO: bars above the group average grow and go green, bars below shrink, bars on it stay. */
   .pta .k-grpoFlat {
     opacity: 0.45;
@@ -448,7 +441,6 @@
       opacity: 0.2;
     }
   }
-
   /* Resting states (also what a paused figure shows before it scrolls in). */
   .pta .k-rlhfhand {
     transform: translate(131px, 90px);
@@ -465,7 +457,6 @@
   .pta .k-rlhfleash {
     transform: scaleX(0);
   }
-
   /* Reduced motion: no animation; every figure stands on its final frame. */
   @media (prefers-reduced-motion: reduce) {
     .pta [class*="k-"] {

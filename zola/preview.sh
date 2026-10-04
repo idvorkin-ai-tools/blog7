@@ -16,7 +16,10 @@ REPO=$(cd .. && pwd)
 ./diff_sites.py ../_site public > diff-report.json
 
 OUT=public-preview BASE_URL="$PREVIEW_URL" ./build.sh
-python3 backlinks_shim.py ../back-links.json public-preview
+# ponytail: back-links.json still comes from build_back_links.py over the
+# Jekyll _site (it reads _site/x.html). Keys are /x; src/main.ts trims the /x/
+# trailing slash before looking a page up. Cutover: point it at zola/public.
+cp ../back-links.json public-preview/back-links.json
 npx --yes pagefind@1.5.2 --site public-preview > pagefind.log 2>&1 || { tail -20 pagefind.log; exit 1; }
 mkdir -p public-preview/_port
 python3 report.py diff-report.json convert-report.json "$PREVIEW_URL" > public-preview/_port/index.html

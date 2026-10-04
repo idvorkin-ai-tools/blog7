@@ -7,11 +7,9 @@
     color: var(--orc-ink);
     accent-color: var(--orc-accent);
   }
-
   .orcv * {
     box-sizing: border-box;
   }
-
   .orcv-fig {
     margin: 0;
     padding: 0.7rem 0.8rem 0.8rem;
@@ -19,11 +17,9 @@
     border: 1px solid var(--orc-rule);
     border-radius: 3px;
   }
-
   .orcv-canvas {
     overflow-x: auto;
   }
-
   .orcv-hint {
     display: none;
     margin: 0 0 0.7rem;
@@ -31,13 +27,11 @@
     font-size: 0.75rem;
     line-height: 1.4;
   }
-
   @media (max-width: 700px) and (orientation: portrait) {
     .orcv-hint {
       display: block;
     }
   }
-
   /* One row: Back, Next, Play, then the scrubber taking whatever is left, and
      the counter on the right. */
   .orcv-bar {
@@ -46,19 +40,16 @@
     align-items: center;
     gap: 0.4rem;
   }
-
   .orcv-top .orcv-bar {
     padding-bottom: 0.6rem;
     border-bottom: 1px solid var(--orc-rule);
   }
-
   .orcv-between .orcv-bar {
     margin-top: 0.2rem;
     padding: 0.6rem 0;
     border-top: 1px solid var(--orc-rule);
     border-bottom: 1px solid var(--orc-rule);
   }
-
   .orcv-btn {
     appearance: none;
     flex: none;
@@ -76,32 +67,26 @@
     line-height: 1;
     cursor: pointer;
   }
-
   .orcv-btn:hover:not(:disabled) {
     background: var(--orc-panel);
   }
-
   .orcv-btn:disabled {
     border-color: var(--orc-rule);
     color: var(--orc-ink-faint);
     cursor: default;
   }
-
   .orcv-btn:focus-visible {
     outline: 2px solid var(--orc-accent);
     outline-offset: 2px;
   }
-
   .orcv-btn-go {
     min-width: 5rem;
     background: var(--orc-ink);
     color: var(--orc-paper);
   }
-
   .orcv-btn-go:hover:not(:disabled) {
     background: var(--orc-ink-soft);
   }
-
   .orcv-count {
     flex: none;
     min-width: 6.5rem;
@@ -111,14 +96,12 @@
     white-space: nowrap;
     color: var(--orc-ink-faint);
   }
-
   /* A native range input: dragging, arrow keys, Home and End all work for
      free, and the tick marks come from the datalist. */
   .orcv-scrub {
     flex: 1 1 12rem;
     min-width: 8rem;
   }
-
   .orcv-range {
     display: block;
     width: 100%;
@@ -126,12 +109,10 @@
     margin: 0;
     cursor: pointer;
   }
-
   .orcv-range:focus-visible {
     outline: 2px solid var(--orc-accent);
     outline-offset: 2px;
   }
-
   /* Nothing may move as the copy changes length: in the between placement a
      short step would lift the controls, in the top placement it would lift the
      drawing. A floor under the story fixes both. The real floor is measured in
@@ -141,7 +122,6 @@
     min-height: 8.6rem;
     padding: 0.6rem 0 0.5rem;
   }
-
   .orcv-bridge {
     margin: 0;
     font-size: 0.78rem;
@@ -149,11 +129,9 @@
     line-height: 1.35;
     color: var(--orc-ink-faint);
   }
-
   .orcv-bridge:empty {
     display: none;
   }
-
   .orcv-t {
     margin: 0 0 0.35rem;
     font-family: Georgia, "Times New Roman", serif;
@@ -161,13 +139,11 @@
     font-weight: 700;
     line-height: 1.25;
   }
-
   .orcv-cols {
     display: grid;
     gap: 0.1rem 1.6rem;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
-
   .orcv-lab {
     margin: 0 0 0.15rem;
     font-family: var(--orc-mono);
@@ -176,13 +152,11 @@
     text-transform: uppercase;
     color: var(--orc-ink-faint);
   }
-
   .orcv-body {
     margin: 0;
     font-size: 0.85rem;
     line-height: 1.45;
   }
-
   /* Phone: the three buttons and the counter take the first line, the scrubber
      takes the second one whole, and every target clears 40px. */
   @media (max-width: 640px) {
@@ -191,32 +165,26 @@
       min-height: 44px;
       padding: 0.6rem 0.5rem;
     }
-
     .orcv-count {
       order: 1;
       min-width: 100%;
       text-align: left;
     }
-
     .orcv-scrub {
       order: 2;
       flex: 1 1 100%;
     }
-
     .orcv-range {
       height: 44px;
     }
-
     .orcv-cols {
       grid-template-columns: minmax(0, 1fr);
       gap: 0.5rem;
     }
-
     .orcv-story {
       min-height: 15rem;
     }
   }
-
   /* Blocks arriving. The drop is the whole point of the animated viewer, so it
      lives on the group and the flash on the block's own outline. */
   @keyframes orc-drop {
@@ -229,7 +197,6 @@
       transform: translateY(0);
     }
   }
-
   @keyframes orc-flash {
     0%,
     100% {
@@ -239,15 +206,12 @@
       stroke-width: 6;
     }
   }
-
   .orc-in {
     animation: orc-drop 280ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
   }
-
   .orc-new.orc-in rect {
     animation: orc-flash 640ms ease 1;
   }
-
   @media (prefers-reduced-motion: reduce) {
     .orc-in,
     .orc-new.orc-in rect {
@@ -262,7 +226,6 @@
     var LAST;
     var AUTO_MS = 2600;
     var motionless = window.matchMedia("(prefers-reduced-motion: reduce)");
-
     // **bold** without innerHTML: split on the markers and build nodes.
     function setRich(el, text) {
       if (!el) return;
@@ -278,7 +241,6 @@
         el.appendChild(node);
       });
     }
-
     function build(root) {
       var svg = root.querySelector(".orc-svg");
       var canvas = root.querySelector(".orcv-canvas");
@@ -341,7 +303,6 @@
       // and where it returns after the last block.
       var i = -1;
       var timer = null;
-
       function paintBlocks(prev) {
         blocks.forEach(function (el) {
           var from = Number(el.getAttribute("data-from"));
@@ -364,7 +325,6 @@
           }
         });
       }
-
       function paintText(n) {
         var s = n === -1 ? WHOLE : STEPS[n];
         q("bridge").textContent = s.b ? s.b + " But this has a problem." : "";
@@ -380,21 +340,16 @@
         );
         range.setAttribute("aria-valuetext", (n === -1 ? "" : n + ". ") + s.t);
       }
-
       function paint(prev) {
         paintBlocks(prev);
         paintText(i);
-
         countEl.textContent =
           i === -1 ? "the whole stack" : "block " + i + " of " + LAST;
-
         var v = i + 1; // slot 0 is the whole stack: the story starts from everything
         if (Number(range.value) !== v) range.value = String(v);
-
         prevBtn.disabled = i === -1;
         nextBtn.disabled = false;
       }
-
       // The controls and the drawing must not move when the copy changes
       // length, and how the copy wraps depends on the width, so the floor is
       // measured rather than guessed: paint every state once, keep the tallest.
@@ -413,20 +368,17 @@
         story.style.minHeight = Math.ceil(tallest) + "px";
         story.setAttribute("aria-live", "polite");
       }
-
       function go(next) {
         var prev = i;
         i = next;
         paint(prev);
       }
-
       function stop() {
         if (timer) window.clearInterval(timer);
         timer = null;
         playBtn.textContent = "Play";
         playBtn.setAttribute("aria-pressed", "false");
       }
-
       function play() {
         if (timer) return stop();
         if (i === -1) go(0);
@@ -441,36 +393,29 @@
           }
         }, AUTO_MS);
       }
-
       prevBtn.addEventListener("click", function () {
         stop();
         if (i !== -1) go(i - 1);
       });
-
       nextBtn.addEventListener("click", function () {
         stop();
         go(i === LAST ? -1 : i + 1);
       });
-
       playBtn.addEventListener("click", play);
-
       range.addEventListener("input", function () {
         stop();
         var v = Number(range.value);
         go(v - 1);
       });
-
       paint();
       fitDiagram();
       fitStory();
-
       // Blog columns can resize without the viewport changing.
       var layoutObserver = new ResizeObserver(function () {
         fitDiagram();
         fitStory();
       });
       layoutObserver.observe(canvas);
-
       // Only a width change can rewrap the copy, and rAF keeps a drag of the
       // window edge from re-measuring on every pixel.
       var lastWidth = window.innerWidth;
@@ -485,7 +430,6 @@
         });
       });
     }
-
     // This script is emitted before the first viewer's markup, so wait for the
     // document rather than racing the instances that follow it.
     function start() {
@@ -497,7 +441,6 @@
       LAST = STEPS.length - 1;
       document.querySelectorAll("[data-orc-viewer]").forEach(build);
     }
-
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", start);
     } else {
