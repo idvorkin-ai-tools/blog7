@@ -146,9 +146,12 @@ def check_links(site: Site, rel: str, base_url: str):
     ):
         for t in soup.find_all(tag):
             href = (t.get(attr) or "").strip()
-            if not href or href.startswith(
-                ("mailto:", "tel:", "javascript:", "data:", "{{")
+            if (
+                not href
+                or href.startswith(("mailto:", "tel:", "javascript:", "data:", "{{"))
+                or re.fullmatch(r"l\d+", href)
             ):
+                # l20: a table placeholder src/main.ts swaps for a list.
                 continue
             absu = urljoin(base_url, href)
             parts = urlsplit(absu)
