@@ -77,7 +77,8 @@
   // class="language-x". Restore the class so hljs skips mermaid (unknown
   // language) and mermaid.html finds .language-mermaid, as under Jekyll.
   document.querySelectorAll("code[data-lang]").forEach(function (c) {
-    c.classList.add("language-" + c.dataset.lang);
+    // kramdown, like this, keeps only the info string's first word.
+    c.classList.add("language-" + c.dataset.lang.split(/\s+/)[0]);
   });
   hljs.highlightAll();
 </script>

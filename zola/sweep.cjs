@@ -3,7 +3,7 @@
 // count. 4 pages at a time; the JSON is rewritten every 25 pages.
 //
 //   OUT=sweep.json URLS=urls.json ZOLA=https://preview JEKYLL=http://127.0.0.1:4472 node zola/sweep.cjs
-// (JEKYLL: serve the Jekyll _site with `zola/serve.py _site 4472 --jekyll`.)
+// (JEKYLL: serve the Jekyll _site with `zola/serve.py _site 4472`.)
 const { chromium } = require("playwright");
 const fs = require("node:fs");
 const { OUT, ZOLA: Z, JEKYLL: J } = process.env;

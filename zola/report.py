@@ -45,7 +45,8 @@ GAPS = [
         "TOC entries that wrap a link",
         "A TOC line like [[Jump in the lake day](url)](#jump-in-the-lake-day) nests a link in a link. "
         "kramdown kept the inner link, CommonMark keeps the outer one (/resistance, /irl, /depression, "
-        "/y26). The anchors still resolve.",
+        "/y26). The anchors still resolve. On /resistance the kept #7-habits-… link trips the site's "
+        "querySelector on a digit-leading id (a JS error Jekyll already throws on /get-to-yes-with-yourself).",
     ),
     (
         "Code blocks lose rouge's highlighting spans",
