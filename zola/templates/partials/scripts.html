@@ -73,6 +73,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
 
 <script>
+  // Zola (highlighting off) tags fences data-lang="x"; kramdown wrote
+  // class="language-x". Restore the class so hljs skips mermaid (unknown
+  // language) and mermaid.html finds .language-mermaid, as under Jekyll.
+  document.querySelectorAll("code[data-lang]").forEach(function (c) {
+    c.classList.add("language-" + c.dataset.lang);
+  });
   hljs.highlightAll();
 </script>
 

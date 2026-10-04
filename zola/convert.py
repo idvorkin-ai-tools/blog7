@@ -406,6 +406,60 @@ def kramdown_tables(lines: list[str], notes: dict) -> list[str]:
     return out
 
 
+LIST_ITEM = re.compile(r"^( *)(?:[-*+]|\d+[.)])(?: +|$)")
+
+
+def tighten_lists(text: str, notes: dict) -> str:
+    """Drop the blank lines between list items that kramdown kept tight.
+
+    kramdown decides <p> per item: only an item whose own text is followed
+    by a blank line gets one (a blank after a nested list does not count).
+    CommonMark makes the whole list loose for any blank between items, which
+    put <p> margins on every item. So: blank gaps after a nested list always
+    go; gaps right after an item's text go unless most of that list's gaps
+    are like that (then kramdown <p>'d most items too). Blank lines inside an
+    item (between its own blocks) stay.
+    """
+    lines = text.split("\n")
+    stack: list[tuple[int, int]] = []  # (marker indent, list start line)
+    last_marker = -1  # indent of the most recent item marker
+    gaps = []  # (first blank, next line, list key, own_text)
+    per_list: dict = {}  # list key -> [sibling gaps, own_text gaps]
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        m = LIST_ITEM.match(line)
+        if m:
+            ind = len(m.group(1))
+            same = [x for x in stack if x[0] == ind]
+            stack = [x for x in stack if x[0] < ind] + (same or [(ind, i)])
+            per_list.setdefault(stack[-1], [0, 0])[0] += 1
+            last_marker = ind
+        elif line.strip() and not line.startswith(" "):
+            stack, last_marker = [], -1  # an unindented paragraph ends the list
+        elif not line.strip() and stack and i and lines[i - 1].strip():
+            j = i
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            nxt = LIST_ITEM.match(lines[j]) if j < len(lines) else None
+            prev = lines[i - 1].lstrip()
+            sib = [x for x in stack if nxt and x[0] == len(nxt.group(1))]
+            if sib and not prev.startswith(("<", "|", "{{", "{%")):
+                own = last_marker == sib[0][0]
+                gaps.append((i, j, sib[0], own))
+                per_list[sib[0]][1] += own
+            i = j
+            continue
+        i += 1
+    drop = set()
+    for first, nxt, key, own in gaps:
+        items, loose = per_list[key]
+        if not own or loose * 2 < items - 1:
+            drop.update(range(first, nxt))
+    notes["tight_lists"] = notes.get("tight_lists", 0) + len(drop)
+    return "\n".join(x for k, x in enumerate(lines) if k not in drop)
+
+
 def kramdownisms(text: str, notes: dict) -> str:
     lines = kramdown_tables(raw_html_blocks(text.split("\n"), notes), notes)
     text = re.sub(r'\s+markdown="(1|block|span)"', "", "\n".join(lines))
@@ -490,11 +544,18 @@ def absolutize(text: str, base: str, notes: dict) -> str:
     def fix(url: str) -> str:
         if not url or re.match(r"[a-z][a-z0-9+.-]*:|/|#|\{", url, re.I):
             return url
+        # [l20](l20) is a table placeholder src/main.ts swaps for the "- l20"
+        # list by its literal href; it is not a link (see fix_all).
+        if re.fullmatch(r"l\d+", url):
+            return url
         new = urljoin("https://idvork.in" + base, url).removeprefix("https://idvork.in")
         notes.setdefault("relative_links", []).append(f"{url} -> {new}")
         return new
 
     def fix_all(seg: str) -> str:
+        # Zola resolves a Markdown link's relative href itself, so the list
+        # placeholders go out as HTML to keep href="l20" literal.
+        seg = re.sub(r"\[(l\d+)\]\(\1\)", r'<a href="\1">\1</a>', seg)
         seg = LINK_MD.sub(lambda m: m.group(1) + m.group(2) + fix(m.group(3)), seg)
         seg = LINK_REF.sub(lambda m: m.group(1) + fix(m.group(2)), seg)
         seg = LINK_HTML.sub(
@@ -656,7 +717,7 @@ def main() -> None:
                 parts = []
                 for code, chunk in split_fences(body):
                     if not code:
-                        chunk = kramdownisms(chunk, notes)
+                        chunk = kramdownisms(tighten_lists(chunk, notes), notes)
                         chunk = absolutize(chunk, jekyll_base(src, fm, url), notes)
                         chunk = pin_heading_ids(chunk, seen)
                     parts.append(chunk)

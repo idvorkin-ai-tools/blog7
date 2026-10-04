@@ -49,8 +49,16 @@ GAPS = [
     ),
     (
         "Code blocks lose rouge's highlighting spans",
-        'Code is plain <pre><code class="language-x">. The site CSS barely styled rouge\'s token '
-        "classes, so the visible change is small, but the token colors are gone.",
+        'Zola writes <pre><code data-lang="x">; scripts.html adds class="language-x" back before '
+        "highlight.js runs, so hljs colors the code and mermaid finds its blocks as before. Rouge's "
+        "server-side token spans are gone; the site CSS barely styled them.",
+    ),
+    (
+        "List spacing",
+        "kramdown gives <p> only to the list items followed by a blank line; CommonMark makes the whole "
+        "list loose. convert.py drops the blank lines kramdown treated as tight, which cut the extra "
+        "paragraph margins from ~450 items to ~100 (plus ~40 now tighter than Jekyll) on about 40 "
+        "pages, mostly lists whose first item holds a quote or code block. Spacing only.",
     ),
     (
         "One-page oddities",

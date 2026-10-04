@@ -46,6 +46,7 @@
 
     <span id="hold-scripts-so-looks-nice-debugging">
       {% include "partials/scripts.html" %}
+      {% if "amazon-products" in p.content %}{% include "partials/amazon_fallback.html" %}{% endif %}
       {% if p.extra?.mermaid %}{% include "partials/mermaid.html" %}{% endif %}
       {% if p.extra?.mathjax %}
       <script
