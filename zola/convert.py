@@ -292,7 +292,7 @@ def pin_heading_ids(text: str, seen: dict) -> str:
     lines = text.split("\n")
     out = []
     for i, line in enumerate(lines):
-        m = re.match(r"^(#{1,6})\s+(.*?)\s*#*\s*$", line)
+        m = re.match(r"^(#{1,6})\s+(.*?)(?:\s+#+)?\s*$", line)
         if m and not re.search(r"\{#[^}]*\}\s*$", m.group(2)):
             line = f"{m.group(1)} {m.group(2)} {{#{slugify(m.group(2), seen)}}}"
         elif m:
@@ -316,6 +316,25 @@ def pin_heading_ids(text: str, seen: dict) -> str:
 HTML_LINE = re.compile(
     r"^\s*(</?(div|details|summary|figure|figcaption|section|aside|nav|p|table|center|span|br|hr)\b[^>]*/?>\s*)+$"
 )
+
+
+def closes_block(lines: list[str], i: int) -> bool:
+    """Does the close-tag line i end the HTML block that began at the last
+    blank line (so text after it is outside the block, as kramdown read it)?"""
+    if lines[i] != lines[i].lstrip():
+        return False
+    j = i
+    while j > 0 and lines[j - 1].strip():
+        j -= 1
+    chunk = "\n".join(lines[j : i + 1])
+    tags = set(re.findall(r"</([a-z][a-z0-9]*)>", lines[i]))
+    return all(
+        len(re.findall(rf"<{t}\b", chunk)) == len(re.findall(rf"</{t}>", chunk))
+        for t in tags
+    ) and bool(re.match(r"\s*<", lines[j]))
+
+
+CLOSE_ONLY = re.compile(r"^\s*(</[a-z][a-z0-9]*>\s*)+$")
 MD_START = re.compile(r"^\s{0,3}([*+-]\s|\d+[.)]\s|#{1,6}\s|>|\|)")
 RAW_BLOCK = re.compile(
     r"<(div|p|details|table|figure|section|center|aside|nav|blockquote|ul|ol|dl|form|iframe)\b([^>]*)>"
@@ -387,7 +406,17 @@ def kramdownisms(text: str, notes: dict) -> str:
                 notes["blank_after_call"] = notes.get("blank_after_call", 0) + 1
                 continue
         out.append(line)
-        if HTML_LINE.match(line) and MD_START.match(nxt):
+        if HTML_LINE.match(line) and (
+            MD_START.match(nxt)
+            # kramdown ends the block at its close tag; CommonMark would run
+            # it on into the paragraph below.
+            or (
+                CLOSE_ONLY.match(line)
+                and nxt.strip()
+                and not nxt.lstrip().startswith("<")
+                and closes_block(lines, i)
+            )
+        ):
             out.append("")
             notes["blank_after_html"] = notes.get("blank_after_html", 0) + 1
     return "\n".join(out)
@@ -416,7 +445,7 @@ MARKDOWN_COMPONENTS = {
 
 LINK_MD = re.compile(r"(\]\()(\s*<?)([^)\s>]+)")
 LINK_REF = re.compile(r"^(\s{0,3}\[[^\]]+\]:\s*)(\S+)", re.M)
-LINK_HTML = re.compile(r"""(\b(?:href|src)=)(["'])([^"']*)\2""")
+LINK_HTML = re.compile(r"""(<[a-zA-Z][^<>]*?\s(?:href|src)=)(["'])([^"']*)\2""")
 
 
 def absolutize(text: str, base: str, notes: dict) -> str:
@@ -435,10 +464,22 @@ def absolutize(text: str, base: str, notes: dict) -> str:
         seg = LINK_HTML.sub(
             lambda m: m.group(1) + m.group(2) + fix(m.group(3)) + m.group(2), seg
         )
-        return re.sub(r"\]\(\s*\)", "](#)", seg)
+        seg = re.sub(r"\]\(\s*\)", "](#)", seg)
+        # kramdown took a space inside a link URL; CommonMark ends the link.
+        seg = re.sub(
+            r"\]\(([^()\s\"']+(?: [^()\s\"']+)+)\)",
+            lambda m: "](" + m.group(1).replace(" ", "%20") + ")",
+            seg,
+        )
+        # kramdown strikes through only with ~~; pulldown-cmark also takes ~.
+        return re.sub(r"(?<![~\\])~(?![~\s])([^~\n]*?[^~\s\\])~(?!~)", r"\\~\1\\~", seg)
 
     # Component calls carry ids (youtube src="abc"), not URLs: leave them be.
-    parts = re.split(r"(\{\{<.*?/>\}\}|`+[^`\n]*`+)", text, flags=re.S)
+    parts = re.split(
+        r"(\{\{<.*?/>\}\}|`+[^`\n]*`+|\{%-?\s*raw\s*-?%\}.*?\{%-?\s*endraw\s*-?%\})",
+        text,
+        flags=re.S,
+    )
     return "".join(p if i % 2 else fix_all(p) for i, p in enumerate(parts))
 
 
@@ -472,6 +513,16 @@ def jsonable(v):
     if isinstance(v, list):
         return [jsonable(x) for x in v if x is not None]
     return v
+
+
+def doc_date(fm: dict, src: str) -> str:
+    d = fm.get("date")
+    if isinstance(d, (datetime.date, datetime.datetime)):
+        return d.isoformat()[:10]
+    m = re.match(r"(\d{4})-(\d{1,2})-(\d{1,2})", str(d or "")) or re.match(
+        r"(\d{4})-(\d{1,2})-(\d{1,2})-", Path(src).name
+    )
+    return "%04d-%02d-%02d" % tuple(map(int, m.groups())) if m else "9999"
 
 
 def zola_date(fm: dict, src: str):
@@ -618,9 +669,11 @@ def main() -> None:
             collection=LABELS.get(Path(src).parts[0])
             if len(Path(src).parts) > 1
             else None,
-            # Jekyll's Document#<=>: date (undated docs get site.time, i.e.
-            # last), then path; collections iterate in label order.
-            sort_key=f"{LABELS.get(Path(src).parts[0], '~')}|{zola_date(fm, src) or '9999'}|{src}",
+            # Jekyll's Document#<=>: date (front matter, else the filename's
+            # YYYY-M-D- prefix, else site.time, i.e. last), then path;
+            # collections iterate in label order (posts newest-first is the
+            # template's job).
+            sort_key=f"{LABELS.get(Path(src).parts[0], '~')}|{doc_date(fm, src)}|{src}",
             jekyll_date=str(fm["date"]) if fm.get("date") else None,
             # Jekyll pages (root files) have no excerpt; documents do.
             excerpt=plain(body.strip().split("\n\n")[0])

@@ -18,13 +18,16 @@
 {%- if g[2] %}
 {%- set items = [d for d in all if d.extra.collection == g[2]] | sort(attribute="extra.sort_key") | reverse %}
 {%- else %}
-{%- set items = [d for d in all if not d.extra.collection and d.title and d.extra.permalink != "/all"] | sort(attribute="title") %}
+{#- site.pages includes the home page (index.md), which Zola models as the root section. -#}
+{%- set home = {"title": root.title, "date": None, "extra": {"permalink": "/", "source_path": "index.md", "tags_list": []}} %}
+{%- set items = [...[d for d in all if not d.extra.collection and d.title and d.extra.permalink != "/all"], home] | sort(attribute="title") %}
 {%- endif %}
 {%- for item in items %}{% if item.title %}
   <li>
     <a href="{{ item.extra.permalink }}">{{ item.title }}</a>
     {% if item.date %}<span class="post-date">({{ item.date }})</span>{% endif %}
-    {% if g[0] == "Posts" and item.extra.tags_list %}
+    {#- Liquid's `if post.tags` is true for an empty list, so every post shows it. -#}
+    {% if g[0] == "Posts" %}
     <span class="post-tags">
       Tags:
       {% for tag in item.extra.tags_list %}<span class="tag">{{ tag }}</span>{% if not loop.last %}, {% endif %}{% endfor %}

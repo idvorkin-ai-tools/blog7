@@ -1,5 +1,5 @@
 {% component den_strip(num, title=None, date=None, img=None, alt=None, receipts_url=None, note=None, anchor=None) -%}
-{#- flatten: off (the blank line before the note is load-bearing). Hand port of _includes/den_strip.html. _data/den.json wins over the call's
+{#- flatten: off (hand-flattened). Hand port of _includes/den_strip.html. _data/den.json wins over the call's
 arguments, as in Liquid. The "## #N — Title" heading is emitted as HTML
 with the kramdown id convert.py computed (anchor=), since a Markdown
 {#id} cannot be written from inside a Tera template. -#}
@@ -25,7 +25,9 @@ with the kramdown id convert.py computed (anchor=), since a Markdown
 <figcaption><small><em>{{ label }}</em> · {{ d }}</small></figcaption>
 </figure>
 {%- if note %}
-{{ note }}
+{#- A blank line cannot be relied on to start a Markdown paragraph inside
+    component output, so render the note to HTML here. #}
+{{ note | markdown | safe }}
 {%- endif %}
 {%- if rc %}
 <details style="margin:2em 0;">
