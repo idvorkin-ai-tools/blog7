@@ -1,0 +1,2 @@
+{%- set p = page or section -%}
+{% block content %}{{ p.content | safe }}{% endblock content %}

@@ -1,0 +1,12 @@
+{#- Port of search-titles.json: title + url for posts, _d, _td, with the same
+    exclusions as partials/pagefind_attrs.html. -#}
+{%- set root = get_section(path="_index.md") -%}
+{%- set all = root.pages | sort(attribute="extra.sort_key") -%}
+{%- set entries = [] -%}
+{%- for coll in ["posts", "d", "td"] %}
+{%- set items = [d for d in all if d.extra.collection == coll] %}
+{%- if coll == "posts" %}{% set items = items | reverse %}{% endif %}
+{%- set entries = [...entries, ...items] %}
+{%- endfor -%}
+{%- set keep = [p for p in entries if p.title and not p.extra.fj and not p.extra.search_exclude and "family-journal" not in (p.taxonomies?.tags or []) and p.extra.permalink not in config.extra.search_exclude_permalinks] -%}
+[{% for p in keep %}{"t":{{ p.title | json_encode | safe }},"u":{{ p.extra.permalink | json_encode | safe }}}{% if not loop.last %},{% endif %}{% endfor %}]

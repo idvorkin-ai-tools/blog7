@@ -1,0 +1,20 @@
+{#- Port of search.json: posts (newest first), then _d, then _td. -#}
+{%- set root = get_section(path="_index.md") -%}
+{%- set all = root.pages | sort(attribute="extra.sort_key") -%}
+{%- set entries = [] -%}
+{%- for coll in ["posts", "d", "td"] %}
+{%- set items = [d for d in all if d.extra.collection == coll] %}
+{%- if coll == "posts" %}{% set items = items | reverse %}{% endif %}
+{%- set entries = [...entries, ...items] %}
+{%- endfor -%}
+[
+{%- for post in entries %}
+		{
+		  "title"      : {{ post.title | json_encode | safe }},
+		  "category"   : "",
+		  "url"        : "{{ config.base_url }}{{ post.extra.permalink }}",
+		  "date"       : "{{ post.date or '' }}",
+		  "shortdate"  : "{% if post.date %}{{ post.date | date(format='%B %d, %Y') }}{% endif %}"
+		}{% if not loop.last %},{% endif %}
+{%- endfor %}
+]
