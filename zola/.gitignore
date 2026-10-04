@@ -7,3 +7,5 @@ static/
 templates/generated/
 convert-report.json
 static-report.json
+diff-report.json
+pagefind.log

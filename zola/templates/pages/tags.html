@@ -5,23 +5,23 @@
 {% block content %}
 {%- set root = get_section(path="_index.md") -%}{%- set all = root.pages | sort(attribute="extra.sort_key") -%}
 {%- set docs = [d for d in all if d.extra.collection] -%}
-{%- set tag_words = [] -%}
-{%- for d in docs %}{% for t in d.taxonomies?.tags or [] %}{% set tag_words = [...tag_words, t] %}{% endfor %}{% endfor -%}
-{%- set tag_words = tag_words | unique | sort -%}
+{#- convert.py writes data/tags.json: Jekyll's tag list (collection
+    documents only, case-sensitive sort) with counts. Zola's own taxonomy
+    merges tags that differ only in case, so it is not used here. -#}
+{%- set tag_index = load_data(path="data/tags.json") -%}
 <ul class="tag-box inline">
-  {%- for tag in tag_words %}
-  {%- set n = [d for d in docs if tag in (d.taxonomies?.tags or [])] | length %}
+  {%- for t in tag_index %}
   <li>
-    <a href="#{{ tag }}"
-      >{{ tag | capitalize }} [<span>{{ n }}</span>]</a
+    <a href="#{{ t.tag }}"
+      >{{ t.tag | capitalize }} [<span>{{ t.count }}</span>]</a
     >
   </li>
   {%- endfor %}
 </ul>
-{% for tag in tag_words %}
+{% for t in tag_index %}{% set tag = t.tag %}
 <h2 id="{{ tag }}">{{ tag | capitalize }}</h2>
 <ul class="post-list">
-  {%- for post in docs %}{% if tag in (post.taxonomies?.tags or []) and post.title %}
+  {%- for post in docs %}{% if tag in (post.extra.tags_list or []) and post.title %}
   <li><a href="{{ config.base_url }}{{ post.extra.permalink }}">{{ post.title }}</a></li>
   {%- endif %}{% endfor %}
 </ul>

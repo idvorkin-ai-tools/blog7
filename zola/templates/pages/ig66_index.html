@@ -12,7 +12,7 @@
 </div>
 {% set md %}
 {%- for item in weeks[:2] %}{% if item.extra.week %}
-### [{{ item.title }}]({{ item.extra.permalink }})
+<h3 id="{{ item.extra.title_slug }}"><a href="{{ item.extra.permalink }}">{{ item.title }}</a></h3>
 
 [![montage](https://github.com/idvorkin/blob/raw/master/ig66/{{ item.extra.week }}/montage.webp)]({{ item.extra.permalink }})
 {{ item.extra.excerpt or "" }}
@@ -27,7 +27,7 @@
 </div>
 {% set md %}
 {%- for item in weeks[2:8] %}{% if item.extra.week %}
-### [{{ item.title }}]({{ item.extra.permalink }})
+<h3 id="{{ item.extra.title_slug }}"><a href="{{ item.extra.permalink }}">{{ item.title }}</a></h3>
 
 [![montage](https://github.com/idvorkin/blob/raw/master/ig66/{{ item.extra.week }}/montage.webp)]({{ item.extra.permalink }})
 {{ item.extra.excerpt or "" }}

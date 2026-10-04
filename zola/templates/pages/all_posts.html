@@ -6,7 +6,7 @@
 <h1 id="all-blog-posts">All Blog Posts</h1>
 <p>This page lists all blog posts for link checking purposes.</p>
 {%- set groups = [
-  ["Posts", "posts-1", "posts"],
+  ["Posts", "posts", "posts"],
   ["Pages", "pages", ""],
   ["D Collection", "d-collection", "d"],
   ["IG66 Collection", "ig66-collection", "ig66"],
@@ -24,10 +24,10 @@
   <li>
     <a href="{{ item.extra.permalink }}">{{ item.title }}</a>
     {% if item.date %}<span class="post-date">({{ item.date }})</span>{% endif %}
-    {% if g[0] == "Posts" and item.taxonomies?.tags %}
+    {% if g[0] == "Posts" and item.extra.tags_list %}
     <span class="post-tags">
       Tags:
-      {% for tag in item.taxonomies.tags %}<span class="tag">{{ tag }}</span>{% if not loop.last %}, {% endif %}{% endfor %}
+      {% for tag in item.extra.tags_list %}<span class="tag">{{ tag }}</span>{% if not loop.last %}, {% endif %}{% endfor %}
     </span>
     {% endif %}
     <a href="https://github.com/idvorkin/idvorkin.github.io/blob/main/{{ item.extra.source_path }}" class="github-link" target="_blank">

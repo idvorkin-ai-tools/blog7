@@ -2,166 +2,417 @@
 # /// script
 # dependencies = ["beautifulsoup4", "lxml"]
 # ///
-"""Diff the spike's Zola output against the Jekyll _site for the same posts.
+"""Full-site diff: the Jekyll _site against the Zola public/ (bead blog-pzp).
 
-usage: diff_sites.py <jekyll _site> <zola public> [<zola public unpinned>]
+usage: diff_sites.py <jekyll _site> <zola public> > diff-report.json
 
-Compares #content-holder only (layout chrome is out of scope): visible text,
-heading ids, internal links, images, plus alias/redirect coverage.
+1. URL inventory. Every URL Jekyll serves, with its Zola status:
+   page        same page (Jekyll /x[.html] -> Zola /x/)
+   redirect    Jekyll redirect stub, Zola alias with the same target
+   redirect-target-differs / redirect-missing
+   static      same bytes; static-differs / static-missing
+   page-missing, page-is-redirect
+   plus every Zola URL Jekyll does not have (extra).
+2. Per page pair (joined by the markdown-path meta, else by URL): visible-text
+   similarity of #content-holder, heading ids kept/changed/lost, link and image
+   counts, title and og:description.
+3. Broken internal links and #anchors in each build, so port-induced breakage
+   (zola_only) is told apart from what Jekyll already had broken.
+
+Both sites are resolved the way their host serves them: Jekyll on Pages serves
+/x from x.html; the Zola site serves /x by redirecting to /x/.
 """
 
 import difflib
+import hashlib
 import json
 import re
 import sys
+from collections import Counter, defaultdict
 from pathlib import Path
+from urllib.parse import unquote, urljoin, urlsplit
+
 from bs4 import BeautifulSoup
 
-HERE = Path(__file__).resolve().parent
+HOSTS = {"idvork.in", "www.idvork.in", "idvorkin.github.io"}
+SKIP_DIRS = {"pagefind", "zola-spike"}
 
 
-def load(p: Path):
-    soup = BeautifulSoup(p.read_text(), "lxml")
-    return soup.select_one("#content-holder")
+def is_redirect(html: str) -> str | None:
+    m = re.search(r'http-equiv="refresh"[^>]*content="0;\s*url=([^"]+)"', html, re.I)
+    if not m:
+        m = re.search(
+            r'content="0;\s*url=([^"]+)"[^>]*http-equiv="refresh"', html, re.I
+        )
+    return m.group(1) if m else None
 
 
-def text_of(node) -> list[str]:
+def url_of(rel: str) -> str:
+    """The canonical URL a file is served at."""
+    if rel == "index.html":
+        return "/"
+    if rel.endswith("/index.html"):
+        return "/" + rel[: -len("index.html")]
+    if rel.endswith(".html"):
+        return "/" + rel[:-5]
+    return "/" + rel
+
+
+def norm(u: str) -> str:
+    """Compare URLs without the /x vs /x/ difference."""
+    u = urlsplit(u)._replace(query="").geturl()
+    for h in HOSTS:
+        u = re.sub(rf"^https?://{re.escape(h)}", "", u)
+    u = u.split("#")[0]
+    if u.endswith("index.html"):
+        u = u[: -len("index.html")]
+    if u.endswith(".html"):
+        u = u[:-5]
+    if u.endswith("/index"):  # Jekyll names _d/index.html's URL /d/index
+        u = u[: -len("index")]
+    return u.rstrip("/") or "/"
+
+
+class Site:
+    def __init__(self, root: Path, kind: str):
+        self.root, self.kind = root, kind
+        self.files: dict[str, Path] = {}
+        for p in root.rglob("*"):
+            if p.is_file():
+                rel = p.relative_to(root).as_posix()
+                if rel.split("/")[0] in SKIP_DIRS:
+                    continue
+                self.files[rel] = p
+        self._soup: dict[str, BeautifulSoup] = {}
+        self._ids: dict[str, set] = {}
+
+    def resolve(self, path: str) -> str | None:
+        """File that answers a request for path (after host redirects)."""
+        path = unquote(path).lstrip("/")
+        cands = [path] if path else ["index.html"]
+        if path.endswith("/") or not path:
+            cands = [path + "index.html"]
+        else:
+            cands += [path + ".html", path + "/index.html"]
+        for c in cands:
+            if c in self.files:
+                return c
+        return None
+
+    def soup(self, rel: str) -> BeautifulSoup:
+        if rel not in self._soup:
+            self._soup[rel] = BeautifulSoup(self.files[rel].read_bytes(), "lxml")
+        return self._soup[rel]
+
+    def ids(self, rel: str) -> set:
+        if rel not in self._ids:
+            s = self.soup(rel)
+            self._ids[rel] = {t.get("id") for t in s.find_all(id=True)} | {
+                t.get("name") for t in s.find_all("a", attrs={"name": True})
+            }
+        return self._ids[rel]
+
+
+def content_node(soup):
+    return soup.select_one("#content-holder") or soup.body or soup
+
+
+def words(node) -> list[str]:
     node = BeautifulSoup(str(node), "lxml")
-    for t in node(["script", "style", "noscript"]):
+    for t in node(["script", "style", "noscript", "template"]):
         t.decompose()
+    for t in node.select("[data-pagefind-ignore]"):
+        t.decompose()  # the TOC: rebuilt client-side from headings anyway
+    # rouge wraps code tokens in spans; get_text(" ") would split "f(x)" into
+    # "f ( x )" on Jekyll only. Flatten code to its plain text first.
+    for t in node.find_all(["pre", "code"]):
+        t.replace_with(" " + t.get_text() + " ")
     return node.get_text(" ").split()
 
 
 def headings(node):
-    return [
-        (h.name, h.get("id"), " ".join(h.get_text(" ").split()))
-        for h in node.find_all(re.compile("^h[1-6]$"))
-    ]
+    return [h.get("id") for h in node.find_all(re.compile("^h[1-6]$")) if h.get("id")]
 
 
-def ids_in(node):
-    return {e.get("id") for e in node.find_all(id=True)} | {
-        e.get("name") for e in node.find_all("a", attrs={"name": True})
-    }
-
-
-def same_page(h: str, path: str) -> str | None:
-    """Fragment if h targets this page (Zola writes #x as https://idvork.in/page/#x)."""
-    n = norm_link(h)
-    if n.startswith("#"):
-        return n[1:]
-    p, _, frag = n.partition("#")
-    return frag if frag and p == path else None
-
-
-def links(node):
-    out = []
-    for a in node.find_all("a", href=True):
-        h = a["href"]
-        if h.startswith(("/", "#")) or "idvork.in" in h:
-            out.append(h)
-    return out
-
-
-def norm_link(h: str) -> str:
-    # Zola writes /x/ for what Jekyll serves as /x; compare on the Jekyll shape.
-    h = re.sub(r"^https?://idvork\.in", "", h)
-    path, _, frag = h.partition("#")
-    if path not in ("", "/"):
-        path = path.rstrip("/")
-    return path + ("#" + frag if frag else "")
-
-
-def imgs(node):
-    return [i.get("src") for i in node.find_all("img")]
-
-
-def word_diff(a: list[str], b: list[str], limit=6):
-    sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
-    ops = [
-        (op, " ".join(a[i1:i2])[:140], " ".join(b[j1:j2])[:140])
-        for op, i1, i2, j1, j2 in sm.get_opcodes()
-        if op != "equal"
-    ]
-    return round(sm.ratio(), 4), len(ops), ops[:limit]
+def check_links(site: Site, rel: str, base_url: str):
+    """Yield (href, problem) for broken internal links/anchors on one page."""
+    soup = site.soup(rel)
+    for tag, attr in (
+        ("a", "href"),
+        ("img", "src"),
+        ("link", "href"),
+        ("script", "src"),
+        ("iframe", "src"),
+    ):
+        for t in soup.find_all(tag):
+            href = (t.get(attr) or "").strip()
+            if not href or href.startswith(
+                ("mailto:", "tel:", "javascript:", "data:", "{{")
+            ):
+                continue
+            absu = urljoin(base_url, href)
+            parts = urlsplit(absu)
+            if parts.scheme not in ("http", "https") or parts.hostname not in HOSTS | {
+                "preview.local"
+            }:
+                continue
+            target = (
+                site.resolve(parts.path)
+                if parts.path not in ("", "/")
+                else site.resolve("/")
+            )
+            if target is None:
+                yield href, "missing"
+                continue
+            if target.endswith(".html"):
+                redir = is_redirect(
+                    site.files[target].read_text(errors="ignore")[:2000]
+                )
+                if redir and tag == "a":
+                    t2 = site.resolve(urlsplit(urljoin(absu, redir)).path)
+                    target = t2 or target
+            frag = unquote(parts.fragment)
+            if frag and tag == "a" and target.endswith(".html"):
+                if frag not in site.ids(target):
+                    yield href, "anchor"
 
 
 def main():
-    site, pub = Path(sys.argv[1]), Path(sys.argv[2])
-    unpinned = Path(sys.argv[3]) if len(sys.argv) > 3 else None
-    report, totals = (
-        {},
-        {
-            "heads": 0,
-            "pinned_kept": 0,
-            "unpinned_kept": 0,
-            "tocpinned_broken": 0,
-            "tocunpinned_broken": 0,
-            "toclinks": 0,
-        },
-    )
-    for md in sorted((HERE / "content").glob("*.md")):
-        if md.name == "_index.md":
+    jroot, zroot = Path(sys.argv[1]), Path(sys.argv[2])
+    J, Z = Site(jroot, "jekyll"), Site(zroot, "zola")
+
+    def classify(site: Site):
+        pages, redirects, static = {}, {}, {}
+        for rel, p in site.files.items():
+            if rel.endswith(".html"):
+                head = p.read_text(errors="ignore")[:3000]
+                r = is_redirect(head)
+                if r and len(p.read_bytes()) < 3000:
+                    redirects[url_of(rel)] = r
+                else:
+                    pages[url_of(rel)] = rel
+            else:
+                static[url_of(rel)] = rel
+        return pages, redirects, static
+
+    jp, jr, js = classify(J)
+    zp, zr, zs = classify(Z)
+    zp_n = {norm(u): r for u, r in zp.items()}
+    zr_n = {norm(u): t for u, t in zr.items()}
+
+    inventory = []
+    for u, rel in sorted(jp.items()):
+        n = norm(u)
+        if n in zp_n:
+            inventory.append({"url": u, "status": "page", "zola": "/" + zp_n[n]})
+        elif n in zr_n:
+            inventory.append({"url": u, "status": "page-is-redirect", "zola": zr_n[n]})
+        else:
+            inventory.append({"url": u, "status": "page-missing"})
+    for u, target in sorted(jr.items()):
+        n = norm(u)
+        if n in zr_n:
+            same = norm(zr_n[n]) == norm(target)
+            inventory.append(
+                {
+                    "url": u,
+                    "status": "redirect" if same else "redirect-target-differs",
+                    "jekyll": target,
+                    "zola": zr_n[n],
+                }
+            )
+        elif n in zp_n:
+            inventory.append({"url": u, "status": "redirect-is-page", "jekyll": target})
+        else:
+            inventory.append({"url": u, "status": "redirect-missing", "jekyll": target})
+    for u, rel in sorted(js.items()):
+        n = norm(u)
+        if u in zs:
+            same = (
+                hashlib.md5(J.files[rel].read_bytes()).digest()
+                == hashlib.md5(Z.files[zs[u]].read_bytes()).digest()
+            )
+            inventory.append(
+                {"url": u, "status": "static" if same else "static-differs"}
+            )
+        else:
+            inventory.append({"url": u, "status": "static-missing"})
+    known = {norm(x["url"]) for x in inventory}
+    extra = sorted(u for u in list(zp) + list(zr) + list(zs) if norm(u) not in known)
+
+    # Page pairs, joined by source file.
+    def src_of(site, rel):
+        m = site.soup(rel).find("meta", attrs={"property": "markdown-path"})
+        return m.get("content") if m and m.get("content") else None
+
+    pairs = []
+    zsrc = {}
+    for u, rel in zp.items():
+        s = src_of(Z, rel)
+        if s:
+            zsrc[s] = (u, rel)
+    for u, jrel in sorted(jp.items()):
+        s = src_of(J, jrel)
+        zhit = zsrc.get(s) if s else None
+        if not zhit and norm(u) in zp_n:
+            zhit = (u, zp_n[norm(u)])
+        if not zhit:
             continue
-        fm = md.read_text().split("+++")[1]
-        path = re.search(r'^path = "(.*)"', fm, re.M).group(1)
-        aliases = re.findall(
-            r'"(/[^"]*)"',
-            (re.search(r"^aliases = \[(.*)\]", fm, re.M) or [None, ""])[1],
-        )
-        j = load(site / (path.strip("/") + ".html"))
-        z = load(pub / path.strip("/") / "index.html")
-        r = {}
-        r["text_ratio"], r["text_diff_ops"], r["text_diff_sample"] = word_diff(
-            text_of(j), text_of(z)
-        )
-        r["words"] = [len(text_of(j)), len(text_of(z))]
-        jh, zh = headings(j), headings(z)
-        r["headings"] = [len(jh), len(zh)]
-        pairs = list(zip(jh, zh))
-        r["ids_kept_pinned"] = sum(1 for a, b in pairs if a[1] == b[1])
-        r["ids_changed_pinned"] = [(a[1], b[1]) for a, b in pairs if a[1] != b[1]][:8]
-        if unpinned:
-            u = load(unpinned / path.strip("/") / "index.html")
-            uh = headings(u)
-            r["ids_kept_unpinned"] = sum(1 for a, b in zip(jh, uh) if a[1] == b[1])
-            r["ids_changed_unpinned_sample"] = [
-                (a[1], b[1]) for a, b in zip(jh, uh) if a[1] != b[1]
-            ][:5]
-            uid = ids_in(u)
-            toc = [f for f in (same_page(h, path) for h in links(u)) if f]
-            r["same_page_anchor_links"] = len(toc)
-            r["broken_same_page_unpinned"] = sum(1 for f in toc if f not in uid)
-            totals["unpinned_kept"] += r["ids_kept_unpinned"]
-            totals["tocunpinned_broken"] += r["broken_same_page_unpinned"]
-        zid = ids_in(z)
-        toc = [f for f in (same_page(h, path) for h in links(z)) if f]
-        r["broken_same_page_pinned"] = sorted({f for f in toc if f not in zid})
+        zu, zrel = zhit
+        js_, zs_ = J.soup(jrel), Z.soup(zrel)
+        jn, zn = content_node(js_), content_node(zs_)
+        jw, zw = words(jn), words(zn)
+        sm = difflib.SequenceMatcher(None, jw, zw, autojunk=False)
+        ratio = sm.ratio() if (jw or zw) else 1.0
+        jh, zh = headings(jn), headings(zn)
+        diffs = []
+        if ratio < 1.0:
+            for op, a1, a2, b1, b2 in sm.get_opcodes():
+                if op != "equal" and len(diffs) < 6:
+                    diffs.append(
+                        [op, " ".join(jw[a1:a2])[:160], " ".join(zw[b1:b2])[:160]]
+                    )
 
-        def canon(h):
-            f = same_page(h, path)
-            return "#" + f if f is not None else norm_link(h)
+        def meta(soup, prop):
+            m = soup.find("meta", attrs={"property": prop})
+            return (m.get("content") or "").strip() if m else None
 
-        jl, zl = [canon(h) for h in links(j)], [canon(h) for h in links(z)]
-        r["links"] = [len(jl), len(zl)]
-        r["links_only_jekyll"] = sorted(set(jl) - set(zl))[:8]
-        r["links_only_zola"] = sorted(set(zl) - set(jl))[:8]
-        ji, zi = imgs(j), imgs(z)
-        r["imgs"] = [len(ji), len(zi)]
-        r["imgs_only_jekyll"] = sorted(set(ji) - set(zi))
-        r["imgs_only_zola"] = sorted(set(zi) - set(ji))
-        r["aliases_missing"] = [
-            a for a in aliases if not (pub / a.strip("/") / "index.html").exists()
-        ]
-        r["jekyll_redirects_without_alias"] = [
-            a for a in aliases if not (site / (a.strip("/") + ".html")).exists()
-        ]
-        totals["heads"] += len(jh)
-        totals["pinned_kept"] += r["ids_kept_pinned"]
-        totals["toclinks"] += len(toc)
-        totals["tocpinned_broken"] += len(r["broken_same_page_pinned"])
-        report[path] = r
-    print(json.dumps({"totals": totals, "pages": report}, indent=1, ensure_ascii=False))
+        def cnt(node, tag):
+            return len(node.find_all(tag))
+
+        pairs.append(
+            {
+                "url": u,
+                "src": s,
+                "ratio": round(ratio, 4),
+                "words": [len(jw), len(zw)],
+                "headings": [len(jh), len(zh)],
+                "ids_lost": sorted(set(jh) - set(zh))[:20],
+                "ids_lost_n": len(set(jh) - set(zh)),
+                "links": [cnt(jn, "a"), cnt(zn, "a")],
+                "images": [cnt(jn, "img"), cnt(zn, "img")],
+                "iframes": [cnt(jn, "iframe"), cnt(zn, "iframe")],
+                "pre": [cnt(jn, "pre"), cnt(zn, "pre")],
+                "title_same": (js_.title.get_text(" ", strip=True) if js_.title else "")
+                == (zs_.title.get_text(" ", strip=True) if zs_.title else ""),
+                "desc_same": " ".join((meta(js_, "og:description") or "").split())
+                == " ".join((meta(zs_, "og:description") or "").split()),
+                "diffs": diffs,
+            }
+        )
+
+    # Broken internal links/anchors on every real page of each site.
+    def broken(site: Site, pages: dict):
+        out = defaultdict(list)
+        for u, rel in pages.items():
+            base = "https://idvork.in" + u
+            for href, why in check_links(site, rel, base):
+                out[u].append([href, why])
+        return out
+
+    jb, zb = broken(J, jp), broken(Z, zp)
+    jb_n = defaultdict(set)
+    for u, items in jb.items():
+        for href, why in items:
+            jb_n[norm(u)].add(
+                (
+                    norm(urljoin("https://idvork.in" + u, href)),
+                    unquote(urlsplit(href).fragment),
+                    why,
+                )
+            )
+    zola_only, both = defaultdict(list), 0
+    for u, items in zb.items():
+        for href, why in items:
+            key = (
+                norm(urljoin("https://idvork.in" + u, href)),
+                unquote(urlsplit(href).fragment),
+                why,
+            )
+            if key in jb_n.get(norm(u), set()):
+                both += 1
+            else:
+                zola_only[u].append([href, why])
+
+    # Generated (non-HTML) files: compare what they carry, not their bytes.
+    def load_json(site, rel):
+        try:
+            return json.loads(site.files[rel].read_text())
+        except Exception:  # noqa: BLE001
+            return None
+
+    def xml_locs(site, rel, tag):
+        return {
+            norm(m)
+            for m in re.findall(rf"<{tag}>([^<]+)</{tag}>", site.files[rel].read_text())
+        }
+
+    generated = {}
+    if "redirects.json" in J.files and "redirects.json" in Z.files:
+        a, b = load_json(J, "redirects.json"), load_json(Z, "redirects.json")
+        an = {k: norm(v) for k, v in a.items()}
+        bn = {k: norm(v) for k, v in b.items()}
+        generated["redirects.json"] = {
+            "jekyll": len(a),
+            "zola": len(b),
+            "differ": sorted(k for k in set(an) | set(bn) if an.get(k) != bn.get(k)),
+        }
+    for name, key in (("search-titles.json", "u"), ("search.json", "url")):
+        if name in J.files and name in Z.files:
+            a, b = load_json(J, name) or [], load_json(Z, name) or []
+            sa, sb = [norm(x[key]) for x in a], [norm(x[key]) for x in b]
+            generated[name] = {
+                "jekyll": len(a),
+                "zola": len(b),
+                "same_order": sa == sb,
+                "only_jekyll": sorted(set(sa) - set(sb)),
+                "only_zola": sorted(set(sb) - set(sa)),
+            }
+    for name, tag in (("feed.xml", "link"), ("sitemap.xml", "loc")):
+        if name in J.files and name in Z.files:
+            a, b = xml_locs(J, name, tag), xml_locs(Z, name, tag)
+            generated[name] = {
+                "jekyll": len(a),
+                "zola": len(b),
+                "only_jekyll": sorted(a - b)[:50],
+                "only_zola_count": len(b - a),
+            }
+
+    status = Counter(x["status"] for x in inventory)
+    report = {
+        "summary": {
+            "jekyll": {"pages": len(jp), "redirects": len(jr), "static": len(js)},
+            "zola": {"pages": len(zp), "redirects": len(zr), "static": len(zs)},
+            "inventory": dict(status),
+            "extra_in_zola": len(extra),
+            "pairs": len(pairs),
+            "identical_text": sum(p["ratio"] == 1.0 for p in pairs),
+            "ratio_ge_0995": sum(p["ratio"] >= 0.995 for p in pairs),
+            "ratio_lt_095": sum(p["ratio"] < 0.95 for p in pairs),
+            "heading_ids_jekyll": sum(p["headings"][0] for p in pairs),
+            "heading_ids_lost": sum(p["ids_lost_n"] for p in pairs),
+            "broken_jekyll": {
+                k: sum(1 for v in jb.values() for x in v if x[1] == k)
+                for k in ("missing", "anchor")
+            },
+            "broken_zola": {
+                k: sum(1 for v in zb.values() for x in v if x[1] == k)
+                for k in ("missing", "anchor")
+            },
+            "broken_in_both": both,
+            "broken_zola_only": {
+                k: sum(1 for v in zola_only.values() for x in v if x[1] == k)
+                for k in ("missing", "anchor")
+            },
+        },
+        "generated": generated,
+        "inventory": inventory,
+        "extra_in_zola": extra,
+        "pairs": sorted(pairs, key=lambda p: p["ratio"]),
+        "broken_zola_only": dict(sorted(zola_only.items())),
+        "broken_jekyll": dict(sorted(jb.items())),
+    }
+    json.dump(report, sys.stdout, indent=1, ensure_ascii=False)
 
 
 if __name__ == "__main__":

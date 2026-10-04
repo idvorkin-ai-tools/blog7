@@ -1,12 +1,11 @@
 {#- Port of search.json: posts (newest first), then _d, then _td. -#}
 {%- set root = get_section(path="_index.md") -%}
 {%- set all = root.pages | sort(attribute="extra.sort_key") -%}
-{%- set entries = [] -%}
-{%- for coll in ["posts", "d", "td"] %}
-{%- set items = [d for d in all if d.extra.collection == coll] %}
-{%- if coll == "posts" %}{% set items = items | reverse %}{% endif %}
-{%- set entries = [...entries, ...items] %}
-{%- endfor -%}
+{#- Tera 2 scopes `set` inside a for loop to that loop, so no accumulating. -#}
+{%- set posts = [d for d in all if d.extra.collection == "posts"] | reverse -%}
+{%- set ds = [d for d in all if d.extra.collection == "d"] -%}
+{%- set tds = [d for d in all if d.extra.collection == "td"] -%}
+{%- set entries = [...posts, ...ds, ...tds] -%}
 [
 {%- for post in entries %}
 		{

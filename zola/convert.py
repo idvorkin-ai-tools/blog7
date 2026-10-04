@@ -29,6 +29,7 @@ Anything Liquid left over fails the conversion, so nothing ships silently.
 """
 
 import datetime
+import html
 import json
 import re
 import sys
@@ -40,7 +41,7 @@ import yaml
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent
 sys.path.insert(0, str(REPO / ".claude/skills/toc"))
-from toc import slugify  # noqa: E402  the GFM slug rule kramdown's GFM parser uses
+from toc import slugify as toc_slugify  # noqa: E402  the GFM slug rule kramdown's GFM parser uses
 
 CONTENT = HERE / "content"
 GENERATED = HERE / "templates" / "generated"
@@ -98,6 +99,13 @@ ARG = re.compile(
 COMMENT = re.compile(r"\{%-?\s*comment\s*-?%\}.*?\{%-?\s*endcomment\s*-?%\}", re.S)
 POST_URL = re.compile(r"\{%-?\s*post_url\s+([\w./-]+)\s*-?%\}")
 # Includes whose output needs page state Jekyll handed them implicitly.
+# Include arguments that are URLs, resolved like the page's own links.
+URL_ARGS = {
+    "summarize_page": ("src",),
+    "image_float_right": ("link",),
+    "quote": ("url",),
+    "ai_voice": ("link",),
+}
 # (Components that need page state declare an @page parameter instead.)
 PAGE_ARGS: dict[str, dict[str, str]] = {}
 # Liquid emitted these assets once per page via a global flag; components are
@@ -138,6 +146,17 @@ PARAMS = component_params()
 DEN = {str(e["num"]): e for e in json.loads((REPO / "_data/den.json").read_text())}
 
 
+def slugify(text: str, seen: dict | None = None) -> str:
+    """The id kramdown gave a heading: toc.py's GFM rule, applied to the text
+    kramdown saw after entity decoding and smart typography (so "--" is an en
+    dash that the slug drops, and "&#8217;" an apostrophe)."""
+    text = html.unescape(text)
+    text = (
+        text.replace("---", "\u2014").replace("--", "\u2013").replace("...", "\u2026")
+    )
+    return toc_slugify(text, seen)
+
+
 def tera_str(v: str) -> str:
     """Tera string literals have no escapes: pick a delimiter the value lacks."""
     for q in ('"', "'", "`"):
@@ -165,6 +184,20 @@ def jekyll_url(src: str, fm: dict) -> str:
     return url
 
 
+def jekyll_base(src: str, fm: dict, url: str) -> str:
+    """What the browser resolved relative links against on Jekyll: /x for
+    x.html, but /x/ for a page served as x/index.html."""
+    p = Path(src)
+    raw = str(fm.get("permalink") or "")
+    if (
+        raw.endswith("/")
+        or raw.endswith("/index.html")
+        or (not raw and p.stem == "index")
+    ):
+        return url.rstrip("/") + "/"
+    return url
+
+
 def include_to_component(m: re.Match, notes: dict) -> str:
     raw_name = m.group(1) or m.group(3)
     argstr = m.group(2) or ""
@@ -189,6 +222,14 @@ def include_to_component(m: re.Match, notes: dict) -> str:
         else:
             val = dq if dq or not sq else sq
             val = val.replace('\\"', '"').replace("\\'", "'")
+        if k in URL_ARGS.get(name, ()) and not re.match(
+            r"[a-z][a-z0-9+.-]*:|/|#", val, re.I
+        ):
+            new = urljoin("https://idvork.in" + notes["base"], val).removeprefix(
+                "https://idvork.in"
+            )
+            notes.setdefault("relative_links", []).append(f"{val} -> {new}")
+            val = new
         args.append(f"{k}={tera_str(val)}")
     for k, expr in PAGE_ARGS.get(name, {}).items():
         args.append(f"{k}={expr}")
@@ -203,6 +244,28 @@ def include_to_component(m: re.Match, notes: dict) -> str:
     notes.setdefault("includes", {}).setdefault(name, 0)
     notes["includes"][name] += 1
     return "{{<" + " ".join([name, *args]) + " />}}"
+
+
+def place(m: re.Match, body: str, call: str, notes: dict) -> str:
+    """Keep a component's multi-line output inside the Markdown block it sits in.
+
+    kramdown kept an include's output inside a list item or a paragraph;
+    CommonMark lets a flattened HTML line at column 0 open a new HTML block
+    that swallows everything to the next blank line. So a call indented under
+    a list item gets its output indented to match, and a call in the middle of
+    a line gets its output joined onto that line.
+    """
+    if call.startswith("{%"):
+        return call
+    line_start = body.rfind("\n", 0, m.start()) + 1
+    prefix = body[line_start : m.start()]
+    if not prefix:
+        return call
+    if not prefix.strip():
+        notes["indented_calls"] = notes.get("indented_calls", 0) + 1
+        return f"{{% set _inc %}}{call}{{% endset %}}{{{{ _inc | indent(width={len(prefix)}) }}}}"
+    notes["inline_calls"] = notes.get("inline_calls", 0) + 1
+    return f'{{% set _inc %}}{call}{{% endset %}}{{{{ _inc | replace(from="\n", to=" ") }}}}'
 
 
 def split_fences(body: str):
@@ -251,13 +314,46 @@ def pin_heading_ids(text: str, seen: dict) -> str:
 
 
 HTML_LINE = re.compile(
-    r"^\s*</?(div|details|summary|figure|figcaption|section|aside|nav|p|table|center|span)\b[^>]*/?>\s*$"
+    r"^\s*(</?(div|details|summary|figure|figcaption|section|aside|nav|p|table|center|span|br|hr)\b[^>]*/?>\s*)+$"
 )
 MD_START = re.compile(r"^\s{0,3}([*+-]\s|\d+[.)]\s|#{1,6}\s|>|\|)")
+RAW_BLOCK = re.compile(
+    r"<(div|p|details|table|figure|section|center|aside|nav|blockquote|ul|ol|dl|form|iframe)\b([^>]*)>"
+)
+
+
+def raw_html_blocks(lines: list[str], notes: dict) -> list[str]:
+    """kramdown (parse_block_html off) reads a column-0 HTML block up to its
+    matching close tag as raw HTML; CommonMark ends it at the first blank line
+    and parses the rest as Markdown. Drop the blank lines inside such a block
+    (only those without markdown=, which kept kramdown parsing Markdown)."""
+    out, i = [], 0
+    while i < len(lines):
+        m = RAW_BLOCK.match(lines[i])
+        if not m or "markdown=" in m.group(2):
+            out.append(lines[i])
+            i += 1
+            continue
+        tag, depth, j = m.group(1), 0, i
+        while j < len(lines):
+            depth += len(re.findall(rf"<{tag}\b", lines[j])) - len(
+                re.findall(rf"</{tag}>", lines[j])
+            )
+            if depth <= 0:
+                break
+            j += 1
+        span = lines[i : j + 1]
+        if j < len(lines) and any(not x.strip() for x in span):
+            notes["raw_html_blocks"] = notes.get("raw_html_blocks", 0) + 1
+            span = [x for x in span if x.strip()]
+        out += span
+        i = j + 1
+    return out
 
 
 def kramdownisms(text: str, notes: dict) -> str:
-    text = re.sub(r'\s+markdown="(1|block|span)"', "", text)
+    lines = raw_html_blocks(text.split("\n"), notes)
+    text = re.sub(r'\s+markdown="(1|block|span)"', "", "\n".join(lines))
     lines = text.split("\n")
     out = []
     for i, line in enumerate(lines):
@@ -274,12 +370,48 @@ def kramdownisms(text: str, notes: dict) -> str:
         if re.fullmatch(r"\{:.*\}\s*", line):
             notes.setdefault("ial_dropped", []).append(line.strip())
             continue
-        out.append(line)
         nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        call = CALL_LINE.fullmatch(line)
+        if call and nxt.strip() and not CALL_LINE.fullmatch(nxt):
+            if call.group(1) in INLINE_COMPONENTS and not (
+                MD_START.match(nxt) or nxt.lstrip().startswith("<")
+            ):
+                # An <img> alone on a line opens a CommonMark HTML block that
+                # swallows the paragraph below; with text after it on the same
+                # line it is inline, as kramdown read it.
+                lines[i + 1] = line.rstrip() + " " + nxt
+                notes["joined_img_calls"] = notes.get("joined_img_calls", 0) + 1
+                continue
+            if call.group(1) not in MARKDOWN_COMPONENTS:
+                out += [line, ""]
+                notes["blank_after_call"] = notes.get("blank_after_call", 0) + 1
+                continue
+        out.append(line)
         if HTML_LINE.match(line) and MD_START.match(nxt):
             out.append("")
             notes["blank_after_html"] = notes.get("blank_after_html", 0) + 1
     return "\n".join(out)
+
+
+CALL_LINE = re.compile(r"\{\{<(\w+)\b.*/>\}\}\s*")
+# Components whose whole output is one inline <img> (float-right pictures).
+INLINE_COMPONENTS = {
+    "local_image_float_right",
+    "blob_image_float_right",
+    "image_float_right",
+    "repo_image_float_right",
+    "ipaste_image_float_right",
+    "blob_image_float_right_w25",
+    "mpl_render_float_right",
+}
+# Components that emit Markdown, which flows into the paragraph as kramdown did.
+MARKDOWN_COMPONENTS = {
+    "blob_image",
+    "repo_image",
+    "mpl_render",
+    "this_is_part_of_saas",
+    "link_blog_montage",
+}
 
 
 LINK_MD = re.compile(r"(\]\()(\s*<?)([^)\s>]+)")
@@ -306,7 +438,7 @@ def absolutize(text: str, base: str, notes: dict) -> str:
         return re.sub(r"\]\(\s*\)", "](#)", seg)
 
     # Component calls carry ids (youtube src="abc"), not URLs: leave them be.
-    parts = re.split(r"(\{\{<.*?/>\}\})", text, flags=re.S)
+    parts = re.split(r"(\{\{<.*?/>\}\}|`+[^`\n]*`+)", text, flags=re.S)
     return "".join(p if i % 2 else fix_all(p) for i, p in enumerate(parts))
 
 
@@ -320,6 +452,11 @@ def plain(md: str) -> str:
     t = re.sub(r"\{#[^}]*\}", "", t)
     t = re.sub(r"[*_`]", "", t)
     return " ".join(t.split())
+
+
+def aliases_of(fm: dict) -> list[str]:
+    a = fm.get("redirect_from") or []
+    return ["/" + str(x).strip().strip("/") for x in ([a] if isinstance(a, str) else a)]
 
 
 def jsonable(v):
@@ -383,23 +520,49 @@ def main() -> None:
     urls = {src: jekyll_url(src, fm) for src, (fm, _) in parsed.items()}
     post_urls = {Path(s).stem: u for s, u in urls.items() if s.startswith("_posts/")}
     report = {"pages": {}, "collisions": [], "alias_dropped": [], "errors": {}}
+    tag_docs: dict[str, set] = {}
     taken: dict[str, str] = {}
     for src, url in urls.items():
         if url in taken:
             report["collisions"].append(f"{url}: {taken[url]} wins over {src}")
         else:
             taken[url] = src
+
+    # jekyll-redirect-from writes its stubs after root pages and before
+    # collection documents, in page-then-document order: the last write to a
+    # URL wins. So an alias beats a root page, a document beats an alias, and
+    # of two pages claiming one alias the later one wins.
+    def jekyll_order(src: str):
+        top = Path(src).parts[0] if len(Path(src).parts) > 1 else ""
+        return (["", "_posts", "_d", "_td", "_ig66", "_test"].index(top), src)
+
     alias_owner: dict[str, str] = {}
+    for src in sorted(parsed, key=jekyll_order):
+        for a in aliases_of(parsed[src][0]):
+            alias_owner[a] = src
+    doc_urls = {u for s_, u in urls.items() if len(Path(s_).parts) > 1}
+    shadowed = {
+        s_
+        for s_, u in urls.items()
+        if len(Path(s_).parts) == 1
+        and u in {re.sub(r"\.html$", "", a) for a in alias_owner}
+    }
 
     for src, (fm, body) in parsed.items():
         if taken[urls[src]] != src:
+            continue
+        if src in shadowed:
+            report["shadowed_by_alias"] = report.get("shadowed_by_alias", []) + [src]
             continue
         url = urls[src]
         notes: dict = {}
         try:
             body = COMMENT.sub("", body)
             body = POST_URL.sub(lambda m: post_urls[m.group(1)], body)
-            body = INCLUDE.sub(lambda m: include_to_component(m, notes), body)
+            notes["base"] = jekyll_base(src, fm, url)
+            body = INCLUDE.sub(
+                lambda m: place(m, body, include_to_component(m, notes), notes), body
+            )
             is_template = src in TEMPLATE_PAGES or src.endswith(".html")
             if not is_template:
                 seen: dict = {}
@@ -407,12 +570,12 @@ def main() -> None:
                 for code, chunk in split_fences(body):
                     if not code:
                         chunk = kramdownisms(chunk, notes)
-                        chunk = absolutize(chunk, url, notes)
+                        chunk = absolutize(chunk, jekyll_base(src, fm, url), notes)
                         chunk = pin_heading_ids(chunk, seen)
                     parts.append(chunk)
                 body = "\n".join(parts)
                 left = re.findall(
-                    r"\{%(?!\s*-?\s*(?:raw|endraw)\b).*?%\}|\{\{(?!<).*?\}\}",
+                    r"\{%(?!\s*-?\s*(?:raw|endraw|set _inc|endset)\b).*?%\}|\{\{(?!<|\s*_inc\b).*?\}\}",
                     body,
                     flags=re.S,
                 )
@@ -422,29 +585,35 @@ def main() -> None:
             report["errors"][src] = str(e)
             continue
 
-        aliases = fm.get("redirect_from") or []
-        aliases = [aliases] if isinstance(aliases, str) else aliases
         kept = []
-        for a in aliases:
-            a = "/" + str(a).strip().strip("/")
-            a_norm = re.sub(r"\.html$", "", a)
-            if a_norm in taken or a_norm == url:
-                report["alias_dropped"].append(f"{a} on {src}: is a page")
-            elif a in alias_owner:
+        for a in aliases_of(fm):
+            if alias_owner.get(a) != src:
                 report["alias_dropped"].append(
-                    f"{a} on {src}: already on {alias_owner[a]}"
+                    f"{a} on {src}: Jekyll wrote {alias_owner.get(a)}'s"
                 )
+            elif re.sub(r"\.html$", "", a) in doc_urls or a == url:
+                report["alias_dropped"].append(f"{a} on {src}: a document has this URL")
             else:
-                alias_owner[a] = src
                 kept.append(a)
 
-        tags = fm.get("tags") or []
+        # Jekyll's Utils.pluralized_array_from_hash: a singular `tag:` wins,
+        # a string is split on whitespace.
+        tag = fm.get("tag")
+        tags = (
+            (tag if isinstance(tag, list) else [tag]) if tag else (fm.get("tags") or [])
+        )
         tags = tags.split() if isinstance(tags, str) else [str(t) for t in tags if t]
+        if len(Path(src).parts) > 1:
+            for t in tags:
+                tag_docs.setdefault(t, set()).add(src)
         layout = str(fm.get("layout") or "")
         extra = jsonable(dict(fm))
         extra.update(
             source_path=src,
             permalink=url,
+            tags_list=tags,
+            # kramdown's id for a "### [title](url)" heading on listing pages.
+            title_slug=slugify(str(fm.get("title") or "")),
             layout=LAYOUTS.get(layout, "empty"),
             collection=LABELS.get(Path(src).parts[0])
             if len(Path(src).parts) > 1
@@ -484,6 +653,8 @@ def main() -> None:
             )
             hand = f"generated/{name}.html"
         zfm["template"] = hand or f"{extra['layout']}.html"
+        if fm.get("redirect_to"):
+            zfm["template"] = "redirect.html"
         if src == "index.md":
             target = CONTENT / "_index.md"
             zfm["sort_by"] = "none"
@@ -500,8 +671,28 @@ def main() -> None:
             + "---\n"
             + text
         )
+        notes.pop("base", None)
         report["pages"][src] = {"url": url, **notes}
 
+    # jekyll-redirect-from's /redirects.json: every redirect, source -> target
+    # (Jekyll URL shape, as the old site published it).
+    redirects = {}
+    for a, owner in alias_owner.items():
+        if re.sub(r"\.html$", "", a) not in doc_urls:
+            redirects[a] = "https://idvork.in" + urls[owner]
+    for src_, (fm_, _) in parsed.items():
+        if fm_.get("redirect_to"):
+            t = str(fm_["redirect_to"])
+            redirects[urls[src_]] = (
+                t if t.startswith("http") else "https://idvork.in" + t
+            )
+    (HERE / "static" / "redirects.json").write_text(json.dumps(redirects))
+    report["redirects"] = len(redirects)
+    # /tags lists every tag a collection document uses, sorted like Liquid's
+    # `sort` (case-sensitive), with its document count.
+    (HERE / "data" / "tags.json").write_text(
+        json.dumps([{"tag": t, "count": len(tag_docs[t])} for t in sorted(tag_docs)])
+    )
     json.dump(report, sys.stdout, indent=1, default=str)
     print()
     if report["errors"]:

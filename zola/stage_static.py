@@ -85,7 +85,9 @@ def main() -> None:
         for n in filenames:
             rel = f"{rel_dir}/{n}" if rel_dir else n
             p = d / n
-            if skip_name(n) or excluded(rel) or p.is_symlink():
+            # File symlinks (CLAUDE.md -> AGENTS.md) are followed, as Jekyll
+            # does outside safe mode; directory symlinks are skipped above.
+            if skip_name(n) or excluded(rel) or (p.is_symlink() and not p.is_file()):
                 continue
             if has_front_matter(p):
                 pages.append(rel)
