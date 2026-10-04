@@ -22,6 +22,7 @@ OUT=public-preview BASE_URL="$PREVIEW_URL" ./build.sh
 cp ../back-links.json public-preview/back-links.json
 npx --yes pagefind@1.5.2 --site public-preview > pagefind.log 2>&1 || { tail -20 pagefind.log; exit 1; }
 mkdir -p public-preview/_port
-python3 report.py diff-report.json convert-report.json "$PREVIEW_URL" > public-preview/_port/index.html
+# SWEEP: optional browser sweep JSON (per page: height, JS errors) to fold in.
+python3 report.py diff-report.json convert-report.json "$PREVIEW_URL" ${SWEEP:+"$SWEEP"} > public-preview/_port/index.html
 cp diff-report.json public-preview/_port/diff-report.json
 echo "preview ready: $PREVIEW_URL  report: $PREVIEW_URL/_port/"

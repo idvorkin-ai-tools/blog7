@@ -370,8 +370,44 @@ def raw_html_blocks(lines: list[str], notes: dict) -> list[str]:
     return out
 
 
+TABLE_SEP = re.compile(r"^\|?\s*:?-+:?\s*([|+]\s*:?-+:?\s*)*\|?\s*$")
+
+
+def kramdown_tables(lines: list[str], notes: dict) -> list[str]:
+    """kramdown tables may open with a separator line (a top border), use +
+    in separators, and repeat separators to split the body. GFM wants exactly
+    one separator, right under the header row: keep that one, drop the rest."""
+    out, i = [], 0
+    while i < len(lines):
+        if not lines[i].lstrip().startswith("|"):
+            out.append(lines[i])
+            i += 1
+            continue
+        j = i
+        while j < len(lines) and lines[j].lstrip().startswith("|"):
+            j += 1
+        block = lines[i:j]
+        rows = [r for r in block if not TABLE_SEP.match(r)]
+        seps = [r for r in block if TABLE_SEP.match(r)]
+        gfm_ok = (
+            len(block) > 1
+            and not TABLE_SEP.match(block[0])
+            and TABLE_SEP.match(block[1])
+            and len(seps) == 1
+            and "+" not in block[1]
+        )
+        if seps and rows and not gfm_ok:
+            sep = seps[0].replace("+", "|")
+            out += [rows[0], sep, *rows[1:]]
+            notes["kramdown_tables"] = notes.get("kramdown_tables", 0) + 1
+        else:
+            out += block
+        i = j
+    return out
+
+
 def kramdownisms(text: str, notes: dict) -> str:
-    lines = raw_html_blocks(text.split("\n"), notes)
+    lines = kramdown_tables(raw_html_blocks(text.split("\n"), notes), notes)
     text = re.sub(r'\s+markdown="(1|block|span)"', "", "\n".join(lines))
     lines = text.split("\n")
     out = []

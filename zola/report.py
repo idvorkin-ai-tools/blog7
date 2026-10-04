@@ -31,43 +31,46 @@ e = html.escape
 # side-by-side screenshots (kept here so the page says it next to the data).
 GAPS = [
     (
-        "Smart quotes after digits and apostrophes",
-        "pulldown-cmark curls some quotes the other way from kramdown: '24 and 'em become ’24 and ’em "
-        "(kramdown: ‘24, ‘em), and a closing quote after a digit can flip. Text only; about 40 pages; "
-        "pulldown-cmark is usually the correct one.",
-    ),
-    (
-        "Tables kramdown accepted and GFM does not",
-        "A few tables whose separator row uses + or has a different column count from the header render "
-        "as text in Zola (/sell, /essentialism, /ai-security, /side-quests). Fix in the source, or teach the "
-        "converter to normalize separator rows.",
-    ),
-    (
-        "Links CommonMark rejects",
-        "Links whose URL has a space ([RhymeZone](http:// www.rhymezone.com)) and links nested in a TOC "
-        "entry ([[x](url)](#x)) render differently: kramdown made a link, CommonMark leaves text. Both were "
-        "already broken links on Jekyll.",
-    ),
-    (
-        "Odd Markdown kramdown read differently",
-        "A list item followed by a bare '-' was a setext heading to kramdown (/d/2016-8-1-Twelve-Tech-Forces); "
-        "a <vapi-widget> custom element on /tesla renders as text in Jekyll and as an element in Zola; "
-        "$$ math stays $$ (MathJax reads both). Each is one page.",
+        "Smart quotes",
+        "About 40 pages differ only in quote direction: pulldown-cmark curls '24 and 'em as ’24 and ’em "
+        "where kramdown wrote ‘24 and ‘em, and a quote after an ellipsis or digit can flip. Text only; "
+        "pulldown-cmark is usually the right one.",
     ),
     (
         "Footnotes",
-        "Zola numbers footnotes the same, but the ids are #fn-1 / #fr-1-1 instead of kramdown's #fn:1 / "
-        "#fnref:1, so an external deep link to a footnote would miss.",
+        "Markers render as [1] instead of a bare superscript 1, and the ids change from kramdown's "
+        "#fn:1 / #fnref:1 to #fn-1 / #fr-1-1, so an outside link to a footnote would miss (2 pages: /wally, /ai-relationships).",
     ),
     (
-        "Code blocks lose rouge highlighting classes",
-        'Code is plain <pre><code class="language-x">: the site CSS barely styled rouge\'s spans, so the '
-        "visible change is small, but the token colors are gone.",
+        "TOC entries that wrap a link",
+        "A TOC line like [[Jump in the lake day](url)](#jump-in-the-lake-day) nests a link in a link. "
+        "kramdown kept the inner link, CommonMark keeps the outer one (/resistance, /irl, /depression, "
+        "/y26). The anchors still resolve.",
+    ),
+    (
+        "Code blocks lose rouge's highlighting spans",
+        'Code is plain <pre><code class="language-x">. The site CSS barely styled rouge\'s token '
+        "classes, so the visible change is small, but the token colors are gone.",
+    ),
+    (
+        "One-page oddities",
+        "A list item followed by a bare '-' was a setext heading to kramdown "
+        "(/d/2016-8-1-Twelve-Tech-Forces); a ```sudo fence on /mosh drops its first line as the info "
+        "string; <vapi-widget> on /tesla is an element in Zola but was text in Jekyll; $$ math is left "
+        "as $$ (MathJax reads both); empty list items '-' render empty.",
+    ),
+    (
+        "Jekyll bugs the port does not copy",
+        "Inline summarize-page includes rendered as raw markup text on Jekyll (/siy, /happy, /untangled, "
+        "/idle, /content-creation); Zola renders the summary link. /weeks threw a JS SyntaxError on "
+        "Jekyll (a Ruby hash dumped into a script); Zola's does not. /all no longer stamps undated "
+        "documents with the build date.",
     ),
     (
         "Trailing-slash URLs",
-        "Every page moves from /x to /x/ (Pages 301s /x to /x/ and keeps the #fragment). Canonical and "
-        "og:url now carry the slash. Heading ids are pinned, so deep links survive.",
+        "Every page moves from /x to /x/; Pages answers /x with a 301 to /x/ and keeps the #fragment. "
+        "Canonical and og:url carry the slash. Heading ids are pinned to kramdown's, so deep links "
+        "survive; the 13 ids not kept are blank tag headings on /tags and two odd headings.",
     ),
 ]
 LEFT = [
@@ -100,6 +103,26 @@ def card(label, value, sub="", tone=""):
 
 
 inv = Counter(x["status"] for x in diff["inventory"])
+GENERATED = {
+    "/feed.xml",
+    "/sitemap.xml",
+    "/search.json",
+    "/search-titles.json",
+    "/redirects.json",
+}
+gen_diff = [
+    x["url"].lstrip("/")
+    for x in diff["inventory"]
+    if x["status"] == "static-differs" and x["url"] in GENERATED
+]
+other_diff = [
+    x["url"]
+    for x in diff["inventory"]
+    if x["status"] == "static-differs" and x["url"] not in GENERATED
+]
+missing_static = [
+    x["url"] for x in diff["inventory"] if x["status"] == "static-missing"
+]
 jp, zp = S["jekyll"]["pages"], inv.get("page", 0)
 ids_kept = S["heading_ids_jekyll"] - S["heading_ids_lost"]
 bz, bj = S["broken_zola_only"], S["broken_jekyll"]
@@ -132,7 +155,12 @@ cards = "".join(
         card(
             "static files",
             f"{inv.get('static', 0)}/{S['jekyll']['static']}",
-            f"byte-identical; {inv.get('static-differs', 0)} generated files differ by design",
+            "byte-identical; "
+            + (
+                f"generated ({', '.join(gen_diff)}) compared below"
+                + (f"; also differ: {', '.join(other_diff)}" if other_diff else "")
+                + (f"; dropped: {', '.join(missing_static)}" if missing_static else "")
+            ),
         ),
         card(
             "text identical",
