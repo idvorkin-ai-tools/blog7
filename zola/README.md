@@ -35,12 +35,32 @@ Listing pages that loop over `site.*` are hand-ported templates in
 `templates/pages/`; RSS and the search JSON files are `feed_filenames`
 templates in `templates/`.
 
+## Preview and diff
+
+```bash
+RUBYOPT="-r$(pwd)/_ruby_compat.rb" bundle exec jekyll build && just update-backlinks   # baseline
+PREVIEW_URL=https://<host>.ts.net:<port> zola/preview.sh     # -> zola/public-preview
+python3 zola/serve.py zola/public-preview <local-port>        # Pages-like: /x -> /x/, 404.html
+```
+
+`preview.sh` builds twice (idvork.in base for the diff, preview base for
+serving), runs `diff_sites.py` (every Jekyll URL, page text, heading ids,
+broken links/anchors in both builds) and renders it with `report.py` at
+`/_port/`. `sweep.cjs` is the optional Playwright pass (heights, JS errors)
+whose JSON `preview.sh` folds in via `SWEEP=`.
+
 ## Known differences from Jekyll
 
+The report page (`/_port/`) lists them with counts. In short:
+
 - URLs end in `/` (`/magic/` served from `/magic/index.html`); `/magic`
-  redirects there. Heading ids are pinned, so `#fragments` survive.
-- Redirect stubs are Zola aliases (`/old/index.html`, or `/old.html` when the
-  alias says so).
+  redirects there. Heading ids are pinned to kramdown's, so `#fragments`
+  survive.
+- Redirect stubs are Zola aliases, which also carry the `#hash` along.
+- Smart-quote direction, footnote markers/ids, TOC lines that nest a link,
+  and rouge highlighting spans differ (pulldown-cmark vs kramdown).
 - `links.jsonp` is dropped (nothing loads it). `sitemap.xml` is Zola's own
-  (every page, where Jekyll's listed root pages and posts only).
+  (every page; Jekyll's listed redirect stubs and skipped `_d`/`_td`).
 - Undated `_d`/`_td` documents carry no date (Jekyll stamped the build time).
+- `back-links.json` still comes from `build_back_links.py` over the Jekyll
+  `_site`; `src/main.ts` trims the `/x/` slash before looking a page up.
