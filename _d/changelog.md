@@ -12,6 +12,14 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-10-05](#week-of-2026-10-05)
+  - [Post-training Agents (new post!)](#post-training-agents-new-post)
+  - [Suicide: Two Posts, One for Each Reader](#suicide-two-posts-one-for-each-reader)
+  - [Time Allocation: How the Rescued Hour Disappears](#time-allocation-how-the-rescued-hour-disappears)
+  - [Raccoon Comics and the Den](#raccoon-comics-and-the-den)
+  - [Infrastructure & CI (2026-10-05)](#infrastructure--ci-2026-10-05)
+  - [chop-conventions (2026-10-05)](#chop-conventions-2026-10-05)
+  - [Other Projects (2026-10-05)](#other-projects-2026-10-05)
 - [Week of 2026-08-24](#week-of-2026-08-24)
   - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
   - [AI Journal: The Beads 1.2.1 Incident Report](#ai-journal-the-beads-121-incident-report)
@@ -203,6 +211,69 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-10-05
+
+_76 commits this week_
+
+### Post-training Agents (new post!)
+
+**[/ai-post-training-agents](/ai-post-training-agents)** — how the post-training methods change when the model is an agent rather than an answerer ([blog post](/ai-post-training-agents)). Sections: [From an answer to a trajectory](/ai-post-training-agents#from-an-answer-to-a-trajectory), [Who grades an agent?](/ai-post-training-agents#who-grades-an-agent) (answer keys from the environment, rubrics when nothing is checkable, how the grader gets gamed), and [What's usual for an agent?](/ai-post-training-agents#whats-usual-for-an-agent) (why the group average became the default, what breaks on long runs, why the forecaster came back, don't train on the environment's words, rollouts that don't wait). Closes with a real recipe walked stage by stage, MiMo-V2.6's open RL environments as a one-grader-per-task example, and open questions. Follow-up commits did a jargon sweep with a decoder table, letter grades, a worked example, and a 25% shorter clarity rewrite. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/b696bee35)
+
+### Suicide: Two Posts, One for Each Reader
+
+**[/thinking-about-suicide](/thinking-about-suicide)** (new) — [/suicide](/suicide) was split in two. The original is retitled "Losing Someone to Suicide: It Was a Brain Attack" for people who lost someone, and its crisis section now points to the new post. The new post is for someone considering it or who has had the thought. It opens with ["If you know me, call me. You're not a bother."](/thinking-about-suicide#if-you-know-me-call-me-youre-not-a-bother), then covers [really good treatments](/thinking-about-suicide#there-are-really-good-treatments) (sourced, including ketamine), plus verified crisis lines. A series of raccoon-comic iterations went through for the header: a caller on a split screen, a concerned and supportive Igor, a heart on his shirt. The opening was rewritten into a heart-attack framing, and the "treatable" lead-in and AI label were dropped. The backlink blurb now opens with text instead of an image. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2222c0aa0) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4d646b934)
+
+### Time Allocation: How the Rescued Hour Disappears
+
+**[/time-allocation](/time-allocation)** — retitled from "Where the time goes", with the page and chart rebuilt around energy flow between the five buckets. The same screen hour can point at the phone (counts for about nothing), at my own tech (an upgrade), or at work, which is the best case "when the work is what I'd love to do for free", because aligned work has a whole company behind it. Sections: [Where the time goes](/time-allocation#where-the-time-goes), [Why less tech fails](/time-allocation#why-less-tech-fails), [What works instead](/time-allocation#what-works-instead). The weekday relationships ceiling is now 2h, taken before health. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d0b1a3536) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e8c384714) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d4445ecfe)
+
+### Raccoon Comics and the Den
+
+- **The Den #12 "Bless You" (W40)** — four-panel strip: Igor's note waits ninety minutes while Larry builds a block tower; the fix is a tin mailbox with SEEN / WORKING / DONE flags on the chair arm, and by the next morning even a sneeze gets a flag ([blog](/the-den)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5415248a5)
+- **/tori** — the 2006 first-date comic, redrawn as raccoons ([blog](/tori)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/56a94a613)
+- **/mania** — raccoon redrawn in house style (3 a.m., still going) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/daa2eb843)
+- **/balloon** — "Some of my creations" filled in with the mermaid and Care Bear ([blog](/balloon)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/8509706b4)
+- **/strengths** — added the missing top Enneagram row (Type 7 Enthusiast, 29) and fixed a split link [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6cb494b81)
+
+### Infrastructure & CI (2026-10-05)
+
+- **ai-slop label** — now a one-line "AI-augmented" notice with an expandable ? [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f604328bc)
+- **Dev banner** — icons instead of words, and a Comments button that toggles annotate mode live [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/7d0daca45) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/83c459a70)
+- **Link previews** — every post with a hero image but no preview image now has one set [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4cf2a63e0)
+- **Backlink blurbs** — front-matter excerpts for /e1, /weeks, /timeoff-2026-07 [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ee90fc860)
+- **Breck links** — breckyunits.com → breck.lol [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/72940018a)
+
+### chop-conventions (2026-10-05)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** (shared CHOP skills & conventions)
+
+- cartoonist skill: note that treehouse 3.0 returns exit 3 and a dirty worktree stays leased [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/d5e5356ec)
+- machine-doctor review fixes merged [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/5c979e228)
+
+### Other Projects (2026-10-05)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (native iOS app)
+
+- Native Live Activity for the Gym Timer and Box breathing; Box breathing got 15-minute sessions with pause in the circle; RESET shows on the turned face when paused or finished [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/ea8c68941) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/2e68c975f) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/bfc46ae3f)
+
+**[exercise-analyzer](https://github.com/idvorkin/exercise-analyzer)** (workout tracking)
+
+- Watch recovery: the app picks a running workout back up after a restart, and Retry asks the phone by every road, five times; Live Activity shows many exercises on two lines with VoiceOver names; a tap past the workout's end adds no set [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/403f58e24) [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/59946af3d) [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/8ff97e6f6)
+
+**[lcd-timer](https://github.com/idvorkin/lcd-timer)** (Mac countdown timer)
+
+- Lock-me-out mode for the countdown with are-you-sure and eulogy lines, a `?` key list, pinned by default so it shows over full-screen apps, and ⌘Q while locked asks first [<i class="fa fa-github"></i>](https://github.com/idvorkin/lcd-timer/commit/7cea64e79) [<i class="fa fa-github"></i>](https://github.com/idvorkin/lcd-timer/commit/4b95f31e7) [<i class="fa fa-github"></i>](https://github.com/idvorkin/lcd-timer/commit/114b14324)
+
+**[window-sweaters](https://github.com/idvorkin/window-sweaters)** (macOS window decor)
+
+- A raccoon that visits the focused window, plus full-screen sweaters [<i class="fa fa-github"></i>](https://github.com/idvorkin/window-sweaters/commit/f1f514be5)
+
+**[Settings](https://github.com/idvorkin/Settings)** (dotfiles & tools)
+
+- `caff` renamed `awake`, names busy agents and notifies when blocked; `pick-links` lists commands the agent asked you to run and copies them; zsh startup trimmed to a single compinit with cached init evals [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/fa2c5a0cf) [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/e52a3476d) [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/aa6407231)
+
+**[yabai](https://github.com/idvorkin/yabai)** — comment on why visibility handlers re-check ordered-in [<i class="fa fa-github"></i>](https://github.com/idvorkin/yabai/commit/fab8a22da)
 
 ## Week of 2026-08-24
 
