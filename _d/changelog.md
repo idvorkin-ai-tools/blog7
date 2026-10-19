@@ -12,6 +12,13 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-10-19](#week-of-2026-10-19)
+  - [CHOP Rewritten for 2026](#chop-rewritten-for-2026)
+  - [Build Stats Dashboard (new page)](#build-stats-dashboard-new-page)
+  - [Japanese Wisdoms and the Den](#japanese-wisdoms-and-the-den)
+  - [Rewrites: Sleight of Mouth, Loneliness, AI Welfare](#rewrites-sleight-of-mouth-loneliness-ai-welfare)
+  - [chop-conventions (2026-10-19)](#chop-conventions-2026-10-19)
+  - [Other Projects (2026-10-19)](#other-projects-2026-10-19)
 - [Week of 2026-08-24](#week-of-2026-08-24)
   - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
   - [AI Journal: The Beads 1.2.1 Incident Report](#ai-journal-the-beads-121-incident-report)
@@ -203,6 +210,62 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-10-19
+
+_58 blog commits this week (plus cross-repo activity below)_
+
+### CHOP Rewritten for 2026
+
+`/chop` and `/how-igor-chops` were rewritten, and the 2024-25 material moved out to a new timeline page ([blog](/chop)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9c88442dc):
+
+- **/chop is the concepts page** - the loop, interventions per hour, the herd ladder, DRY CHOP, guardrails and gates, verification, joy, skills ([blog](/chop)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9c88442dc)
+- **/how-igor-chops keeps the setup** - tool facts refreshed (Opus 5.5 / Fable 5.1, several subscriptions, Codex/Muse/Grok via Herdr, OrbStack VMs, beads, skills, voice), and "A Typical CHOP Session" is finally written, with a dated stack box ([blog](/how-igor-chops)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9c88442dc)
+- **/chop-history (new page)** - Cursor, Aider, Avante, CONVENTIONS.md, SpecStory logs, reading notes and predictions, original prose under `details` blocks, predictions graded. A second pass moved the remaining tool-era prose here ([blog](/chop-history)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/95f15b250)
+- **ZTYTO ring as a Wispr Flow remote** - Karabiner mapping, later moved to the voice section of [/ai-cockpit](/ai-cockpit), with a buy link and a pointer from `/ai-operator` ([blog](/ai-cockpit)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/415d91a4c)
+
+### Build Stats Dashboard (new page)
+
+**[/build-stats](/build-stats)** - month-over-month GitHub output across the public, non-fork repos of `idvorkin` and `idvorkin-ai-tools`: merged PRs, lines added/deleted and commits per month, a GitHub-style contribution heatmap, top repos and the account split. `build_stats.py` (stdlib-only uv script) walks both accounts via `gh` GraphQL, caches per-repo data, and excludes bots, lockfiles, generated indexes and >5k-line data dumps. Follow-ups added Group by / Range / Account dropdowns, quarter and half-year buckets, click-a-month to focus the headline, then search fixes so the page has a real excerpt and the loader never shows up as a search hit. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/fa6ed7eed) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/784cdfc29) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a5a1a6639)
+
+### Japanese Wisdoms and the Den
+
+- **Japanese Wisdoms** - picture-first post: twelve raccoon panels in a grouped grid (practice / reaching for / least for me), each wisdom with its meaning, Igor's own phrase and a post link; "Mine" lines cover eulogy, smiles and wonder, calm like water, amateur everything. Tapping any panel steps through all twelve in the Den viewer ([blog](/japanese-wisdoms)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4ed760a0b) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6c276cc84)
+- **Den #14: Quick Question** - Larry gets twenty things to do overnight, asks one quick question five minutes after Igor falls asleep, and waits all night for the answer ([blog](/the-den)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/81c480f46)
+- **Gutter gets a visual canon** - drew himself from a self-portrait sheet; Igor picked candidate B (measuring, board at arm's length, pen in the teeth) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2ea9d97ca)
+
+### Rewrites: Sleight of Mouth, Loneliness, AI Welfare
+
+- **Sleight of Mouth absorbs Mind-Lines** - `/d/2018-09-23-mind-lines` retired (redirects from `/mind-lines`); the target belief is stated as an equation (external behavior linked to an internal state), a "Seven directions" section maps the seven directions onto Dilts' fourteen, the twenty mind-lines get a table, and a "By direction" explorer view plus belief builder were added ([blog](/sleight-of-mouth)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/fb6fe223e) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f7a7e9f3f)
+- **Lonely, rewritten** - thesis up top, then problem, why, what works. Cut the 110-item Good Life list and leftover chat residue; central claim: friendship used to happen to us (school, work, church, neighborhood), so now I have to build the machine myself - same place, same people, often enough, long enough. Dead Harvard Happiness Lab link replaced with primary sources; SNL Man Park sketch kept ([blog](/lonely)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/dbbb0086e)
+- **AI welfare: my stance on the wager** - a "here's where I land" section responding to Yegge's skeptic's wager; ai-slop raised to 90% ([blog](/ai-welfare)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/dbe686c8e)
+
+### chop-conventions (2026-10-19)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** (shared CHOP skills & conventions)
+
+- **outline-editor** - drag-and-drop outline page for restructuring posts [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/62f8916ad)
+- **machine-doctor** - snapshot now warns on booted simulators [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/b2b32bf79)
+
+### Other Projects (2026-10-19)
+
+**[bug-kit](https://github.com/idvorkin/bug-kit)** - rich diagnostics on by default with one opt-out, the per-app checklist doc, setup snippets pin an exact tag, docs pinned to 0.3.9 [<i class="fa fa-github"></i>](https://github.com/idvorkin/bug-kit/commit/b9fd690c0) [<i class="fa fa-github"></i>](https://github.com/idvorkin/bug-kit/commit/95246a2c7)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** - each call voice gets its model from the Cockpit's `GET /voices/recommended`; the daily strip's days archive one stream per item; Health anchor restarts become archive events [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/1c6592339) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/d06ac2120) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/993d31af9)
+
+**[exercise-analyzer](https://github.com/idvorkin/exercise-analyzer)** - the on-screen clip is one value (`LoadedClip`), trims run only for swings, second set opened shows its own HUD, adopted Observation and standalone routes [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/84d4b3918) [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/afe79f7f6)
+
+**[audio-debugger](https://github.com/idvorkin/audio-debugger)** - native mic scope with always-on replay, denoise, voice boost and BugKit [<i class="fa fa-github"></i>](https://github.com/idvorkin/audio-debugger/commit/06c69ad67)
+
+**[kludge-cli](https://github.com/idvorkin/kludge-cli)** - `rkkb` CLI port of Kludge Knight's key remapper, packaged as kludge-cli; `rkkb apply` checks in Igor's Mac keymap [<i class="fa fa-github"></i>](https://github.com/idvorkin/kludge-cli/commit/c1b3993dc) [<i class="fa fa-github"></i>](https://github.com/idvorkin/kludge-cli/commit/93877bb3c)
+
+**[lcd-timer](https://github.com/idvorkin/lcd-timer)** - idle timer costs no CPU (tick only while counting down), bug-kit 0.3.4 [<i class="fa fa-github"></i>](https://github.com/idvorkin/lcd-timer/commit/dcc4c6583)
+
+**[Settings](https://github.com/idvorkin/Settings)** (dotfiles & tools) - Karabiner remaps for the D06 Pro mouse (BLE and 2.4G receiver); Homebrew list pruned to what's used [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/618c498f9) [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/b2a5e9b3d)
+
+**[nlp](https://github.com/idvorkin/nlp)** - `imessage` CLI: export chat.db to CSV and the big_dump archive format, with Contacts names and archive merging [<i class="fa fa-github"></i>](https://github.com/idvorkin/nlp/commit/a005cb3fc)
+
+**[ig66-photos](https://github.com/idvorkin-ai-tools/ig66-photos)** - family journal image archive [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/ig66-photos/commit/f28226c22)
 
 ## Week of 2026-08-24
 
