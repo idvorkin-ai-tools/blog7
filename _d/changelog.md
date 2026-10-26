@@ -12,6 +12,11 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-10-26](#week-of-2026-10-26)
+  - [Design: Frameworks vs Libraries, and the Goop Raccoon](#design-frameworks-vs-libraries-and-the-goop-raccoon)
+  - [The Like Switch: Notes Distilled](#the-like-switch-notes-distilled)
+  - [Infrastructure & CI (2026-10-26)](#infrastructure--ci-2026-10-26)
+  - [Other Projects (2026-10-26)](#other-projects-2026-10-26)
 - [Week of 2026-08-24](#week-of-2026-08-24)
   - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
   - [AI Journal: The Beads 1.2.1 Incident Report](#ai-journal-the-beads-121-incident-report)
@@ -203,6 +208,59 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-10-26
+
+_13 commits to the blog this week, plus a busy week of iOS app work and new field maps in other repos_
+
+### Design: Frameworks vs Libraries, and the Goop Raccoon
+
+Two new diagrams and a new section on [/design](/design) ([blog](/design#frameworks-vs-libraries-who-calls-whom)):
+
+- **Frameworks vs Libraries: who calls whom** - New subsection under "Minimize your investment in goop". A library is a platform you call; a framework is a platform that calls you — that flip is inversion of control, the "Hollywood principle: don't call us, we'll call you." Whoever owns the control flow decides where business logic lives: with libraries your goop owns `main`; with a framework your logic goes in the slots it hands you (controller, component, lifecycle hook). Frameworks are fast to start and hard to leave. A call-direction diagram shows the flip. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/df7f8b777) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/40950af4a)
+- **Goop layers** - Business Logic / Goop / Platforms three-layer diagram under [Business Logic, Platforms and Goop](/design#business-logic-platforms-and-goop), plus a felt-diorama raccoon knee-deep in tangled cables and duct tape for the goop layer. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/43c029118)
+- **Diagram rework** - Both diagrams went from inline HTML includes to SVG float-right images that open the full-detail WebP on click, aligned with the text column; the frameworks raccoon was dropped and the same goop raccoon now also illustrates [/igors-claws](/igors-claws) (Business Logic / Goop / Infra). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/82c114eb0) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/03307aa0a)
+
+### The Like Switch: Notes Distilled
+
+**[/like-switch](/like-switch)** - the book notes were cut from about 200 lines to about 110: per-signal headings (eyebrow flash, head tilt, elevator eyes, squinting, and so on) collapsed into scannable lists under "Friend signals" and "Foe signals", the TOC shrank to match, and an 80% ai-slop label was added. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/eff2ee661)
+
+### Infrastructure & CI (2026-10-26)
+
+- **Build Stats cross-links** - `build-stats` got a real excerpt and a clean `#build-stats` anchor, and [/ai-cockpit](/ai-cockpit) and [/how-igor-chops](/how-igor-chops) now point at it for the month-over-month merged PRs, lines changed and commits. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a5a1a6639)
+- **Search** - title hits show the page intro, the build-stats loader is never indexed, and (after a revert) the title-hit description snippet was dropped while the loader ignore stayed. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f3ef01cd0) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9ae461559)
+
+### Other Projects (2026-10-26)
+
+**[exercise-analyzer](https://github.com/idvorkin/exercise-analyzer)** (iOS workout app)
+
+- Workout page draws the heart-rate line live from the wrist's readings, logging in 20 s steps from the workout's start (#308) [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/39d9a371f)
+- One exercise across weeks, under its picked drawing; progression windowed to twelve calendar weeks (#314) [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/34747c820)
+- The exercise in the top line is its drawing, picked from a menu of drawings [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/bba46d279)
+- A declined Photos delete now finishes the replace and its undo (#316); a missing in-app clip gets its own alert reason (#303) [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/d9a936ef0) [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/d997cb509)
+- Proposal for a set record with provenance and a cross-day history [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/bb2e7c75b)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (native chat and call app)
+
+- Chat voice: speak a message, transcribed into the draft via Apple dictation (BugKit's NoteDictation), with a microphone picker and a five-minute cap (#448) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/f0408536b)
+- The + in chat opens a new thread with the ordinary bar instead of the New chat sheet (#536) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/ca6fe3d86)
+- Call: a sentence sent to Larry leaves the live line marked sent, and late recognizer finals count as restatements (#467) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/085663f89)
+
+**[bug-kit](https://github.com/idvorkin/bug-kit)** (in-app bug reporting)
+
+- Voice input shows a live input level and a public microphone picker view; the level lives in its own object so only the meter redraws at 20 Hz (bug-0b9) [<i class="fa fa-github"></i>](https://github.com/idvorkin/bug-kit/commit/1d88f6bcd)
+- A report whose dialog is gone no longer blocks the next one (#96), shipped as 0.3.10 [<i class="fa fa-github"></i>](https://github.com/idvorkin/bug-kit/commit/4b38f1b13)
+- App checklist doc: what every app follows to adopt BugKit [<i class="fa fa-github"></i>](https://github.com/idvorkin/bug-kit/commit/95246a2c7)
+
+**[idvorkin-ai-tools field maps](https://idvorkin-ai-tools.github.io)** (explorable maps of AI safety papers)
+
+- New sibling maps: [agentic-privacy-field-map](https://github.com/idvorkin-ai-tools/agentic-privacy-field-map), [cimemories-field-map](https://github.com/idvorkin-ai-tools/cimemories-field-map), [constitutional-ai-field-map](https://github.com/idvorkin-ai-tools/constitutional-ai-field-map), [instruction-hierarchy-field-map](https://github.com/idvorkin-ai-tools/instruction-hierarchy-field-map), and [claude-constitution-field-map](https://github.com/idvorkin-ai-tools/claude-constitution-field-map) (a ladder from least to most understanding). Each ships a ten-minute guide, glossary and figures, then an explorable: a leak-path data-flow graph, a contextual-integrity flow explorer, a clickable CAI pipeline, and a draggable privilege ladder. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/agentic-privacy-field-map/commit/07847db39) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cimemories-field-map/commit/e2a26c994) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/instruction-hierarchy-field-map/commit/9f6c8d2e7)
+- The hub site gained a Safety and alignment section and a constitution ladder card [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/idvorkin-ai-tools.github.io/commit/ee48092ff)
+
+**[yabai](https://github.com/idvorkin/yabai)** and **[kludge-cli](https://github.com/idvorkin/kludge-cli)**
+
+- yabai fork: re-finds a window whose AX handle went stale and retries the move; adopts a focused window it never saw created [<i class="fa fa-github"></i>](https://github.com/idvorkin/yabai/commit/8502a44d3)
+- kludge-cli: `rkkb apply`, plus a checked-in copy of the Mac keymap [<i class="fa fa-github"></i>](https://github.com/idvorkin/kludge-cli/commit/c1b3993dc)
 
 ## Week of 2026-08-24
 
