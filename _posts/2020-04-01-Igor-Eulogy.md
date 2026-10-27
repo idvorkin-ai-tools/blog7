@@ -55,7 +55,7 @@ _For many of my roles, I'm still figuring out who I want to be, and how I will a
 
 {% include local_image_float_right.html src="raccoon-magic.webp" %}
 
-Making cards change colors at a spectators command or passing coins through a spectator's hand -- Igor lived to see eyes go wide and mouths gape with wonder. Igor especially loved it when strangers got drawn in against their inner objections, or when a kid having a meltdown, or a grown up looking miserable, forgot their troubles. Once Igor learned [magic](/magic), that consumed his free time and became his favorite tool.
+Making cards change colors at a spectator's command or passing coins through a spectator's hand -- Igor lived to see eyes go wide and mouths gape with wonder. Igor especially loved it when strangers got drawn in against their inner objections, or when a kid having a meltdown, or a grown up looking miserable, forgot their troubles. Once Igor learned [magic](/magic), that consumed his free time and became his favorite tool.
 
 In 2022 Igor discovered [ballooning](/balloon) which was amazing as well.
 
@@ -123,7 +123,7 @@ Discipline is a core concept of "Begin with the end in mind" (Habit 2), and Igor
 {% include local_image_float_right.html src="raccoon-lifting-weights.webp" %}
 Igor knew physical health was the [source of his energy](/physical-health) and acted accordingly. Every month Igor pledged his weight would be 160lbs, and he put [$1,000 on the line](http://ighealth.blogspot.com/2014/10/the-best-1000-i-did-spend.html) to make sure he never reneged on his pledge. In 2024 Igor discovered [Tirzepatide](/terzepatide) and from that point forward weight loss was never an issue.
 
-Igor valued his cardio vascular endurance and tried to run a fast 4 miles 2 to 3 times a week. Igor also tried to incorporate biking into his life whenever possible: biking to work, biking to doctors appointments, and even biking the grocery store (which was not efficient nor effective, but enjoyable). Finally, Igor knew the importance of sleep, and always woke up @ 5am. When Igor was having trouble getting enough sleep, he'd cut his caffeine to make sure his body forced him to get the sleep he needed.
+Igor valued his cardio vascular endurance and tried to run a fast 4 miles 2 to 3 times a week. Igor also tried to incorporate biking into his life whenever possible: biking to work, biking to doctors appointments, and even biking to the grocery store (which was not efficient nor effective, but enjoyable). Finally, Igor knew the importance of sleep, and always woke up @ 5am. When Igor was having trouble getting enough sleep, he'd cut his caffeine to make sure his body forced him to get the sleep he needed.
 
 It took Igor almost 40 years to get his weight under control sustainably. At his most unhealthy, Igor weighed 230 lbs, and felt terrible. Luckily Igor's good friend recommended [Fat sick and nearly dead](http://ighealth.blogspot.com/search?q=fat+sick+and+nearly+dead) and Igor began [juice fasting](http://ighealth.blogspot.com/search/label/juicing) the next day.
 
@@ -218,7 +218,7 @@ Igor used to think being a family man would be easy. Being proud of his family, 
 
 Igor realized that when it comes to family, like all things, it's easy to confuse hours for quality. Being at home playing on his tablet, while the kids played on theirs wasn't family time. Instead Igor realized the key is having dates, a time he gave the gift of his complete attention to Amelia, Zach and Tori. Date nights were sacred and could be whatever the kid wanted.
 
-Igor also realized that writing about kids in a eulogy is hard as kids are constantly growing and evolving and what you do at 5, is so different at 7 and so different at 10. Here are some things which he totally loved:
+Igor also realized that writing about kids in an eulogy is hard as kids are constantly growing and evolving and what you do at 5, is so different at 7 and so different at 10. Here are some things which he totally loved:
 
 - Enjoying them growing up: Seeing as they learned new skills, came up with clever thoughts
 - Watching them do things together: There is no feeling better than seeing your kids do things together. When Amelia is scared and Zach lets her sleep in his bed, melts Igor's heart.

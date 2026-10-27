@@ -133,7 +133,7 @@ Here's my latest form check video (you can jump to [Hand To Hand](https://www.yo
 
 I like the Stuart McGill model. Keep the back stiff as a board, which requires your hips and shoulders to have the motion. I find the Heavy Clubs for shoulders and then deep squats/half lotus/pistol squats have me covered for both.
 
-Also, I feel MUCH better when I do bird dogs, but rarely do (oddly PT suggests dead bugs, which i do not enjoy).
+Also, I feel MUCH better when I do bird dogs, but rarely do (oddly PT suggests dead bugs, which I do not enjoy).
 
 #### What's it like waking up at 5 am
 
