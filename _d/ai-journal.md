@@ -23,6 +23,8 @@ A journal of random explorations in AI. Keeping track of them so I don't get los
 - [What I wrote summary](#what-i-wrote-summary)
 - [Upcoming](#upcoming)
 - [Diary](#diary)
+  - [2026-11-01](#2026-11-01)
+    - [Are You Using LLMs to Their Full Potential?](#are-you-using-llms-to-their-full-potential)
   - [2026-08-25](#2026-08-25)
     - [Sean Goedecke's Game Show: All Skimming and Judging, No Hammock Time](#sean-goedeckes-game-show-all-skimming-and-judging-no-hammock-time)
   - [2026-08-22](#2026-08-22)
@@ -269,6 +271,15 @@ let's see if we can simulate him, step #1, let's bring the site down into markdo
 - AI Music: My eulogy as a rap
 
 ## Diary
+
+### 2026-11-01
+
+#### Are You Using LLMs to Their Full Potential?
+
+{% include repo_image_float_right.html src="cockpit-language-practice.webp" alt="Cockpit decision card: French and Russian practice, how should it show up? Larry recommends on request on calls." %}
+
+- **TOP Takeaway**: The AI that runs my day turned into a language partner. On a 7-minute voice call with [Larry](/larry) I rehearsed my magic patter in Russian and French ("Tu veux voir un tour de cartes ?"), because c'est bon pour mon cerveau.
+- **What it took**: the first try did Russian as an English accent. One system-prompt tweak later it speaks real Russian and French when asked, and the [Cockpit](/larry-cockpit) turned "how often?" into a decision for me: on request, on calls.
 
 ### 2026-08-25
 
