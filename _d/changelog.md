@@ -12,6 +12,10 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-11-02](#week-of-2026-11-02)
+  - [AI Journal: Using LLMs as a Language Practice Partner](#ai-journal-using-llms-as-a-language-practice-partner)
+  - [Typo Sweep Across the Blog](#typo-sweep-across-the-blog)
+  - [Other Projects (2026-11-02)](#other-projects-2026-11-02)
 - [Week of 2026-08-24](#week-of-2026-08-24)
   - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
   - [AI Journal: The Beads 1.2.1 Incident Report](#ai-journal-the-beads-121-incident-report)
@@ -203,6 +207,51 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-11-02
+
+_144 commits this week across 15 active repos (2 on the blog)_
+
+### AI Journal: Using LLMs as a Language Practice Partner
+
+One new entry ([blog](/ai-journal#2026-11-01)) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d6b392e46):
+
+- **Are You Using LLMs to Their Full Potential?** - A 7-minute voice call with [Larry](/larry) rehearsing magic patter in Russian and French ("Tu veux voir un tour de cartes ?"). The first try did Russian as an English accent; one system-prompt tweak later it speaks real Russian and French on request. The [Cockpit](/larry-cockpit) turned "how often?" into a decision card: on request, on calls.
+
+### Typo Sweep Across the Blog
+
+- **466 files reviewed, 204 fixed** - Spelling and obvious-word typos only. Headings and anchors left alone so links keep working; quoted passages left as written. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e619aaab7)
+
+### Other Projects (2026-11-02)
+
+**[browser-tab-helper](https://github.com/idvorkin/browser-tab-helper)** (new Chrome extension, MIT)
+
+- Built from scratch in a day: conservative URL normalizer, duplicate decisions and alias rules, tab layouts and shareable sections, a native messaging host, a bridge server and ask client, and a full list page. Review fixes followed: moved rows keep order, undo rebuilds emptied groups, the bridge stops when switched off. [<i class="fa fa-github"></i>](https://github.com/idvorkin/browser-tab-helper/commit/126294b05)
+
+**[audio-debugger](https://github.com/idvorkin/audio-debugger)** (audio scope app)
+
+- iOS app: the scope on iPhone and iPad, Mac-only files split out, an app icon for iPhone, iPad and Mac [<i class="fa fa-github"></i>](https://github.com/idvorkin/audio-debugger/commit/d4f3b8c0e)
+- Audio interruptions: capture stops when one begins and retries until the mic opens; the player restarts its engine after one; a wired headset mic beats the built-in [<i class="fa fa-github"></i>](https://github.com/idvorkin/audio-debugger/commit/b7653ee79)
+- `just iphone` builds Release: Debug AudioCore took 2.5 s to process a 5 s clip [<i class="fa fa-github"></i>](https://github.com/idvorkin/audio-debugger/commit/7d883f348)
+
+**[bug-kit](https://github.com/idvorkin/bug-kit)** (bug-report library for iOS apps, Mac listener)
+
+- "Fixed in this build" shows people their own report; a voice-input level meter that VoiceOver reads in tens of percent and redraws at 20 Hz in its own object; listener treats hand-pasted reports as not "seen again". Docs now pin 0.3.11. [<i class="fa fa-github"></i>](https://github.com/idvorkin/bug-kit/commit/8ff94a445)
+
+**[exercise-analyzer](https://github.com/idvorkin/exercise-analyzer)** (workout tracking, phone + watch)
+
+- Watch asks "Looks like you're done" after a quarter hour at rest with no set; an option to end the workout when I leave the place it started; elliptical workouts; "Other…" starts a run, walk, bike, row, stairs, HIIT or yoga [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/4c15f1f24)
+- 36 kg in every bell picker, 8 kg dropped so the watch's bell tiles fit two rows; phone can re-save a workout as another kind; the workout page shows Rest ticking since the last set [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/da58734fb)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS/Mac capture app)
+
+- Whiteboard grid: the switch moved into a Board menu off the crowded top bar (six items overflowed on iPhone width); UI tests reboot the simulator first so the ⌘V test can pass [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/65d722402)
+
+**Field maps ([idvorkin-ai-tools](https://github.com/idvorkin-ai-tools))** (explorable explainers)
+
+- New: [pain-axis-field-map](https://github.com/idvorkin-ai-tools/pain-axis-field-map) (spine, 10 part pages, glossary) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/pain-axis-field-map/commit/a18d93c2b) and [claude-constitution-field-map](https://github.com/idvorkin-ai-tools/claude-constitution-field-map) (a ladder from least to most understanding) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/claude-constitution-field-map/commit/7d1e6eaf0)
+- Explorables added: [instruction-hierarchy-field-map](https://github.com/idvorkin-ai-tools/instruction-hierarchy-field-map) (drag an instruction across privilege rungs) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/instruction-hierarchy-field-map/commit/9f6c8d2e7), [constitutional-ai-field-map](https://github.com/idvorkin-ai-tools/constitutional-ai-field-map) (both CAI stages as a clickable flow) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/constitutional-ai-field-map/commit/ff04ec217), [cimemories-field-map](https://github.com/idvorkin-ai-tools/cimemories-field-map) (contextual-integrity model) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/cimemories-field-map/commit/e2a26c994), and [agentic-privacy-field-map](https://github.com/idvorkin-ai-tools/agentic-privacy-field-map) ("Where leaks come from" data-flow graph) [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/agentic-privacy-field-map/commit/07847db39)
+- Index site gains cards for the constitution ladder and the Pain Axis [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/idvorkin-ai-tools.github.io/commit/e3f8ef93f)
 
 ## Week of 2026-08-24
 
