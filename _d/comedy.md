@@ -12,7 +12,7 @@ tags:
 
 I'm not a naturally funny writer. I'm a magician who gets laughs with props, and a guy who draws a [weekly comic strip](/the-den) that, for the first dozen strips, mostly wasn't funny. So I did what I do with anything I'm bad at: I went looking for the models. It turns out people have been taking jokes apart for two thousand years, and the pieces are reusable. This page is the models I found useful, each in a paragraph, and then the checklist I actually run before a strip gets drawn.
 
-{% include ai-slop.html percent="70" %}
+{% include ai-slop.html percent="99" %}
 
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
