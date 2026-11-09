@@ -12,6 +12,14 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-11-09](#week-of-2026-11-09)
+  - [Staying Afloat: Floating and Zooming as an Interactive Post (new post!)](#staying-afloat-floating-and-zooming-as-an-interactive-post-new-post)
+  - [AI Testing & Evals: One Page for Testing, a New Home for Evals](#ai-testing--evals-one-page-for-testing-a-new-home-for-evals)
+  - [Comedy, Storytelling, and the Performer's Craft](#comedy-storytelling-and-the-performers-craft)
+  - [Joy, Loneliness, and Body](#joy-loneliness-and-body)
+  - [Infrastructure & CI (2026-11-09)](#infrastructure--ci-2026-11-09)
+  - [chop-conventions (2026-11-09)](#chop-conventions-2026-11-09)
+  - [Other Projects (2026-11-09)](#other-projects-2026-11-09)
 - [Week of 2026-08-24](#week-of-2026-08-24)
   - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
   - [AI Journal: The Beads 1.2.1 Incident Report](#ai-journal-the-beads-121-incident-report)
@@ -203,6 +211,75 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-11-09
+
+_62 commits to the blog this week, plus activity across a dozen other repos_
+
+### Staying Afloat: Floating and Zooming as an Interactive Post (new post!)
+
+**[/staying-afloat](/staying-afloat)** — started Sunday as a standalone explainer at [/floating-zooming](/explainers) and ended Monday as a first-person post with the interactive as its centerpiece. A felt raccoon floats on balloons and sinks on weights (Part 1: what keeps you up, what drags you down), then pain *zooms* attention from a whole life down to one bad hour and back out (Part 2). The post is distilled from the explainer's prose plus [/anxiety](/anxiety) and [/act](/act); the app moved to `floating-zooming/app.html` with an `?embed=float|zoom` mode so the post can embed each half, was made touch-first, dropped its Zooming-only tray in favor of positives, scissors and a pump in a top bar with weights in the bottom bar, and got a share image. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1e97ec3a0) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ab42eeae4) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/2d6aed9d2)
+
+### AI Testing & Evals: One Page for Testing, a New Home for Evals
+
+- **[/ai-evals](/ai-evals)** (new, redirects `/evals`, `/ai-eval`) — a short why-evals opening, then LLM-as-Judge and Eval Systems (Chatbot Arena, eval data sets, smevals, the confusion matrix) moved out of ai-testing. The confusion-matrix example became a made-up ticket-triage scenario. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/873e89967) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/577b85010)
+- **[/ai-testing](/ai-testing)** — confusion matrix, precision, recall and cost-weighted errors added Tuesday; by midweek the evals content was folded back so there's [one page for testing and evals](https://github.com/idvorkin/idvorkin.github.io/commit/a798d99fd), with tools staying on [/ai-eval-tools](/ai-eval-tools). Then "humans don't agree either": inter-rater agreement numbers (NeurIPS reviewers, mammograms, biopsies, SummEval, InstructGPT), the "agree as well as humans agree" bar for a judge, practical judge rules, and Hightouch's decision-model → Opus confidence routing. Cameron Wolfe's Netflix subjective-evals talk (video, slides, guide) landed in the "no known answer" wrinkle: humans first, calibrate raters, then calibrate the LLM judge against them. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/801f19ce6) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6adc4985e) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/a342aa064)
+- **[/ai-optimism](/ai-optimism)** — the "jobs go away" objection gets Jevons's *Coal Question* (cheaper coal led to more coal burned) as a rebuttal to the lump-of-labor fallacy, with honest caveats: the same people may not get the new work, and it only holds where demand is elastic. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/054f75ec2)
+- **[/ai-interests-map](/ai-interests-map)** (new page Sunday) — rebuilt Monday as a pannable, zoomable atlas: four tinted territories, places sized by depth, roads from parent to child, labels that thin out when zoomed out, plus a new Multimodal branch. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/71d781dbd) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/db4d40aa3)
+- **[/ai-journal](/ai-journal)** — 2026-11-05 entry on Yegge auditing his adversarial reviewers. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/58cf05967)
+- **[/how-igor-chops](/how-igor-chops)** — Lavish added as the review board and AgentsView as the rear-view mirror beside the cockpit; Lavish and no-mistakes recast as workflow, AgentsView put on trial, Gas City moved to tried-and-dropped. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/44e46f143)
+- **[/ai-welfare](/ai-welfare)** — The Pain Axis paper added as a distilled section; **[/hyper-personal](/hyper-personal)** gained one-user software (Context Grabber, Cockpit) and the voice keyboard, then the body was distilled because the intro already carries the thesis. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/aac6aadea) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d8fed30cf)
+
+### Comedy, Storytelling, and the Performer's Craft
+
+- **[/comedy](/comedy)** (new) — "How to Make It Funny": incongruity-resolution, benign violation (McGraw & Warren), superiority/relief, Bergson, then craft tools (rule of three, UCB game/heightening, yes-and) and a Den pre-flight checklist. Later rewritten as prose, with Den material under "How to Make the Den Funny". [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/7c9070ccf) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4e7f9fd4b)
+- **[/storytelling](/storytelling)** — the story talks got their own page, split from [/writing](/writing), including Will Stephen's TEDx-tropes talk; it's now the home for narrative craft (ai-slop 50%). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/0f457c9e5) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/b4682e993)
+- **[/performer-playbook](/performer-playbook)** — "keep the volunteer safe" plus new raccoon art. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/06299db07)
+- **The Den #15, "Direct Line"** — new strip, panel 4 redrawn with a punchline, and Larry's closer settled as "CAN'T TALK NOW. I'M TALKING TO IGOR." The gutter tooling grew a Gemini Omni video recipe (`omni.py`), `lettering_reveal.py` so bubble words appear as they're spoken, felt scene layers and ElevenLabs re-voicing. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d9bbc96ed) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5aee5dbfb) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/c0b07156b)
+
+### Joy, Loneliness, and Body
+
+- **[/joy](/joy)** — the "some connection between joy and wonder" placeholder replaced with the mechanism: awe is the size of the update, not the size of the thing (Piaget accommodation; canyon vs. ranger; magic). Duplicates tidied and a new wonder-raccoon header. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/e6f5aec82) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1c96aaaaf)
+- **[/lonely](/lonely)** — now leads with "it barely hurts" as the thesis and folds in Mastroianni's "social scurvy" argument. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/d011b0fe7) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/7739615b8)
+- **[/pistol-squat](/pistol-squat)** (new post) — the way back to a first pistol: Perry/StrongFirst ladder plus a re-entry plan, cross-linked with [/physical-health](/physical-health) and [/kettlebell](/kettlebell). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/86bedbeb5)
+- **[/osx](/osx)** — new yabai section with window sweaters, browser-tab-helper and more Alfred commands. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/5cb523851)
+
+### Infrastructure & CI (2026-11-09)
+
+- **The `/idvorkin` agent skill** — added under `skill/`, with `INDEXED.md` marking how far it has read (blog commit plus X date and time), a rule to deep-link every citation to the section making the claim, and the X handle fixed to @idvorkin. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ef7bd5a92) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1ef848802)
+- **Random page** honours `?topic=` so Context Grabber's hold-to-pick can roll a single topic. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1d1d740d7)
+- **Pages workflow** pins `ruby-version: '3.3'` since 3.3.4 isn't built for ubuntu-26.04 runners; tests moved to logic in vitest with a single browser smoke spec; Tier-4 content fixes redone with Opus 5.5. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6b7e7f05f) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/13d1b8ea6) [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/4705abe09)
+
+### chop-conventions (2026-11-09)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** (shared CHOP skills & conventions)
+
+- `global.md`: PR bodies and comments now open with a human summary, with the agent write-up folded below. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/fd6fe0c9d)
+- `cartoonist` skill gained a what-makes-it-funny pre-flight checklist and points at [idvork.in/comedy](https://idvork.in/comedy) for the humor models. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/b3dfc632a) [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/5f0e65e7e)
+
+### Other Projects (2026-11-09)
+
+**[no-mistakes](https://github.com/idvorkin/no-mistakes)** (agent review pipeline) — the busiest repo outside the blog: per-run pinned reviewer selection, a read-only JSON export of stored run facts, reserving publication for declared external gates, PRs bound to the successfully pushed commit, and recovery of branch custody after interrupted CI. [<i class="fa fa-github"></i>](https://github.com/idvorkin/no-mistakes/commit/65042c39f) [<i class="fa fa-github"></i>](https://github.com/idvorkin/no-mistakes/commit/375ee5924) [<i class="fa fa-github"></i>](https://github.com/idvorkin/no-mistakes/commit/1cde687d4)
+
+**[browser-tab-helper](https://github.com/idvorkin/browser-tab-helper)** (tab layouts & undo) — MIT licence, README with the native host contract, headless-Chromium browser suite, fixes for row ordering, undo of emptied groups and a hung bridge command; Edge is now the supported browser. [<i class="fa fa-github"></i>](https://github.com/idvorkin/browser-tab-helper/commit/796066c5c) [<i class="fa fa-github"></i>](https://github.com/idvorkin/browser-tab-helper/commit/102ff0c7e) [<i class="fa fa-github"></i>](https://github.com/idvorkin/browser-tab-helper/commit/1c130d79e)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS/Mac capture app) — a workout now survives leaving the Gym Timer and the mode is remembered (#791); BugKit 0.3.12 adopted for Mac fixes. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/e5d4897ab) [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/1081e139a)
+
+**[bug-kit](https://github.com/idvorkin/bug-kit)** (bug reporter) — 0.3.12: refused report dialogs are dismissed even if UIKit shows them late, the Mac dialog opens at most the window's size, and a Linux test rung (`just test-linux`). [<i class="fa fa-github"></i>](https://github.com/idvorkin/bug-kit/commit/f07113067) [<i class="fa fa-github"></i>](https://github.com/idvorkin/bug-kit/commit/b4f615716) [<i class="fa fa-github"></i>](https://github.com/idvorkin/bug-kit/commit/74bb0ad5f)
+
+**[homebrew-tap](https://github.com/idvorkin/homebrew-tap)** — new treehouse, no-mistakes and lavish-axi formulas, passing `brew audit --strict`. [<i class="fa fa-github"></i>](https://github.com/idvorkin/homebrew-tap/commit/0b5cb79bc)
+
+**[audio-debugger](https://github.com/idvorkin/audio-debugger)** — opens the mic off the main thread after a car's Bluetooth mic hung the phone for 1.8 s. [<i class="fa fa-github"></i>](https://github.com/idvorkin/audio-debugger/commit/5bee7ccad)
+
+**[exercise-analyzer](https://github.com/idvorkin/exercise-analyzer)** — workout page shows Rest ticking since the last set; Watch drops 8 kg so bell tiles fit two rows. [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/da58734fb)
+
+**[blob](https://github.com/idvorkin/blob)** (image/video host) — voiced, word-revealed raccoon videos for Den #15 and the 2006 first-date strip. [<i class="fa fa-github"></i>](https://github.com/idvorkin/blob/commit/515284b6d)
+
+**[Settings](https://github.com/idvorkin/Settings)** (dotfiles & tools) — added the `cap` screen-recorder cask and pointed docs at `py/brew_check.py`. [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/8254c20ab) [<i class="fa fa-github"></i>](https://github.com/idvorkin/Settings/commit/56a702c27)
+
+**[treehouse](https://github.com/idvorkin/treehouse)** — worktree identity preserved across symlinked pool paths. [<i class="fa fa-github"></i>](https://github.com/idvorkin/treehouse/commit/a28452ae1)
+
+**[yegge-field-map](https://github.com/idvorkin-ai-tools/yegge-field-map)** — added The Counting House (Oct 2026) page, card and two quotes, with a companion link to /ai-testing. [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/yegge-field-map/commit/e1ba0bab8)
 
 ## Week of 2026-08-24
 
