@@ -722,6 +722,22 @@ Two composition rules from Igor, binding on every future strip:
     floating parts, no props merged into faces or glasses, no extra fingers
     or limbs, nothing impossible in the geometry. An edit-style "fix" call
     can trade one wrong thing for another, so recheck the panel it returns.
+    - **A cold verification pass, by someone else.** Gutter grades his own
+      panels knowing what they should show, and so sees what he meant to draw.
+      Before any sheet goes to Igor, a fresh subagent (one that has not seen the
+      prompts) Reads every candidate panel image, one at a time, with only the
+      panel's bubble text and a one-line scene description, and answers:
+
+    > List everything in this picture that looks wrong, odd, broken or
+    > physically impossible: objects fused or melted together, extra or
+    > floating parts, hands, fingers, limbs, faces, props that don't read as
+    > what they are, garbled lettering, anything a careful reader would
+    > squint at. Name each one with where it is. If nothing is off, say so.
+
+    Don't tell it what to look for beyond that, and never say what the panel
+    is "supposed" to be wrong about, or it confirms instead of looking. Every
+    item it names is fixed, or written on the sheet under that candidate so
+    Igor sees it before he picks.
     Name every wonky thing you found, and what you did about it, in the job entry.
 - Never pre-pick. Four options to the Cockpit (`ask.py … --option-image "A=/abs/path.webp"`,
   repeatable; it copies into `assets/asks/<bead-id>/` itself) plus the same
