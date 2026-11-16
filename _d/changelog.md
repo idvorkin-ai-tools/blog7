@@ -12,6 +12,14 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 <!-- prettier-ignore-start -->
 <!-- vim-markdown-toc-start -->
 
+- [Week of 2026-11-16](#week-of-2026-11-16)
+  - [New Posts: Staying Afloat and Evals With No Right Answer](#new-posts-staying-afloat-and-evals-with-no-right-answer)
+  - [AI Testing and What's Left](#ai-testing-and-whats-left)
+  - [AI Journal and CHOP: Voice, Message Buses, and the Red Pen](#ai-journal-and-chop-voice-message-buses-and-the-red-pen)
+  - [Relationships and Religion Rewrites](#relationships-and-religion-rewrites)
+  - [The Den and Raccoon Art](#the-den-and-raccoon-art)
+  - [chop-conventions (2026-11-16)](#chop-conventions-2026-11-16)
+  - [Other Projects (2026-11-16)](#other-projects-2026-11-16)
 - [Week of 2026-08-24](#week-of-2026-08-24)
   - [Mind the Gap: Escape as a Neutral Verb](#mind-the-gap-escape-as-a-neutral-verb)
   - [AI Journal: The Beads 1.2.1 Incident Report](#ai-journal-the-beads-121-incident-report)
@@ -203,6 +211,76 @@ A weekly summary of what changed on this blog and across my GitHub projects. Use
 
 <!-- vim-markdown-toc-end -->
 <!-- prettier-ignore-end -->
+
+## Week of 2026-11-16
+
+_52 blog commits this week, plus activity across 10 other repos_
+
+### New Posts: Staying Afloat and Evals With No Right Answer
+
+- **[Staying Afloat](/staying-afloat)** (new post) - `/floating-zooming` became a post with an interactive felt raccoon as its centerpiece. Balloons (sleep, friends, family, moving) lift him and weights (pain, a deadline, anger, debt) sink him. Drag a dial across his paw to flip a weight into a balloon, drag scissors across a string to cut it loose. The stress tolerance slider is the only thing that moves the water. A second section, [Zooming](/staying-afloat#zooming), lets you narrow attention from a whole life to one bad hour and back out. It is cross-linked from [/act](/act) and [/anxiety](/anxiety), and listed in [/explainers](/explainers). [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/ab42eeae4)
+- **[Evals With No Right Answer: A Recipe](/subjective-evals)** (new post) - Built from Cameron Wolfe's AI Engineer NYC talk on how Netflix evaluates agents that have no ground-truth answer. Explanation is original and the timestamp links point at the talk. [/ai-testing](/ai-testing) now points to it. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/f5edd8b4a)
+
+### AI Testing and What's Left
+
+- **[AI Testing: read the failures first](/ai-testing#read-the-failures-before-picking-metrics)** - Read about 100 traces and write a note on each failure before inventing metrics. Group the notes (open then axial coding), and the three biggest piles become the first evals. Generate extra inputs along named axes (persona × intent × difficulty × edge case). Keep the golden set in git next to the prompts, and turn every production failure into a test case. Also: treat the LLM judge as a classifier with train/dev/test splits, report its true-positive and true-negative rates separately, and run each task k times to report pass^k. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/85af98456)
+- **[What's Left](/whats-left)** - Now opens with three jobs for a human once agents write, review and merge the code: iterate fast on the job to be done, keep unseen code in a state agents can keep changing, and [evaluate the AI systems](/whats-left#job-3-evaluate-ai-systems). The new "early read" section argues assessment becomes the bottleneck: nobody has 200× the attention to judge 200× the projects, so evals let the agent [hill-climb](/hill-climbing) while I look at results, not diffs. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/6ec510108)
+- **[My Dream Job](/my-perfect-job)** - New hero illustration, and a Mastery bullet about "instantiating at the speed of thought" (IgSnap in 45 minutes with about 140 words from me), linked to /whats-left. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/91ae0389f)
+
+### AI Journal and CHOP: Voice, Message Buses, and the Red Pen
+
+- **[AI Journal 2026-11-14](/ai-journal#2026-11-14)** - Three entries. [My agents each kept a to-do list, and I was the message bus](/ai-journal#my-agents-each-kept-a-to-do-list-and-i-was-the-message-bus): [Larry](/larry) filed three whiteboard requests as beads in a store the Context Grabber coding agent can't see, so that agent filed duplicates and I carried the message by hand. [IgSnap](/ai-journal#igsnap-writing-my-own-screenshot-app-was-faster-than-installing-one): a Flameshot-style Mac screenshot app, plan at 07:47 and app committed by 08:03, 45 minutes in total. [Muse bought my magic supplies](/ai-journal#muse-bought-my-magic-supplies): a browser agent checked 9 cart items against my list and checked out for $118.52 under a $145 cap. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/9e0dc40a8)
+- **[How Igor CHOPs: The Red Pen](/how-igor-chops#the-red-pen-send-to-larry)** - The blog review loop in three steps: a PR whose preview has a "Diff vs main" banner, voice-dictated comments on selected lines tagged fix/cut/rewrite/expand/check/question/note, then Send to Larry ships the batch and he revises the branch. A follow-up frames it as a tool built for one user. Related annotate changes: two quick Enters save a note, and Send to Larry now goes to a saved Cockpit address, with a gist only as fallback. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/7c577fa06)
+- **[AI Cockpit: Custom hardware for voice](/ai-cockpit#custom-hardware-for-voice)** - The mic section is restructured around hardware: the Hollyland lavalier plus a $36 ZTYTO scrolling ring remapped in Karabiner so a tap toggles Wispr Flow and the right button sends. Amazon cards sit beside each other, and [/ai-operator](/ai-operator), [/how-igor-chops](/how-igor-chops) and [/vibing](/vibing) were repointed to the new anchor. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/7d838f13e)
+
+### Relationships and Religion Rewrites
+
+- **[Partner Trouble: Being Assertive](/partner-trouble)** - Rebuilt from ACT with Love ch. 15. Passive is the puppy dog, aggressive is the shark, and assertive is the third option, with a bill of rights ("provided I do so in a way that is fair and considerate") and a three-part request. Covey's Lose/Win, Win/Lose and Win/Win are named in a follow-up. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/897fed4f2)
+- **De-slop passes** - [/religion](/religion) rewritten in full and the Bible verses intro tightened. [/greek-orthodox](/greek-orthodox) cut about 35%. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/023a340d3)
+
+### The Den and Raccoon Art
+
+- **[The Den](/the-den)** - Strips #16 Backwards, #17 Correction, #18 (voiced video embedded), #19 I Know a Guy and #20 No Change. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/55e529e35)
+- **Felt house style** - Eleven old raccoon pictures redrawn in batch A, then the site default plus ten more swapped for felt redraws. Hero illustrations were added for whats-left, act, lonely, storytelling, subjective-evals, comedy and others, and felt meditate raccoons for awareness, breath, emotional-health-hold and sublime. The [Gutter recipe](https://github.com/idvorkin/idvorkin.github.io/commit/8a35e1de3) gained rules: never name a different object to get a shape, and check every panel for anything wonky before shipping. [<i class="fa fa-github"></i>](https://github.com/idvorkin/idvorkin.github.io/commit/1570df1be)
+
+### chop-conventions (2026-11-16)
+
+**[chop-conventions](https://github.com/idvorkin/chop-conventions)** (shared CHOP skills & conventions)
+
+- `machine-doctor` now watches heat, disk and thermal sleeps and alerts through `--alert-cmd`, with per-hazard alert state, disk alerts without dumps, and the alert process group killed on timeout. Heat and memory alerts wait 3 minutes before firing, and clear gaps under 60s don't restart the hold. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/eaad41547)
+- `global.md`: PR bodies and comments open with a human summary and fold the agent write-up. Fable 5.2 subagents need the code-ownership sentence when they should restructure. [<i class="fa fa-github"></i>](https://github.com/idvorkin/chop-conventions/commit/fd6fe0c9d)
+
+### Other Projects (2026-11-16)
+
+**[context-grabber](https://github.com/idvorkin/context-grabber)** (iOS HealthKit and location export for AI coaching)
+
+- Decision cards: an answer is Igor's message in the chat the ask continues, a stale read can't bring a card back, and offline shows no decisions. A `done` mark with no reply now ends Larry's turn. [<i class="fa fa-github"></i>](https://github.com/idvorkin/context-grabber/commit/dbd79cf2f)
+
+**[exercise-analyzer](https://github.com/idvorkin/exercise-analyzer)**
+
+- A dimmed screen's waking touch only wakes it and presses nothing. A running elliptical on the live workout page knows its type, so its chart adds no set. A late workout ending no longer corrupts the next workout. [<i class="fa fa-github"></i>](https://github.com/idvorkin/exercise-analyzer/commit/18e051824)
+
+**[igsnap](https://github.com/idvorkin/igsnap)** (Mac screenshot app)
+
+- New repo: region select, window snap, annotate (arrows, thicker lines), a black-out box tool, and copy. [<i class="fa fa-github"></i>](https://github.com/idvorkin/igsnap/commit/4f7ae4d1c)
+
+**[bug-kit](https://github.com/idvorkin/bug-kit)**
+
+- A transcript that is its phrase twice with nothing between is kept once, and a failed dictation keeps the error that caused it. [<i class="fa fa-github"></i>](https://github.com/idvorkin/bug-kit/commit/0b01f8e9d)
+
+**[blob](https://github.com/idvorkin/blob)** (image host)
+
+- Felt-style raccoon redraws (site default, eight post heroes, ten more), plus voiced, word-revealed raccoon videos for Den #15 and the 2006 first date. [<i class="fa fa-github"></i>](https://github.com/idvorkin/blob/commit/b110a2bfb)
+
+**[audio-debugger](https://github.com/idvorkin/audio-debugger)**
+
+- iOS now logs the audio route (inputs, outputs, session rate, previous route, category and options) on each mic open and route change. [<i class="fa fa-github"></i>](https://github.com/idvorkin/audio-debugger/commit/0deb926fc)
+
+**[quantum-computing-field-map](https://github.com/idvorkin-ai-tools/quantum-computing-field-map)** and **[sw-job-title-family-tree-explainer](https://github.com/idvorkin-ai-tools/sw-job-title-family-tree-explainer)**
+
+- Two new explainers: a nine-part quantum computing map with a QEC calculator, and an interactive software job title family tree. Both are on the [idvorkin-ai-tools index](https://github.com/idvorkin-ai-tools/idvorkin-ai-tools.github.io/commit/4c3a00346). [<i class="fa fa-github"></i>](https://github.com/idvorkin-ai-tools/quantum-computing-field-map/commit/b596a21ab)
+
+Also: `lcd-timer` moved keys into its timer core, and `homebrew-tap` bumped `lavish-axi`.
 
 ## Week of 2026-08-24
 
